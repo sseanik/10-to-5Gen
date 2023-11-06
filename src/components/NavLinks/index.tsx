@@ -36,14 +36,14 @@ export function NavLinks({ opened }: { opened: boolean }) {
         defaultOpened
       >
         {item.children.length > 0 &&
-          item.children.map((itemChild) => (
+          item.children.map((itemChild, index) => (
             <NavLink
               key={itemChild.label}
               label={itemChild.label}
               leftSection={<itemChild.icon size="24px" stroke={1.5} />}
               rightSection={
                 <Badge size="xs" variant="filled" color="orange" w={16} h={16} p={0}>
-                  3
+                  {index + 1}
                 </Badge>
               }
               p="sm"
