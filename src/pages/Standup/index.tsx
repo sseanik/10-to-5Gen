@@ -1,3 +1,6 @@
+import lottie from '@/assets/standup.json';
+import Header from '@/components/Header';
+
 export default function Standup() {
-  return <div>Standup</div>;
+  return <Header heading="Standup" description="<NEED DESCRIPTION>" lottie={lottie} />;
 }

@@ -10,7 +10,7 @@ export default function Layout({ children }: { children?: ReactNode }) {
   const [opened, { toggle }] = useDisclosure(window.innerWidth > 768);
 
   return (
-    <AppShell navbar={{ width: 250, breakpoint: 'sm' }} padding="md" style={{ height: 'calc(100vh - 10px)' }}>
+    <AppShell navbar={{ width: 250, breakpoint: 'sm' }} padding="xs" style={{ height: 'calc(100vh - 10px)' }}>
       <Progress radius="xs" size="xs" value={100} animated style={{ zIndex: 102 }} />
       <AppShell.Navbar withBorder={false} style={{ backgroundColor: 'unset' }}>
         <Navbar opened={opened} toggle={toggle} />
@@ -18,7 +18,7 @@ export default function Layout({ children }: { children?: ReactNode }) {
 
       <AppShell.Main
         styles={{
-          main: { paddingLeft: opened ? 275 : 100, minHeight: 'calc(100dvh - 3px)' },
+          main: { paddingLeft: opened ? 260 : 85, minHeight: 'calc(100dvh - 3px)' },
         }}
       >
         {children}
