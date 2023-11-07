@@ -1,5 +1,3 @@
-import AvatarGroup from '@/components/AvatarGroup';
-
 export const MEETINGS = [
   {
     id: '1a',
@@ -8,7 +6,8 @@ export const MEETINGS = [
     date: '07/11/2023',
     time: '2:15 PM',
     duration: '30 Minutes',
-    attendees: <AvatarGroup names={['Sean', 'David', 'Jason', 'Steven', 'Chris']} plusNumber={1} />,
+    attendees: ['Sean', 'David', 'Jason', 'Steven', 'Chris'],
+    plusNumber: 1,
   },
   {
     id: '2b',
@@ -17,7 +16,8 @@ export const MEETINGS = [
     date: '15/11/2023',
     time: '3:00 PM',
     duration: '1 Hour',
-    attendees: <AvatarGroup names={['Shaun', 'Daniel', 'Jack', 'Simon', 'Craig']} plusNumber={3} />,
+    attendees: ['Shaun', 'Daniel', 'Jack', 'Simon', 'Craig'],
+    plusNumber: 3,
   },
   {
     id: '3c',
@@ -26,7 +26,8 @@ export const MEETINGS = [
     date: '20/11/2023',
     time: '10:30 AM',
     duration: '45 Minutes',
-    attendees: <AvatarGroup names={['Emily', 'Sarah', 'Michael', 'Rachel']} plusNumber={2} />,
+    attendees: ['Emily', 'Sarah', 'Michael', 'Rachel'],
+    plusNumber: 2,
   },
   {
     id: '4d',
@@ -35,7 +36,8 @@ export const MEETINGS = [
     date: '25/11/2023',
     time: '11:00 AM',
     duration: '1 Hour 30 Minutes',
-    attendees: <AvatarGroup names={['John', 'Emma', 'Liam', 'Olivia']} plusNumber={1} />,
+    attendees: ['John', 'Emma', 'Liam', 'Olivia'],
+    plusNumber: 1,
   },
   {
     id: '5e',
@@ -44,7 +46,8 @@ export const MEETINGS = [
     date: '02/12/2023',
     time: '4:00 PM',
     duration: '1 Hour',
-    attendees: <AvatarGroup names={['Sophia', 'Noah', 'Ava', 'William', 'Ella']} plusNumber={4} />,
+    attendees: ['Sophia', 'Noah', 'Ava', 'William', 'Ella'],
+    plusNumber: 4,
   },
   {
     id: '6f',
@@ -53,7 +56,8 @@ export const MEETINGS = [
     date: '12/12/2023',
     time: '9:30 AM',
     duration: '2 Hours',
-    attendees: <AvatarGroup names={['Hannah', 'Ethan', 'Grace', 'James', 'Nora']} plusNumber={2} />,
+    attendees: ['Hannah', 'Ethan', 'Grace', 'James', 'Nora'],
+    plusNumber: 2,
   },
   {
     id: '7g',
@@ -62,7 +66,8 @@ export const MEETINGS = [
     date: '18/12/2023',
     time: '1:00 PM',
     duration: '45 Minutes',
-    attendees: <AvatarGroup names={['Lucas', 'Mia', 'Elijah', 'Chloe']} plusNumber={1} />,
+    attendees: ['Lucas', 'Mia', 'Elijah', 'Chloe'],
+    plusNumber: 1,
   },
   {
     id: '8h',
@@ -71,7 +76,8 @@ export const MEETINGS = [
     date: '05/01/2024',
     time: '10:00 AM',
     duration: '1 Hour 15 Minutes',
-    attendees: <AvatarGroup names={['Aiden', 'Aria', 'Carter', 'Sofia', 'Liam']} plusNumber={3} />,
+    attendees: ['Aiden', 'Aria', 'Carter', 'Sofia', 'Liam'],
+    plusNumber: 3,
   },
   {
     id: '9i',
@@ -80,7 +86,8 @@ export const MEETINGS = [
     date: '15/01/2024',
     time: '3:30 PM',
     duration: '45 Minutes',
-    attendees: <AvatarGroup names={['Zoe', 'Mason', 'Isabella', 'Logan']} plusNumber={2} />,
+    attendees: ['Zoe', 'Mason', 'Isabella', 'Logan'],
+    plusNumber: 2,
   },
   {
     id: '10j',
@@ -89,7 +96,8 @@ export const MEETINGS = [
     date: '22/01/2024',
     time: '11:30 AM',
     duration: '1 Hour 30 Minutes',
-    attendees: <AvatarGroup names={['Lily', 'Michael', 'Samantha', 'Evan']} plusNumber={1} />,
+    attendees: ['Lily', 'Michael', 'Samantha', 'Evan'],
+    plusNumber: 1,
   },
   {
     id: '11k',
@@ -98,7 +106,8 @@ export const MEETINGS = [
     date: '01/02/2024',
     time: '2:00 PM',
     duration: '1 Hour',
-    attendees: <AvatarGroup names={['Mason', 'Abigail', 'Jackson', 'Lily', 'Henry']} plusNumber={4} />,
+    attendees: ['Mason', 'Abigail', 'Jackson', 'Lily', 'Henry'],
+    plusNumber: 4,
   },
   {
     id: '12l',
@@ -107,7 +116,8 @@ export const MEETINGS = [
     date: '10/02/2024',
     time: '4:15 PM',
     duration: '45 Minutes',
-    attendees: <AvatarGroup names={['Ella', 'Daniel', 'Ava', 'Matthew']} plusNumber={2} />,
+    attendees: ['Ella', 'Daniel', 'Ava', 'Matthew'],
+    plusNumber: 2,
   },
   {
     id: '13m',
@@ -116,7 +126,8 @@ export const MEETINGS = [
     date: '20/02/2024',
     time: '9:00 AM',
     duration: '1 Hour 30 Minutes',
-    attendees: <AvatarGroup names={['Oliver', 'Sophia', 'Jacob', 'Emma']} plusNumber={3} />,
+    attendees: ['Oliver', 'Sophia', 'Jacob', 'Emma'],
+    plusNumber: 3,
   },
   {
     id: '14n',
@@ -125,7 +136,8 @@ export const MEETINGS = [
     date: '02/03/2024',
     time: '2:30 PM',
     duration: '2 Hours',
-    attendees: <AvatarGroup names={['William', 'Avery', 'Alexander', 'Grace', 'Ethan']} plusNumber={1} />,
+    attendees: ['William', 'Avery', 'Alexander', 'Grace', 'Ethan'],
+    plusNumber: 1,
   },
   {
     id: '15o',
@@ -134,6 +146,7 @@ export const MEETINGS = [
     date: '10/03/2024',
     time: '11:00 AM',
     duration: '2 Hours',
-    attendees: <AvatarGroup names={['Madison', 'Liam', 'Aria', 'Benjamin', 'Zoe']} plusNumber={2} />,
+    attendees: ['Madison', 'Liam', 'Aria', 'Benjamin', 'Zoe'],
+    plusNumber: 2,
   },
 ];

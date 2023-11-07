@@ -15,7 +15,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/meeting/:meetingId" element={<Meeting />} />
+          <Route path="/meetings/:meetingId" element={<Meeting />} />
           <Route path="/meetings" element={<Meetings />} />
           <Route path="/agile" element={<Agile />} />
           <Route path="/retro" element={<Retro />} />

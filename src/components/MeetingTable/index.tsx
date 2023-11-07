@@ -3,10 +3,11 @@ import { useDebouncedValue } from '@mantine/hooks';
 import { IconSearch, IconX } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
 import { DataTable, type DataTableSortStatus } from 'mantine-datatable';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { MEETINGS } from '@/assets/mock/meetings';
+import AvatarGroup from '@/components/AvatarGroup';
 
 interface MeetingRow {
   id: string;
@@ -15,21 +16,39 @@ interface MeetingRow {
   date: string;
   time: string;
   duration: string;
+  attendees: string[];
+  plusNumber: number;
+}
+
+interface ParsedMeetingRow extends Omit<MeetingRow, 'attendees' | 'plusNumber'> {
   attendees: JSX.Element;
 }
 
 export default function MeetingTable() {
+  // attendees: <AvatarGroup names={['Sean', 'David', 'Jason', 'Steven', 'Chris']} plusNumber={1} />,
+
+  const parsedMeetings: ParsedMeetingRow[] = useMemo(
+    () =>
+      MEETINGS.map((meeting: MeetingRow) => ({
+        ...meeting,
+        attendees: (
+          <AvatarGroup names={['Sean', 'David', 'Jason', 'Steven', 'Chris']} plusNumber={meeting.plusNumber} />
+        ),
+      })),
+    [],
+  );
+
   // Sorting
-  const [meetings, setMeetings] = useState(sortBy(MEETINGS, 'name'));
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<MeetingRow>>({
-    columnAccessor: 'name',
+  const [meetings, setMeetings] = useState<ParsedMeetingRow[]>(sortBy(parsedMeetings));
+  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<ParsedMeetingRow>>({
+    columnAccessor: 'title',
     direction: 'asc',
   });
 
   useEffect(() => {
-    const data = sortBy(MEETINGS, sortStatus.columnAccessor);
+    const data = sortBy(parsedMeetings, sortStatus.columnAccessor);
     setMeetings(sortStatus.direction === 'desc' ? data.reverse() : data);
-  }, [sortStatus]);
+  }, [sortStatus, parsedMeetings]);
 
   // Searching
   const [query, setQuery] = useState('');
@@ -37,12 +56,12 @@ export default function MeetingTable() {
 
   useEffect(() => {
     setMeetings(
-      MEETINGS.filter(({ title }: { title: string }) => {
+      parsedMeetings.filter(({ title }: { title: string }) => {
         if (!debouncedQuery) return true;
         return title.toLowerCase().includes(debouncedQuery.trim().toLowerCase());
       }),
     );
-  }, [debouncedQuery]);
+  }, [debouncedQuery, parsedMeetings]);
 
   // Navigating to meeting
   const navigate = useNavigate();
@@ -64,16 +83,14 @@ export default function MeetingTable() {
       <DataTable
         striped
         highlightOnHover
-        columns={Object.keys(MEETINGS[0])
-          .slice(1)
-          .map((key) => ({
-            accessor: key,
-            sortable: true,
-          }))} // Header Data
+        columns={['title', 'type', 'date', 'time', 'duration', 'attendees'].map((key) => ({
+          accessor: key,
+          sortable: true,
+        }))} // Header Data
         records={meetings} // Content Data
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
-        onRowClick={({ record }) => navigate(`/meeting/${record.id}`)}
+        onRowClick={({ record }) => navigate(`/meetings/${record.id}`)}
       />
     </Paper>
   );
