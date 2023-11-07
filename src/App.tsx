@@ -1,30 +1,32 @@
 import '@mantine/core/styles.css';
 
-import { AppShell, Progress } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Navbar from '@/components/Navbar';
+import Dashboard from '@/pages/Dashboard';
+import Meetings from '@/pages/Meetings';
+import NotFound from '@/pages/NotFound';
+import Planning from '@/pages/Planning';
+import Retro from '@/pages/Retro';
+import Review from '@/pages/Review';
+import Standup from '@/pages/Standup';
+
+import Layout from './components/Layout';
 
 function App() {
-  const [opened, { toggle }] = useDisclosure(window.innerWidth > 768);
-
   return (
-    <>
-      <Progress radius="xs" size="xs" value={100} animated style={{ zIndex: 102 }} />
-      <AppShell navbar={{ width: 250, breakpoint: 'sm' }} padding="md">
-        <AppShell.Navbar withBorder={false} style={{ backgroundColor: 'unset' }}>
-          <Navbar opened={opened} toggle={toggle} />
-        </AppShell.Navbar>
-
-        <AppShell.Main
-          styles={{
-            main: { paddingLeft: opened ? 275 : 100 },
-          }}
-        >
-          Main
-        </AppShell.Main>
-      </AppShell>
-    </>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/meeting" element={<Meetings />} />
+          <Route path="/planning" element={<Planning />} />
+          <Route path="/retro" element={<Retro />} />
+          <Route path="/review" element={<Review />} />
+          <Route path="/standup" element={<Standup />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
 

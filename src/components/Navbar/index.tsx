@@ -3,9 +3,9 @@ import { useMediaQuery } from '@mantine/hooks';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 
-import { NavLinks } from '@/components/NavLinks';
-import { NavLogo } from '@/components/NavLogo';
-import { NavProfile } from '@/components/NavProfile';
+import { NavLinks } from '@/components/Navbar/NavLinks';
+import { NavLogo } from '@/components/Navbar/NavLogo';
+import { NavProfile } from '@/components/Navbar/NavProfile';
 
 import classes from './index.module.css';
 
@@ -32,7 +32,7 @@ export default function Navbar({ opened, toggle }: { opened: boolean; toggle: ()
         <NavLogo opened={opened} toggle={toggle} />
         <NavLinks opened={opened} />
       </Box>
-      <NavProfile />
+      <NavProfile opened={opened} />
     </motion.nav>
   );
 }
