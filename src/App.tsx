@@ -2,15 +2,13 @@ import '@mantine/core/styles.css';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import Layout from '@/components/Layout';
+import Agile from '@/pages/Agile';
 import Dashboard from '@/pages/Dashboard';
 import Meetings from '@/pages/Meetings';
 import NotFound from '@/pages/NotFound';
-import Planning from '@/pages/Planning';
 import Retro from '@/pages/Retro';
-import Review from '@/pages/Review';
 import Standup from '@/pages/Standup';
-
-import Layout from './components/Layout';
 
 function App() {
   return (
@@ -19,9 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/meeting" element={<Meetings />} />
-          <Route path="/planning" element={<Planning />} />
+          <Route path="/agile" element={<Agile />} />
           <Route path="/retro" element={<Retro />} />
-          <Route path="/review" element={<Review />} />
           <Route path="/standup" element={<Standup />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

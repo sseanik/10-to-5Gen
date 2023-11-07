@@ -6,11 +6,12 @@ import { useState } from 'react';
 interface HeaderProps {
   heading: string;
   description: string;
-  lottie: any;
+  lottie: unknown;
 }
 
 export default function Header({ heading, description, lottie }: HeaderProps) {
   const [files, setFiles] = useState<File[]>([]);
+  console.log({ files });
 
   return (
     <Paper shadow="xs" radius="lg" style={{ padding: '0 1rem' }}>
