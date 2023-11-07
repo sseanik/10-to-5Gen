@@ -25,6 +25,7 @@ export default function Meeting() {
           <Tabs.List grow>
             {MEETING_TAB_ITEMS.map((item) => (
               <Tabs.Tab
+                key={item.value}
                 value={item.value}
                 leftSection={<item.icon size={22} />}
                 rightSection={

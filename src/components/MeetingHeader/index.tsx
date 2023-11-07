@@ -14,7 +14,7 @@ interface MeetingHeaderProps {
 
 export default function MeetingHeader({ lottie, title, date, time, duration, attendees }: MeetingHeaderProps) {
   return (
-    <Paper shadow="xs" radius="lg" style={{ padding: '0 1rem' }}>
+    <Paper shadow="xs" radius="lg">
       <Group justify="space-between">
         <Group>
           <Lottie animationData={lottie} loop style={{ height: 100 }} />
@@ -33,7 +33,7 @@ export default function MeetingHeader({ lottie, title, date, time, duration, att
           <Tooltip.Group openDelay={300} closeDelay={100}>
             <Avatar.Group spacing="sm">
               {attendees.map((attendee) => (
-                <Tooltip label={attendee} withArrow>
+                <Tooltip key={attendee} label={attendee} withArrow>
                   <Avatar src="image.png" radius="xl" color={COLOURS[Math.floor(Math.random() * COLOURS.length)]}>
                     {attendee[0]}
                   </Avatar>
