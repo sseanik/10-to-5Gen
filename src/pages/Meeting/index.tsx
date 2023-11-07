@@ -1,11 +1,10 @@
-import { Badge, Paper, Tabs } from '@mantine/core';
+import { Badge, Box, Paper, Tabs } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { MEETING_TAB_ITEMS } from '@/assets/data/meetingTabData';
 import lottie from '@/assets/lotties/meeting.json';
 import { MEETINGS } from '@/assets/mock/meetings';
 import MeetingHeader from '@/components/MeetingHeader';
-import Transcript from '@/components/Transcript';
 
 export default function Meeting() {
   const { meetingId } = useParams();
@@ -41,13 +40,13 @@ export default function Meeting() {
             ))}
           </Tabs.List>
 
-          <Tabs.Panel value="summary">Gallery tab content</Tabs.Panel>
-          <Tabs.Panel value="transcript">
-            <Transcript id={meeting.id} />
-          </Tabs.Panel>
-          <Tabs.Panel value="minutes">Settings tab content</Tabs.Panel>
-          <Tabs.Panel value="agenda">Settings tab content</Tabs.Panel>
-          <Tabs.Panel value="schedule">Settings tab content</Tabs.Panel>
+          {MEETING_TAB_ITEMS.map((item) => (
+            <Tabs.Panel value={item.value}>
+              <Box key={item.label} p="md" mt="xs" style={{ whiteSpace: 'pre-wrap' }}>
+                {item.component(meeting.id)}
+              </Box>
+            </Tabs.Panel>
+          ))}
         </Tabs>
       </Paper>
     </>

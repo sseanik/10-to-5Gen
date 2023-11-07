@@ -1,3 +1,13 @@
+// id: '1a', // Generate random unique ID
+// // Get Data from Filename
+// title: 'VAS Experience Standup',
+// date: '07/11/2023',
+// // Extract Info from File Contents
+// duration: '30 Minutes',
+// speakers: ['Sean', 'David', 'Jason', 'Steven', 'Chris'],
+// type: 'Standup',
+// plusNumber: 1,
+
 export const MEETINGS = [
   {
     id: '1a',
