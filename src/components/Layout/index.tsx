@@ -18,7 +18,7 @@ export default function Layout({ children }: { children?: ReactNode }) {
 
       <AppShell.Main
         styles={{
-          main: { paddingLeft: opened ? 260 : 85, minHeight: 'calc(100dvh - 3px)' },
+          main: { paddingLeft: opened ? 260 : 85, minHeight: 'calc(100dvh - 3px)', backgroundColor: '#f6f6f3' },
         }}
       >
         {children}

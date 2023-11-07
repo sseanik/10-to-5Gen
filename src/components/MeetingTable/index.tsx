@@ -1,77 +1,80 @@
-import { Paper, Table } from '@mantine/core';
+import { ActionIcon, Paper, TextInput } from '@mantine/core';
+import { useDebouncedValue } from '@mantine/hooks';
+import { IconSearch, IconX } from '@tabler/icons-react';
+import sortBy from 'lodash/sortBy';
+import { DataTable, type DataTableSortStatus } from 'mantine-datatable';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import AvatarGroup from '../AvatarGroup';
+import { MEETINGS } from '@/assets/mock/meetings';
 
-const MEETING_DATA = [
-  {
-    title: 'VAS Experience Standup',
-    type: 'Standup',
-    date: '07/11/2023',
-    time: '2:15 PM',
-    duration: '30 Minutes',
-    attendees: <AvatarGroup names={['Sean', 'David', 'Jason', 'Steven', 'Chris']} plusNumber={1} />,
-  },
-  {
-    title: 'VAS Sprint Planning',
-    type: 'Sprint Planning',
-    date: '15/11/2023',
-    time: '3:00 PM',
-    duration: '1 Hour',
-    attendees: <AvatarGroup names={['Shaun', 'Daniel', 'Jack', 'Simon', 'Craig']} plusNumber={3} />,
-  },
-  {
-    title: 'Marketing Campaign Review',
-    type: 'Review',
-    date: '20/11/2023',
-    time: '10:30 AM',
-    duration: '45 Minutes',
-    attendees: <AvatarGroup names={['Emily', 'Sarah', 'Michael', 'Rachel']} plusNumber={2} />,
-  },
-  {
-    title: 'Product Development Meeting',
-    type: 'Development',
-    date: '25/11/2023',
-    time: '11:00 AM',
-    duration: '1 Hour 30 Minutes',
-    attendees: <AvatarGroup names={['John', 'Emma', 'Liam', 'Olivia']} plusNumber={1} />,
-  },
-  {
-    title: 'Finance Quarterly Review',
-    type: 'Review',
-    date: '02/12/2023',
-    time: '4:00 PM',
-    duration: '1 Hour',
-    attendees: <AvatarGroup names={['Sophia', 'Noah', 'Ava', 'William', 'Ella']} plusNumber={4} />,
-  },
-];
+interface MeetingRow {
+  id: string;
+  title: string;
+  type: string;
+  date: string;
+  time: string;
+  duration: string;
+  attendees: JSX.Element;
+}
 
 export default function MeetingTable() {
-  const rows = MEETING_DATA.map((meeting) => (
-    <Table.Tr key={meeting.title}>
-      <Table.Td>{meeting.title}</Table.Td>
-      <Table.Td>{meeting.type}</Table.Td>
-      <Table.Td>{meeting.date}</Table.Td>
-      <Table.Td>{meeting.time}</Table.Td>
-      <Table.Td>{meeting.duration}</Table.Td>
-      <Table.Td>{meeting.attendees}</Table.Td>
-    </Table.Tr>
-  ));
+  // Sorting
+  const [meetings, setMeetings] = useState(sortBy(MEETINGS, 'name'));
+  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<MeetingRow>>({
+    columnAccessor: 'name',
+    direction: 'asc',
+  });
+
+  useEffect(() => {
+    const data = sortBy(MEETINGS, sortStatus.columnAccessor);
+    setMeetings(sortStatus.direction === 'desc' ? data.reverse() : data);
+  }, [sortStatus]);
+
+  // Searching
+  const [query, setQuery] = useState('');
+  const [debouncedQuery] = useDebouncedValue(query, 200);
+
+  useEffect(() => {
+    setMeetings(
+      MEETINGS.filter(({ title }: { title: string }) => {
+        if (!debouncedQuery) return true;
+        return title.toLowerCase().includes(debouncedQuery.trim().toLowerCase());
+      }),
+    );
+  }, [debouncedQuery]);
+
+  // Navigating to meeting
+  const navigate = useNavigate();
 
   return (
     <Paper shadow="xs" radius="lg" p="md" mt="md">
-      <Table>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Meeting Title</Table.Th>
-            <Table.Th>Meeting Type</Table.Th>
-            <Table.Th>Meeting Date</Table.Th>
-            <Table.Th>Meeting Time</Table.Th>
-            <Table.Th>Meeting Duration</Table.Th>
-            <Table.Th>Meeting Attendees</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
+      <TextInput
+        placeholder="Search Meetings..."
+        leftSection={<IconSearch size={16} />}
+        rightSection={
+          <ActionIcon size="sm" variant="transparent" c="dimmed" onClick={() => setQuery('')}>
+            <IconX size={14} />
+          </ActionIcon>
+        }
+        value={query}
+        onChange={(e) => setQuery(e.currentTarget.value)}
+        mb="md"
+      />
+      <DataTable
+        striped
+        highlightOnHover
+        columns={Object.keys(MEETINGS[0])
+          .slice(1)
+          .map((key) => ({
+            accessor: key,
+            sortable: true,
+          }))} // Header Data
+        records={meetings} // Content Data
+        sortStatus={sortStatus}
+        onSortStatusChange={setSortStatus}
+        onRowClick={({ record }) => navigate(`/meeting/${record.id}`)}
+      />
     </Paper>
   );
 }

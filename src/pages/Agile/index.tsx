@@ -1,4 +1,4 @@
-import lottie from '@/assets/planning.json';
+import lottie from '@/assets/lotties/planning.json';
 import Header from '@/components/Header';
 
 export default function Agile() {

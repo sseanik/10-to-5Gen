@@ -1,4 +1,4 @@
-import lottie from '@/assets/standup.json';
+import lottie from '@/assets/lotties/standup.json';
 import Header from '@/components/Header';
 
 export default function Standup() {

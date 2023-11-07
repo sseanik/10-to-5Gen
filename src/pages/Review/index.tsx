@@ -1,4 +1,4 @@
-import lottie from '@/assets/review.json';
+import lottie from '@/assets/lotties/review.json';
 import Header from '@/components/Header';
 
 export default function Review() {

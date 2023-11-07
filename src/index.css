@@ -1,3 +1,5 @@
+@layer mantine, mantine-datatable;
+
 #root {
   background: #f6f6f3;
 }
@@ -20,4 +22,8 @@
 
 .mantine-NavLink-children .mantine-NavLink-label {
   font-size: 14px !important;
+}
+
+.mantine-datatable-row:hover {
+  background-color: #f7faff;
 }

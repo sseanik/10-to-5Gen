@@ -7,11 +7,12 @@ interface HeaderProps {
   heading: string;
   description: string;
   lottie: unknown;
+  hideUpload?: boolean;
 }
 
-export default function Header({ heading, description, lottie }: HeaderProps) {
+export default function Header({ heading, description, lottie, hideUpload }: HeaderProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [files, setFiles] = useState<File[]>([]);
-  console.log({ files });
 
   return (
     <Paper shadow="xs" radius="lg" style={{ padding: '0 1rem' }}>
@@ -24,13 +25,15 @@ export default function Header({ heading, description, lottie }: HeaderProps) {
           </Stack>
         </Group>
 
-        <FileButton onChange={setFiles} accept="image/png,image/jpeg" multiple>
-          {(props) => (
-            <Button {...props} leftSection={<IconFileUpload size="24px" stroke={1.5} />} size="md">
-              Upload Meeting
-            </Button>
-          )}
-        </FileButton>
+        {!hideUpload && (
+          <FileButton onChange={setFiles} accept="image/png,image/jpeg" multiple>
+            {(props) => (
+              <Button {...props} leftSection={<IconFileUpload size="24px" stroke={1.5} />} size="md">
+                Upload Meeting
+              </Button>
+            )}
+          </FileButton>
+        )}
       </Group>
     </Paper>
   );

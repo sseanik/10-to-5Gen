@@ -1,5 +1,7 @@
 import { Avatar, Tooltip } from '@mantine/core';
 
+import { COLOURS } from '@/assets/data/colours';
+
 interface AvatarGroupProps {
   names: string[];
   plusNumber: number;
@@ -13,8 +15,10 @@ export default function AvatarGroup({ names, plusNumber }: AvatarGroupProps) {
     <Tooltip.Group openDelay={300} closeDelay={100}>
       <Avatar.Group spacing="sm">
         {avatarNames.map((name) => (
-          <Tooltip label={name} withArrow>
-            <Avatar radius="xl">{name[0]}</Avatar>
+          <Tooltip label={name} withArrow key={name}>
+            <Avatar radius="xl" color={COLOURS[Math.floor(Math.random() * COLOURS.length)]}>
+              {name[0]}
+            </Avatar>
           </Tooltip>
         ))}
         <Tooltip
@@ -22,7 +26,7 @@ export default function AvatarGroup({ names, plusNumber }: AvatarGroupProps) {
           label={
             <>
               {plusNames.map((tooltipName) => (
-                <div>{tooltipName}</div>
+                <div key={tooltipName}>{tooltipName}</div>
               ))}
             </>
           }

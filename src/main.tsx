@@ -1,3 +1,5 @@
+import '@mantine/core/styles.css';
+import 'mantine-datatable/styles.layer.css';
 import './index.css';
 
 import { createTheme, MantineProvider } from '@mantine/core';

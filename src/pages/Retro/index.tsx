@@ -1,4 +1,4 @@
-import lottie from '@/assets/retro.json';
+import lottie from '@/assets/lotties/retro.json';
 import Header from '@/components/Header';
 
 export default function Retro() {

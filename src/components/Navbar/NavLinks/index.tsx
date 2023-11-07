@@ -1,20 +1,7 @@
 import { ActionIcon, Badge, NavLink, Stack, Tooltip } from '@mantine/core';
-import {
-  IconBrowserCheck,
-  IconBulb,
-  IconCalendarStats,
-  IconChartDots,
-  IconTimelineEventExclamation,
-} from '@tabler/icons-react';
 import { Link, useLocation } from 'react-router-dom';
 
-const NAV_ITEMS = [
-  { label: 'Dashboard', icon: IconChartDots, to: '/' },
-  { label: 'Meetings', icon: IconCalendarStats, to: '/meeting' },
-  { label: 'Agile Suggestions', icon: IconBulb, to: 'agile' },
-  { label: 'Standups', icon: IconBrowserCheck, to: '/standup' },
-  { label: 'Retrospectives', icon: IconTimelineEventExclamation, to: '/retro' },
-];
+import { NAV_ITEMS } from '@/assets/data/navData';
 
 export function NavLinks({ opened }: { opened: boolean }) {
   const { pathname } = useLocation();
