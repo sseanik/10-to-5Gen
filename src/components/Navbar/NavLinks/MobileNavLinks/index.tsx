@@ -37,10 +37,17 @@ export default function MobileNavLinks({ meeting, nestedNav, setNestedNav }: Mob
           </ActionIcon>
         </Tooltip>
       )}
-      {data.map((item) => {
+      {data.map((item, index) => {
         if (item.children.length === 0) {
           return (
-            <Tooltip key={item.label} label={item.label} position="right" withArrow arrowOffset={50} arrowSize={5}>
+            <Tooltip
+              key={`${item.label}-${index}`}
+              label={item.label}
+              position="right"
+              withArrow
+              arrowOffset={50}
+              arrowSize={5}
+            >
               <ActionIcon
                 size="xl"
                 variant={isActive(item) ? 'light' : 'transparent'}
@@ -53,7 +60,14 @@ export default function MobileNavLinks({ meeting, nestedNav, setNestedNav }: Mob
           );
         }
         return (
-          <Menu key={item.label} shadow="md" withArrow arrowPosition="center" position="right" trigger="hover">
+          <Menu
+            key={`${item.label}-${index}`}
+            shadow="md"
+            withArrow
+            arrowPosition="center"
+            position="right"
+            trigger="hover"
+          >
             <Menu.Target>
               <ActionIcon
                 size="xl"
@@ -66,9 +80,9 @@ export default function MobileNavLinks({ meeting, nestedNav, setNestedNav }: Mob
             </Menu.Target>
 
             <Menu.Dropdown>
-              {item.children.map((nestedItem, index) => (
+              {item.children.map((nestedItem, idx) => (
                 <Menu.Item
-                  key={index}
+                  key={`${nestedItem.label}-${idx}`}
                   leftSection={<nestedItem.icon style={{ width: rem(14), height: rem(14) }} />}
                   onClick={() => setNestedNav(nestedItem.label)}
                 >

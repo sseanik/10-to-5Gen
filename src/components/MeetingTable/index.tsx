@@ -1,54 +1,57 @@
-import { ActionIcon, Paper, TextInput } from '@mantine/core';
+import { ActionIcon, Paper, Text, TextInput } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconSearch, IconX } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
 import { DataTable, type DataTableSortStatus } from 'mantine-datatable';
-import { useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { MEETINGS } from '@/assets/mock/meetings';
+import mockData from '@/assets/david/master_list.json';
 import AvatarGroup from '@/components/AvatarGroup';
+import { Meta } from '@/types/Data';
 
-interface MeetingRow {
-  id: string;
-  title: string;
-  type: string;
-  date: string;
-  time: string;
-  duration: string;
-  attendees: string[];
-  plusNumber: number;
-}
-
-interface ParsedMeetingRow extends Omit<MeetingRow, 'attendees' | 'plusNumber'> {
+interface MetaParsed extends Omit<Meta, 'attendees'> {
   attendees: JSX.Element;
 }
 
-export default function MeetingTable() {
-  // attendees: <AvatarGroup names={['Sean', 'David', 'Jason', 'Steven', 'Chris']} plusNumber={1} />,
+export default function MeetingTable({ setNestedNav }: { setNestedNav: Dispatch<SetStateAction<string>> }) {
+  // Navigating to meeting
+  const navigate = useNavigate();
 
-  const parsedMeetings: ParsedMeetingRow[] = useMemo(
+  // Fetching the data
+  const getMeetings = async () => {
+    const res = await fetch('http://13.211.169.215:5000/masterlist');
+    return res.json();
+  };
+  // Using the hook
+  const { data, isLoading } = useQuery('meetings', getMeetings);
+
+  const dataSource = !data ? mockData : (data.data as Meta[]);
+
+  // Parsing the Data
+  const mappedRows: MetaParsed[] = useMemo(
     () =>
-      MEETINGS.map((meeting: MeetingRow) => ({
-        ...meeting,
-        attendees: (
-          <AvatarGroup names={['Sean', 'David', 'Jason', 'Steven', 'Chris']} plusNumber={meeting.plusNumber} />
-        ),
+      dataSource.map((row, index) => ({
+        key: `${row.ID}-${index}`,
+        ...row,
+        duration: `${row.duration.split(':')[0]} minutes`,
+        attendees: <AvatarGroup key={index} names={row.attendees} />,
       })),
-    [],
+    [dataSource],
   );
 
   // Sorting
-  const [meetings, setMeetings] = useState<ParsedMeetingRow[]>(sortBy(parsedMeetings));
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<ParsedMeetingRow>>({
+  const [meetings, setMeetings] = useState<MetaParsed[]>(sortBy(mappedRows));
+  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<MetaParsed>>({
     columnAccessor: 'title',
     direction: 'asc',
   });
 
   useEffect(() => {
-    const data = sortBy(parsedMeetings, sortStatus.columnAccessor);
-    setMeetings(sortStatus.direction === 'desc' ? data.reverse() : data);
-  }, [sortStatus, parsedMeetings]);
+    const newData = sortBy(mappedRows, sortStatus.columnAccessor);
+    setMeetings(sortStatus.direction === 'desc' ? newData.reverse() : newData);
+  }, [mappedRows, sortStatus.columnAccessor, sortStatus.direction]);
 
   // Searching
   const [query, setQuery] = useState('');
@@ -56,18 +59,22 @@ export default function MeetingTable() {
 
   useEffect(() => {
     setMeetings(
-      parsedMeetings.filter(({ title }: { title: string }) => {
+      mappedRows.filter(({ title }: { title: string }) => {
         if (!debouncedQuery) return true;
         return title.toLowerCase().includes(debouncedQuery.trim().toLowerCase());
       }),
     );
-  }, [debouncedQuery, parsedMeetings]);
+  }, [debouncedQuery, mappedRows]);
 
-  // Navigating to meeting
-  const navigate = useNavigate();
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Paper shadow="xs" radius="lg" p="md" mt="md">
+      {!data && (
+        <Text mb="xs" c="red.8" size="sm">
+          Using Mock Data
+        </Text>
+      )}
       <TextInput
         placeholder="Search Meetings..."
         leftSection={<IconSearch size={16} />}
@@ -83,14 +90,17 @@ export default function MeetingTable() {
       <DataTable
         striped
         highlightOnHover
-        columns={['title', 'type', 'date', 'time', 'duration', 'attendees'].map((key) => ({
+        columns={['title', 'type', 'date', 'duration', 'attendees'].map((key) => ({
+          key,
           accessor: key,
           sortable: true,
         }))} // Header Data
         records={meetings} // Content Data
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
-        onRowClick={({ record }) => navigate(`/meeting/${record.id}`)}
+        onRowClick={({ record }) => {
+          navigate(`/meeting/${record.ID}`);
+        }}
       />
     </Paper>
   );

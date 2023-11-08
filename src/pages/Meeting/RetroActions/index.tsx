@@ -12,7 +12,7 @@ export default function RetroActions({ data }: { data: DataType }) {
       </Title>
       {retroActionItems.map((item, index) => (
         <Blockquote
-          key={index}
+          key={`retro-${index}`}
           color="orange"
           p="sm"
           mt="md"

@@ -1,8 +1,9 @@
 import { Box, Paper } from '@mantine/core';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
-import data from '@/assets/david/master_output.json';
+import mockData from '@/assets/david/master_output.json';
 import lottie from '@/assets/lotties/meeting.json';
 import MeetingHeader from '@/components/MeetingHeader';
 import { NavBadgesType } from '@/types/NavBadges';
@@ -22,43 +23,50 @@ interface MeetingProps {
 
 export default function Meeting({ nestedNav, setNavBadges }: MeetingProps) {
   const { meetingId } = useParams();
+  // Fetching the data
+  const getMeetings = async () => {
+    const res = await fetch(`http://13.211.169.215:5000/files/${meetingId}`);
+    return res.json();
+  };
+  // Using the hook
+  const { data, isLoading } = useQuery('meeting', getMeetings);
+
+  const [dataSource] = useState(!data ? mockData : data.data);
 
   useEffect(() => {
     setNavBadges({
-      'Retro Action Items': data.Retro.retro_actions.length,
-      'Suggested Tickets': data.Jira.jira_tickets.length,
+      'Retro Action Items': dataSource.Retro.retro_actions.length,
+      'Suggested Tickets': dataSource.Jira.jira_tickets.length,
     });
-  }, [setNavBadges]);
+  }, [dataSource.Jira.jira_tickets.length, dataSource.Retro.retro_actions.length, setNavBadges]);
 
-  // const navigate = useNavigate();
-  // if (!meeting) {
-  //   navigate(`/404`);
-  //   return null;
-  // }
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
-      <MeetingHeader data={data} lottie={lottie} />
+      <MeetingHeader data={dataSource} lottie={lottie} />
       <Paper shadow="xs" radius="lg" p="xs" mt="sm">
         <Box p="sm" mt="xs" style={{ whiteSpace: 'pre-wrap' }}>
           {(() => {
             switch (nestedNav) {
+              case 'Meetings':
+                return <Dashboard data={dataSource} />;
               case 'Dashboard':
-                return <Dashboard data={data} />;
+                return <Dashboard data={dataSource} />;
               case 'Transcript':
-                return <Transcript data={data} />;
+                return <Transcript data={dataSource} />;
               case 'Meeting Minutes':
-                return <Minutes data={data} />;
+                return <Minutes data={dataSource} />;
               case 'Meeting Action Items':
-                return <MeetingActions data={data} />;
+                return <MeetingActions data={dataSource} />;
               case 'Retro Action Items':
-                return <RetroActions data={data} />;
+                return <RetroActions data={dataSource} />;
               case 'Suggested Tickets':
-                return <Tickets data={data} />;
+                return <Tickets data={dataSource} />;
               case 'Next Agenda':
-                return <Agenda data={data} />;
+                return <Agenda data={dataSource} />;
               default:
-                return null;
+                return <div>Something went wrong.</div>;
             }
           })()}
         </Box>

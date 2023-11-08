@@ -14,7 +14,7 @@ export default function MeetingActions({ data }: { data: DataType }) {
       <Stack gap="50px">
         {Object.keys(meetingActionItems).map((key, index) => (
           <Timeline
-            key={index}
+            key={`meeting-action-item-${index}`}
             radius="xs"
             active={meetingActionItems[key].length}
             lineWidth={1}

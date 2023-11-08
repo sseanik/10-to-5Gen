@@ -13,7 +13,7 @@ export default function Minutes({ data }: { data: DataType }) {
       </Title>
       <List>
         {agenda.map((line, index) => (
-          <Text key={index}>{line}</Text>
+          <Text key={`line-${index}`}>{line}</Text>
         ))}
       </List>
       <Title order={4} mt="lg" mb="6" c="blue">

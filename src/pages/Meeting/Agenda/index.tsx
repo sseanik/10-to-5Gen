@@ -12,8 +12,9 @@ export default function Agenda({ data }: { data: DataType }) {
         Suggested Upcoming Agenda
       </Title>
       <Stack gap={0}>
-        {items.map((item) => (
+        {items.map((item, index) => (
           <Blockquote
+            key={`${item.item.split(':')[0]}-${index}`}
             color="blue"
             cite={
               <Text mt={-20} mb={10} style={{ fontStyle: 'normal' }} fw={700}>
@@ -22,10 +23,10 @@ export default function Agenda({ data }: { data: DataType }) {
             }
             icon={<IconCircleCheck size={30} />}
             p={30}
-            style={{ display: 'flex', flexDirection: 'column-reverse' }}
+            style={{ display: 'flex', flexDirection: 'column-reverse', backgroundColor: '#f9faff' }}
           >
-            {item.detail.map((detail) => (
-              <div>{detail}</div>
+            {item.detail.map((detail, idx) => (
+              <div key={`detail-${idx}`}>{detail}</div>
             ))}
           </Blockquote>
         ))}

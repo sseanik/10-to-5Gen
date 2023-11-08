@@ -15,7 +15,7 @@ export default function MeetingHeader({ data, lottie }: MeetingHeaderProps) {
   const { time, location } = data.Meeting.minutes.minutes;
 
   return (
-    <Paper shadow="xs" radius="lg" pr="lg">
+    <Paper shadow="xs" radius="lg" p="xs" pr="xl" pl={0}>
       <Group justify="space-between">
         <Group>
           <Lottie animationData={lottie} loop style={{ height: 100 }} />
@@ -31,7 +31,9 @@ export default function MeetingHeader({ data, lottie }: MeetingHeaderProps) {
               <ThemeIcon variant="white" color="gray.7" ml={-5}>
                 <IconCalendarStats style={{ width: '70%', height: '70%' }} />
               </ThemeIcon>
-              <Title order={6}>{type}</Title>
+              <Title order={6} c="gray.9">
+                {type}
+              </Title>
             </Group>
 
             <Group gap={6}>
@@ -46,8 +48,8 @@ export default function MeetingHeader({ data, lottie }: MeetingHeaderProps) {
               </Text>
               <Tooltip.Group openDelay={300} closeDelay={100}>
                 <Avatar.Group spacing="sm">
-                  {attendees.map((attendee) => (
-                    <Tooltip key={attendee} label={attendee} withArrow>
+                  {attendees.map((attendee, index) => (
+                    <Tooltip key={`${attendee}-${index}`} label={attendee} withArrow>
                       <Avatar
                         size="30px"
                         radius="xl"
