@@ -5,21 +5,21 @@ import data from '@/assets/david/meeting.json';
 export default function Minutes({ id }: { id?: string }) {
   const minuteLines = data.minutes.content.split('\n');
 
-  return minuteLines.map((line) => {
+  return minuteLines.map((line, index) => {
     if (!line.includes('\n') && line.includes(':') && !line.includes('[Insert')) {
       return (
-        <Blockquote color="blue" p="sm" my="xs" style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>
+        <Blockquote key={index} color="blue" p="sm" my="xs" style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>
           {line}
         </Blockquote>
       );
     }
     if (/^-/.test(line)) {
       return (
-        <List>
+        <List key={index}>
           <List.Item>{line.replace(/^-/, '')}</List.Item>
         </List>
       );
     }
-    return <Text>{line}</Text>;
+    return <Text key={index}>{line}</Text>;
   });
 }
