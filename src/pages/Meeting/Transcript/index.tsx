@@ -20,7 +20,7 @@ const extractUniqueNames = (text?: string) => {
   return uniqueNames;
 };
 
-export default function Transcript({ id }: { id: string }) {
+export default function Transcript({ id }: { id?: string }) {
   const transcriptText = useMemo(() => TRANSCRIPTS.find((t) => t.id === id), [id]);
   const names = useMemo(() => extractUniqueNames(transcriptText?.ai), [transcriptText?.ai]);
   if (!transcriptText) {

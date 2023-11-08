@@ -1,12 +1,18 @@
-import { Badge, Box, Paper, Tabs } from '@mantine/core';
+import { Box, Paper } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { MEETING_TAB_ITEMS } from '@/assets/data/meetingTabData';
 import lottie from '@/assets/lotties/meeting.json';
 import { MEETINGS } from '@/assets/mock/meetings';
 import MeetingHeader from '@/components/MeetingHeader';
 
-export default function Meeting() {
+import Actions from './Actions';
+import Agenda from './Agenda';
+import Dashboard from './Dashboard';
+import Minutes from './Minutes';
+import Tickets from './Tickets';
+import Transcript from './Transcript';
+
+export default function Meeting({ nestedNav }: { nestedNav: string }) {
   const { meetingId } = useParams();
   const meeting = MEETINGS.find((m) => m.id === meetingId);
 
@@ -20,7 +26,27 @@ export default function Meeting() {
     <>
       <MeetingHeader {...meeting} lottie={lottie} />
       <Paper shadow="xs" radius="lg" p="xs" mt="sm">
-        <Tabs defaultValue="summary" variant="pills" radius="lg">
+        <Box p="sm" mt="xs" style={{ whiteSpace: 'pre-wrap' }}>
+          {(() => {
+            switch (nestedNav) {
+              case 'Dashboard':
+                return <Dashboard id={meetingId} />;
+              case 'Transcript':
+                return <Transcript id={meetingId} />;
+              case 'Meeting Minutes':
+                return <Minutes id={meetingId} />;
+              case 'Action Items':
+                return <Actions id={meetingId} />;
+              case 'Suggested Tickets':
+                return <Tickets id={meetingId} />;
+              case 'Next Agenda':
+                return <Agenda id={meetingId} />;
+              default:
+                return null;
+            }
+          })()}
+        </Box>
+        {/* <Tabs defaultValue="summary" variant="pills" radius="lg">
           <Tabs.List grow>
             {MEETING_TAB_ITEMS.map((item) => (
               <Tabs.Tab
@@ -47,7 +73,7 @@ export default function Meeting() {
               </Box>
             </Tabs.Panel>
           ))}
-        </Tabs>
+        </Tabs> */}
       </Paper>
     </>
   );

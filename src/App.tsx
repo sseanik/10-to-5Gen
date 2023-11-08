@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Layout from '@/components/Layout';
@@ -10,13 +11,15 @@ import Retro from '@/pages/Retro';
 import Standup from '@/pages/Standup';
 
 function App() {
+  const [nestedNav, setNestedNav] = useState('Summary');
+
   return (
     <Router>
-      <Layout>
+      <Layout nestedNav={nestedNav} setNestedNav={setNestedNav}>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/meetings/:meetingId" element={<Meeting />} />
           <Route path="/meetings" element={<Meetings />} />
+          <Route path="/meeting/:meetingId" element={<Meeting nestedNav={nestedNav} />} />
           <Route path="/agile" element={<Agile />} />
           <Route path="/retro" element={<Retro />} />
           <Route path="/standup" element={<Standup />} />

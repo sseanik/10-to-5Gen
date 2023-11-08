@@ -16,7 +16,7 @@ export default function AvatarGroup({ names, plusNumber }: AvatarGroupProps) {
       <Avatar.Group spacing="sm">
         {avatarNames.map((name) => (
           <Tooltip label={name} withArrow key={name}>
-            <Avatar radius="xl" color={COLOURS[Math.floor(Math.random() * COLOURS.length)]}>
+            <Avatar radius="xl" color={COLOURS[Math.floor(name[0].charCodeAt(0) % COLOURS.length)]}>
               {name[0]}
             </Avatar>
           </Tooltip>

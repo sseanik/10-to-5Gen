@@ -2,8 +2,8 @@ import { IconCalendarPlus, IconFileDescription, IconListCheck, IconNotes, IconUs
 
 import Agenda from '@/pages/Meeting/Agenda';
 import Minutes from '@/pages/Meeting/Minutes';
-import Schedule from '@/pages/Meeting/Schedule';
-import Summary from '@/pages/Meeting/Summary';
+import Schedule from '@/assets/src/pages/Meeting/Dashboard';
+import Summary from '@/assets/src/pages/Meeting/Action';
 import Transcript from '@/pages/Meeting/Transcript';
 
 export const MEETING_TAB_ITEMS = [

@@ -90,7 +90,7 @@ export default function MeetingTable() {
         records={meetings} // Content Data
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
-        onRowClick={({ record }) => navigate(`/meetings/${record.id}`)}
+        onRowClick={({ record }) => navigate(`/meeting/${record.id}`)}
       />
     </Paper>
   );

@@ -1,13 +1,25 @@
-import { Box, Button, Modal } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Blockquote, List, Text } from '@mantine/core';
 
-export default function Minutes({ id }: { id: string }) {
-  const [opened, { open, close }] = useDisclosure(false);
+import data from '@/assets/david/meeting.json';
 
-  return (
-    <Box>
-      <Modal opened={opened} onClose={close} title="Authentication" size="xl" />
-      <Button onClick={open}>Generate Meeting Summary</Button>
-    </Box>
-  );
+export default function Minutes({ id }: { id?: string }) {
+  const minuteLines = data.minutes.content.split('\n');
+
+  return minuteLines.map((line) => {
+    if (!line.includes('\n') && line.includes(':') && !line.includes('[Insert')) {
+      return (
+        <Blockquote color="blue" p="sm" my="xs" style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>
+          {line}
+        </Blockquote>
+      );
+    }
+    if (/^-/.test(line)) {
+      return (
+        <List>
+          <List.Item>{line.replace(/^-/, '')}</List.Item>
+        </List>
+      );
+    }
+    return <Text>{line}</Text>;
+  });
 }

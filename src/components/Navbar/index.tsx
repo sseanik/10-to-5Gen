@@ -1,7 +1,7 @@
 import { Box, em } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 import { NavLinks } from '@/components/Navbar/NavLinks';
 import { NavLogo } from '@/components/Navbar/NavLogo';
@@ -9,7 +9,14 @@ import { NavProfile } from '@/components/Navbar/NavProfile';
 
 import classes from './index.module.css';
 
-export default function Navbar({ opened, toggle }: { opened: boolean; toggle: () => void }) {
+interface NavbarProps {
+  opened: boolean;
+  toggle: () => void;
+  nestedNav: string;
+  setNestedNav: Dispatch<SetStateAction<string>>;
+}
+
+export default function Navbar({ opened, toggle, nestedNav, setNestedNav }: NavbarProps) {
   const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
 
   useEffect(() => {
@@ -30,7 +37,7 @@ export default function Navbar({ opened, toggle }: { opened: boolean; toggle: ()
     >
       <Box>
         <NavLogo opened={opened} toggle={toggle} />
-        <NavLinks opened={opened} />
+        <NavLinks opened={opened} nestedNav={nestedNav} setNestedNav={setNestedNav} />
       </Box>
       <NavProfile opened={opened} />
     </motion.nav>
