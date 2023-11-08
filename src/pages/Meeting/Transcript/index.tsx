@@ -1,28 +1,12 @@
 import { Accordion, Highlight } from '@mantine/core';
 import { IconVocabulary, IconVocabularyOff } from '@tabler/icons-react';
-import { useMemo } from 'react';
 
-import { TRANSCRIPTS } from '@/assets/mock/transcripts';
+import { DataType } from '@/types/Data';
 
-const extractUniqueNames = (text?: string) => {
-  if (!text) return [];
-  // Use regular expression to find all names followed by a colon (e.g., "Sarah:")
-  const regex = /(\w+):/g;
-  const matches = text.match(regex);
+export default function Transcript({ data }: { data: DataType }) {
+  const transcriptText = data.transcript;
+  const names = data.Meta.attendees;
 
-  if (!matches) {
-    return [];
-  }
-
-  // Extract unique names by converting the matched names into a Set
-  const uniqueNames = [...new Set(matches.map((match) => match.replace(':', '').trim()))];
-
-  return uniqueNames;
-};
-
-export default function Transcript({ id }: { id?: string }) {
-  const transcriptText = useMemo(() => TRANSCRIPTS.find((t) => t.id === id), [id]);
-  const names = useMemo(() => extractUniqueNames(transcriptText?.ai), [transcriptText?.ai]);
   if (!transcriptText) {
     return <div>No Transcript Found, please upload one.</div>;
   }
@@ -33,13 +17,13 @@ export default function Transcript({ id }: { id?: string }) {
         <Accordion.Control icon={<IconVocabulary />}>Parsed Transcript</Accordion.Control>
         <Accordion.Panel>
           <Highlight color="gray" highlight={names}>
-            {transcriptText.ai}
+            {transcriptText}
           </Highlight>
         </Accordion.Panel>
       </Accordion.Item>
       <Accordion.Item key="transcript-original" value="transcript-original">
         <Accordion.Control icon={<IconVocabularyOff />}>Original Transcript</Accordion.Control>
-        <Accordion.Panel>{transcriptText.old}</Accordion.Panel>
+        <Accordion.Panel>{transcriptText}</Accordion.Panel>
       </Accordion.Item>
     </Accordion>
   );

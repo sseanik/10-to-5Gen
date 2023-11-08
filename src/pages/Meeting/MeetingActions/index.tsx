@@ -1,28 +1,40 @@
-import { Text, Timeline, Title } from '@mantine/core';
+import { Stack, Text, Timeline, Title } from '@mantine/core';
+import { IconUsers, IconUserStar } from '@tabler/icons-react';
 
-import actionData from '@/assets/david/meeting.json';
+import { DataType } from '@/types/Data';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function MeetingActions({ id }: { id?: string }) {
-  const meetingActionItems = actionData.action_items;
+export default function MeetingActions({ data }: { data: DataType }) {
+  const meetingActionItems = data.Meeting.action_items;
 
   return (
     <>
       <Title order={4} mb="lg" c="blue">
         Meeting Action Items
       </Title>
-      <Timeline radius="xs" active={Object.keys(meetingActionItems).length} lineWidth={1} bulletSize={26}>
-        {Object.keys(meetingActionItems).map((key, index) => {
-          if (!/^\d/.test(key)) return null;
-          return (
-            <Timeline.Item title={meetingActionItems[key]} bullet={index}>
-              <Text c="dimmed" size="sm">
-                {key.slice(0, -1)}
-              </Text>
-            </Timeline.Item>
-          );
-        })}
-      </Timeline>
+      <Stack gap="50px">
+        {Object.keys(meetingActionItems).map((key, index) => (
+          <Timeline
+            key={index}
+            radius="xs"
+            active={meetingActionItems[key].length}
+            lineWidth={1}
+            bulletSize={26}
+            color={index % 2 === 0 ? 'blue' : 'orange'}
+          >
+            {meetingActionItems[key].map((item, idx) => (
+              <Timeline.Item
+                key={idx}
+                title={item}
+                bullet={key.toLowerCase().startsWith('all') ? <IconUsers size={16} /> : <IconUserStar size={18} />}
+              >
+                <Text c="gray.7" size="sm">
+                  {key.slice(0, -1)}
+                </Text>
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        ))}
+      </Stack>
     </>
   );
 }

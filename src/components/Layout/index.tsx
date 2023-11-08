@@ -12,14 +12,15 @@ interface LayoutProps {
   setNestedNav: Dispatch<SetStateAction<string>>;
   children?: ReactNode;
   navBadges: NavBadgesType;
+  progress: boolean;
 }
 
-export default function Layout({ nestedNav, setNestedNav, children, navBadges }: LayoutProps) {
+export default function Layout({ nestedNav, setNestedNav, children, navBadges, progress }: LayoutProps) {
   const [opened, { toggle }] = useDisclosure(window.innerWidth > 768);
 
   return (
     <AppShell navbar={{ width: 250, breakpoint: 'sm' }} padding="xs" style={{ height: 'calc(100vh - 10px)' }}>
-      <Progress radius="xs" size="xs" value={100} animated style={{ zIndex: 102 }} />
+      <Progress radius="xs" size="xs" value={100} animated={progress} style={{ zIndex: 102 }} />
       <AppShell.Navbar withBorder={false} style={{ backgroundColor: 'unset', width: opened ? '250px' : '75px' }}>
         <Navbar
           opened={opened}

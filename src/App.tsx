@@ -15,16 +15,16 @@ import { NavBadgesType } from './types/NavBadges';
 function App() {
   const location = useLocation();
 
+  const [progress, setProgress] = useState(false);
   const [nestedNav, setNestedNav] = useState(/^\/\w+\/.*$/.test(location.pathname) ? 'Dashboard' : 'Meetings');
   const [navBadges, setNavBadges] = useState<NavBadgesType>({
-    'Meeting Action Items': 0,
     'Retro Action Items': 0,
     'Suggested Tickets': 0,
   });
 
   return (
     <AnimatePresence mode="wait">
-      <Layout nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges}>
+      <Layout nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges} progress={progress}>
         <Routes key={location.pathname} location={location}>
           <Route path="/" element={<Meetings />} />
           <Route path="/meetings" element={<Meetings />} />

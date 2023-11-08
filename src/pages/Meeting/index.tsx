@@ -2,8 +2,8 @@ import { Box, Paper } from '@mantine/core';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import data from '@/assets/david/master_output.json';
 import lottie from '@/assets/lotties/meeting.json';
-import { MEETINGS } from '@/assets/mock/meetings';
 import MeetingHeader from '@/components/MeetingHeader';
 import { NavBadgesType } from '@/types/NavBadges';
 
@@ -22,43 +22,41 @@ interface MeetingProps {
 
 export default function Meeting({ nestedNav, setNavBadges }: MeetingProps) {
   const { meetingId } = useParams();
-  const meeting = MEETINGS.find((m) => m.id === meetingId);
 
   useEffect(() => {
     setNavBadges({
-      'Meeting Action Items': 4,
-      'Retro Action Items': 6,
-      'Suggested Tickets': 3,
+      'Retro Action Items': data.Retro.retro_actions.length,
+      'Suggested Tickets': data.Jira.jira_tickets.length,
     });
   }, [setNavBadges]);
 
-  const navigate = useNavigate();
-  if (!meeting) {
-    navigate(`/404`);
-    return null;
-  }
+  // const navigate = useNavigate();
+  // if (!meeting) {
+  //   navigate(`/404`);
+  //   return null;
+  // }
 
   return (
     <>
-      <MeetingHeader {...meeting} lottie={lottie} />
+      <MeetingHeader data={data} lottie={lottie} />
       <Paper shadow="xs" radius="lg" p="xs" mt="sm">
         <Box p="sm" mt="xs" style={{ whiteSpace: 'pre-wrap' }}>
           {(() => {
             switch (nestedNav) {
               case 'Dashboard':
-                return <Dashboard id={meetingId} />;
+                return <Dashboard data={data} />;
               case 'Transcript':
-                return <Transcript id={meetingId} />;
+                return <Transcript data={data} />;
               case 'Meeting Minutes':
-                return <Minutes id={meetingId} />;
+                return <Minutes data={data} />;
               case 'Meeting Action Items':
-                return <MeetingActions id={meetingId} />;
+                return <MeetingActions data={data} />;
               case 'Retro Action Items':
-                return <RetroActions id={meetingId} />;
+                return <RetroActions data={data} />;
               case 'Suggested Tickets':
-                return <Tickets id={meetingId} />;
+                return <Tickets id={meetingId} data={data} />;
               case 'Next Agenda':
-                return <Agenda id={meetingId} />;
+                return <Agenda id={meetingId} data={data} />;
               default:
                 return null;
             }

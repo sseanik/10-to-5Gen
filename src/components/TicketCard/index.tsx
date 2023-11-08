@@ -9,7 +9,6 @@ import {
   Stack,
   Text,
   Tooltip,
-  UnstyledButton,
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -18,12 +17,12 @@ import { IconClock, IconUrgent } from '@tabler/icons-react';
 import { COLOURS } from '@/assets/data/colours';
 import TicketModal from '@/components/TicketModal';
 import { getDurationColour, getPriorityColour } from '@/helpers/colours';
-import { TicketType } from '@/types/Ticket';
+import { JiraTicketType } from '@/types/Data';
 
 import styles from './index.module.css';
 
-export default function TicketCard(props: TicketType) {
-  const { title, description, assignee, duration, priority } = props;
+export default function TicketCard(props: JiraTicketType) {
+  const { assignee, description, estimate, priority, title } = props;
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -33,17 +32,17 @@ export default function TicketCard(props: TicketType) {
         <TicketModal {...props} />
       </Modal>
       <Card
+        component="button"
+        onClick={open}
         shadow="sm"
         radius="md"
         p="sm"
         withBorder
         styles={{
-          root: { borderLeft: `5px solid ${getThemeColor(getDurationColour(duration), theme)}` },
+          root: { borderLeft: `5px solid ${getThemeColor(getDurationColour(estimate), theme)}`, textAlign: 'left' },
         }}
         style={{ width: 300, height: 170 }}
-        component={UnstyledButton}
         className={styles.ticket}
-        onClick={open}
       >
         <Stack justify="space-between" h="100%">
           <Box>
@@ -58,8 +57,8 @@ export default function TicketCard(props: TicketType) {
 
           <Group justify="space-between">
             <Group>
-              <Badge color={`${getDurationColour(duration)}`} leftSection={<IconClock size={16} />} py="8px">
-                {duration}
+              <Badge color={`${getDurationColour(estimate)}`} leftSection={<IconClock size={16} />} py="8px">
+                {estimate}
               </Badge>
 
               <Badge color={`${getPriorityColour(priority)}`} leftSection={<IconUrgent size={16} />} py="8px">

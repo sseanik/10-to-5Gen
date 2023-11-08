@@ -27,3 +27,7 @@
 .mantine-datatable-row:hover {
   background-color: #f7faff;
 }
+
+.mantine-Blockquote-cite {
+  opacity: 0.9;
+}

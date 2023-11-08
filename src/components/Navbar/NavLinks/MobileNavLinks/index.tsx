@@ -53,7 +53,7 @@ export default function MobileNavLinks({ meeting, nestedNav, setNestedNav }: Mob
           );
         }
         return (
-          <Menu shadow="md" withArrow arrowPosition="center" position="right" trigger="hover">
+          <Menu key={item.label} shadow="md" withArrow arrowPosition="center" position="right" trigger="hover">
             <Menu.Target>
               <ActionIcon
                 size="xl"
@@ -66,8 +66,9 @@ export default function MobileNavLinks({ meeting, nestedNav, setNestedNav }: Mob
             </Menu.Target>
 
             <Menu.Dropdown>
-              {item.children.map((nestedItem) => (
+              {item.children.map((nestedItem, index) => (
                 <Menu.Item
+                  key={index}
                   leftSection={<nestedItem.icon style={{ width: rem(14), height: rem(14) }} />}
                   onClick={() => setNestedNav(nestedItem.label)}
                 >

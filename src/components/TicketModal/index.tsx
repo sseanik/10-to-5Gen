@@ -1,19 +1,19 @@
 import { Button, Group, NumberInput, Select, Textarea, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import { TicketType } from '@/types/Ticket';
+import { JiraTicketType } from '@/types/Data';
 
-export default function TicketModal(props: TicketType) {
-  const { title, description, ac, assignee, duration, priority, userStory } = props;
+export default function TicketModal(props: JiraTicketType) {
+  const { acceptanceCriteria, assignee, description, estimate, priority, title, userStory } = props;
 
   const form = useForm({
     initialValues: {
       title,
       description,
       userStory,
-      ac,
+      acceptanceCriteria,
       assignee,
-      duration,
+      estimate,
       priority,
     },
   });
@@ -26,9 +26,9 @@ export default function TicketModal(props: TicketType) {
       <TextInput label="Title" {...form.getInputProps('title')} />
       <Textarea autosize label="Description" {...form.getInputProps('description')} />
       <Textarea autosize label="User Story" {...form.getInputProps('userStory')} />
-      <Textarea autosize label="Acceptance Criteria" {...form.getInputProps('ac')} />
+      <Textarea autosize label="Acceptance Criteria" {...form.getInputProps('acceptanceCriteria')} />
       <TextInput label="Assignee" {...form.getInputProps('assignee')} />
-      <NumberInput min={0} label="Duration Estimate" {...form.getInputProps('duration')} />
+      <NumberInput min={0} label="Duration Estimate" {...form.getInputProps('estimate')} />
       <Select label="Duration Estimate" {...form.getInputProps('priority')} data={['High', 'Medium', 'Low']} />
 
       <Group justify="flex-end" mt="md">

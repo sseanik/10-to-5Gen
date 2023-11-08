@@ -1,26 +1,27 @@
-import { Blockquote, List, Text } from '@mantine/core';
+import { List, Text, Title } from '@mantine/core';
 
-import data from '@/assets/david/meeting.json';
+import { DataType } from '@/types/Data';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function Minutes({ id }: { id?: string }) {
-  const minuteLines = data.minutes.content.split('\n');
+export default function Minutes({ data }: { data: DataType }) {
+  const { agenda, summary } = data.Meeting.minutes.minutes;
 
-  return minuteLines.map((line, index) => {
-    if (!line.includes('\n') && line.includes(':') && !line.includes('[Insert')) {
-      return (
-        <Blockquote key={index} color="blue" p="sm" my="xs" style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>
-          {line}
-        </Blockquote>
-      );
-    }
-    if (/^-/.test(line)) {
-      return (
-        <List key={index}>
-          <List.Item>{line.replace(/^-/, '')}</List.Item>
-        </List>
-      );
-    }
-    return <Text key={index}>{line}</Text>;
-  });
+  return (
+    <>
+      <Title order={4} mb="xs" c="blue">
+        Agenda
+      </Title>
+      <List>
+        {agenda.map((line, index) => (
+          <Text key={index}>{line}</Text>
+        ))}
+      </List>
+      <Title order={4} mt="lg" mb="6" c="blue">
+        Summary
+      </Title>
+      {summary.map((line, index) => (
+        <Text key={index}>{line}</Text>
+      ))}
+    </>
+  );
 }
