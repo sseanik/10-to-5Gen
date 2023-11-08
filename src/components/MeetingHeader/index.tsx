@@ -3,6 +3,7 @@ import { IconBrandOpenai, IconCalendarStats } from '@tabler/icons-react';
 import Lottie from 'lottie-react';
 
 import { COLOURS } from '@/assets/data/colours';
+import parseNames from '@/helpers/parseNames';
 import { DataType } from '@/types/Data';
 
 interface MeetingHeaderProps {
@@ -14,9 +15,21 @@ interface MeetingHeaderProps {
 export default function MeetingHeader({ data, lottie, mock }: MeetingHeaderProps) {
   const { attendees, date, duration, title, type } = data.Meta;
   const { time, location } = data.Meeting.minutes.minutes;
+  const parsedNames = parseNames(attendees);
 
   return (
-    <Paper shadow="sm" radius="lg" p="xs" pr="xl" pl={0} pos="sticky" w="100%" top={3} withBorder>
+    <Paper
+      shadow="sm"
+      radius="lg"
+      p="xs"
+      pr="xl"
+      pl={0}
+      pos="sticky"
+      w="100%"
+      top={3}
+      withBorder
+      style={{ zIndex: 102 }}
+    >
       <Group justify="space-between">
         <Group>
           <Lottie animationData={lottie} loop style={{ height: 100 }} />
@@ -49,7 +62,7 @@ export default function MeetingHeader({ data, lottie, mock }: MeetingHeaderProps
               </Text>
               <Tooltip.Group openDelay={300} closeDelay={100}>
                 <Avatar.Group spacing="sm">
-                  {attendees.map((attendee, index) => (
+                  {parsedNames.map((attendee, index) => (
                     <Tooltip key={`${attendee}-${index}`} label={attendee} withArrow>
                       <Avatar
                         size="30px"

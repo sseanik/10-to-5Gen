@@ -8,7 +8,6 @@ import { useMutation } from 'react-query';
 interface UploadType {
   name: string;
   meetingType: string;
-  file: FileWithPath;
 }
 
 export default function UploadModal({ opened, close }: { opened: boolean; close: () => void }) {
@@ -25,27 +24,42 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
     },
   });
 
-  const [fileUpload, setFileUpload] = useState<FileWithPath>();
+  const [fileUpload, setFileUpload] = useState<string | Blob>('');
 
-  const uploadTranscript = useMutation({
-    mutationFn: ({ name, meetingType, file }: UploadType) =>
-      fetch('https://congregate-backend.onrender.com//uploadtranscript', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, meetingType, file }),
-      }),
+  const uploadTranscript = async ({ name, meetingType }: UploadType) => {
+    const data = new FormData();
+    data.append('name', name);
+    data.append('meetingType', meetingType);
+    console.log(fileUpload);
+
+    data.append('files', fileUpload);
+    console.log(data.get('files'));
+
+    const response = await fetch('http://127.0.0.1:5000/uploadtranscript', {
+      method: 'POST',
+      body: data,
+    });
+    const json = await response.json();
+    return json;
+  };
+
+  const { mutate, isLoading } = useMutation(uploadTranscript, {
+    onSuccess: (data) => {
+      console.log(data);
+      const message = 'success';
+      alert(message);
+    },
+    onError: () => {
+      alert('there was an error');
+    },
+    // onSettled: () => {
+    //   queryClient.invalidateQueries('create');
+    // },
   });
 
   return (
     <Modal opened={opened} onClose={close} title="Upload Transcript">
-      <form
-        onSubmit={form.onSubmit(({ name, meetingType }) =>
-          uploadTranscript.mutate({ name, meetingType, file: fileUpload as FileWithPath }),
-        )}
-      >
+      <form onSubmit={form.onSubmit(({ name, meetingType }) => mutate({ name, meetingType }))}>
         <Dropzone
           onDrop={(f: FileWithPath[]) => setFileUpload(f[0])}
           onReject={(f: FileRejection[]) => console.log(`Files rejected: ${f[0]}`)}
@@ -85,7 +99,8 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
                     One File Selected
                   </Text>
                   <Text size="sm" c="dimmed" inline mt={7} style={{ textAlign: 'center' }}>
-                    {fileUpload.name}
+                    {/* {fileUpload.name} */}
+                    {123}
                   </Text>
                 </>
               ) : (
@@ -94,7 +109,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
                     Drag your Microsoft Teams transcript file
                   </Text>
                   <Text size="sm" c="dimmed" inline mt={7} style={{ textAlign: 'center' }}>
-                    Attach one .vtt, .txt or .docx file at a time
+                    Attach a .vtt, .txt or .docx file
                   </Text>
                 </>
               )}
@@ -108,7 +123,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
           <Select
             label="Meeting Type"
             placeholder="Pick Meeting Type"
-            data={['Standup', 'Sprint Planning', 'Retrospective', 'Sprint Review']}
+            data={['Standup', 'Sprint Planning', 'Retrospective', 'Sprint Review', 'Other']}
             {...form.getInputProps('meetingType')}
           />
           <Button variant="filled" mt="xs" type="submit">

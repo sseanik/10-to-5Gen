@@ -11,8 +11,8 @@ export default function Transcript({ data }: { data: DataType }) {
     return <div>No Transcript Found, please upload one.</div>;
   }
 
-  const arrows = transcriptText.split('\n').filter((line) => line.startsWith('<'));
-  console.log({ arrows, check: arrows[0], fix: arrows[0].match(/^[^<v]+[^</v>]$/) });
+  // const arrows = transcriptText.split('\n').filter((line) => line.startsWith('<'));
+  // console.log({ arrows, check: arrows[0], fix: arrows[0].match(/^[^<v]+[^</v>]$/) });
   return (
     <Accordion defaultValue="transcript-ai" variant="separated">
       <Accordion.Item key="transcript-ai" value="transcript-ai">

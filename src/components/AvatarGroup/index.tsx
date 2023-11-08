@@ -1,12 +1,15 @@
 import { Avatar, Tooltip } from '@mantine/core';
 
 import { COLOURS } from '@/assets/data/colours';
+import parseNames from '@/helpers/parseNames';
 
 export default function AvatarGroup({ names }: { names: string[] }) {
+  const parsedNames = parseNames(names);
+
   return (
     <Tooltip.Group openDelay={300} closeDelay={100}>
       <Avatar.Group spacing="sm">
-        {names.map((name, index) => (
+        {parsedNames.map((name, index) => (
           <Tooltip label={name} withArrow key={`${name}-${index}`}>
             <Avatar radius="xl" color={COLOURS[Math.floor(name[0].charCodeAt(0) % COLOURS.length)]}>
               {name[0]}

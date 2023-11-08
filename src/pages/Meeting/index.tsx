@@ -25,13 +25,14 @@ interface MeetingProps {
 
 export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProgress }: MeetingProps) {
   const { meetingId } = useParams();
+  console.log({ meetingId });
   // Fetching the data
   const getMeeting = async () => {
-    const res = await fetch(`https://congregate-backend.onrender.com//files/${meetingId}`);
+    const res = await fetch(`http://127.0.0.1:5000/files/${meetingId}`);
     return res.json();
   };
   // Using the hook
-  const { data, isLoading } = useQuery({ queryKey: ['meeting'], queryFn: getMeeting, retry: 1 });
+  const { data, isLoading } = useQuery({ queryKey: ['meetingId', meetingId], queryFn: getMeeting, retry: 1 });
 
   useEffect(() => {
     setNestedNav('Dashboard');
@@ -41,7 +42,7 @@ export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProg
     setProgress(isLoading);
   }, [isLoading, setProgress]);
 
-  const [dataSource] = useState(!data ? mockData : data.data);
+  const dataSource = !data ? mockData : data.data;
 
   useEffect(() => {
     setNavBadges({

@@ -21,11 +21,12 @@ export default function MeetingTable({ setProgress }: { setProgress: Dispatch<Se
 
   // Fetching the data
   const getMeetings = async () => {
-    const res = await fetch('https://congregate-backend.onrender.com//masterlist');
+    const res = await fetch('http://127.0.0.1:5000/masterlist');
     return res.json();
   };
   // Using the hook
   const { data, isLoading } = useQuery({ queryKey: ['meetings'], queryFn: getMeetings, retry: 1 });
+  console.log({ data });
 
   useEffect(() => {
     setProgress(isLoading);
@@ -39,7 +40,7 @@ export default function MeetingTable({ setProgress }: { setProgress: Dispatch<Se
       dataSource.map((row, index) => ({
         key: `${row.ID}-${index}`,
         ...row,
-        duration: `${row.duration.split(':')[0]} minutes`,
+        duration: `${row.duration.split(':')[0].replace('minutes', '')} minutes`,
         attendees: <AvatarGroup key={index} names={row.attendees} />,
       })),
     [dataSource],
