@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
+import { URL_CONFIG } from '@/assets/config';
 import mockData from '@/assets/david/master_list.json';
 import AvatarGroup from '@/components/AvatarGroup';
 import { Meta } from '@/types/Data';
@@ -21,7 +22,7 @@ export default function MeetingTable({ setProgress }: { setProgress: Dispatch<Se
 
   // Fetching the data
   const getMeetings = async () => {
-    const res = await fetch('https://congregate-backend.onrender.com/masterlist');
+    const res = await fetch(`${URL_CONFIG}/masterlist`);
     return res.json();
   };
   // Using the hook

@@ -5,6 +5,8 @@ import { IconFileSmile, IconTextPlus, IconUpload, IconX } from '@tabler/icons-re
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 
+import { URL_CONFIG } from '@/assets/config';
+
 interface UploadType {
   name: string;
   meetingType: string;
@@ -35,7 +37,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
     data.append('files', fileUpload);
     console.log(data.get('files'));
 
-    const response = await fetch('https://congregate-backend.onrender.com/uploadtranscript', {
+    const response = await fetch(`${URL_CONFIG}/uploadtranscript`, {
       method: 'POST',
       body: data,
     });

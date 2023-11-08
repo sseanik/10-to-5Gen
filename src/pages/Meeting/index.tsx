@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
+import { URL_CONFIG } from '@/assets/config';
 import mockData from '@/assets/david/master_output.json';
 import lottie from '@/assets/lotties/meeting.json';
 import MeetingHeader from '@/components/MeetingHeader';
@@ -28,7 +29,7 @@ export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProg
   console.log({ meetingId });
   // Fetching the data
   const getMeeting = async () => {
-    const res = await fetch(`https://congregate-backend.onrender.com/files/${meetingId}`);
+    const res = await fetch(`${URL_CONFIG}/files/${meetingId}`);
     return res.json();
   };
   // Using the hook
