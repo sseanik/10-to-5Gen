@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
@@ -12,9 +13,9 @@ import Standup from '@/pages/Standup';
 import { NavBadgesType } from './types/NavBadges';
 
 function App() {
-  const { pathname } = useLocation();
+  const location = useLocation();
 
-  const [nestedNav, setNestedNav] = useState(/^\/\w+\/.*$/.test(pathname) ? 'Dashboard' : 'Meetings');
+  const [nestedNav, setNestedNav] = useState(/^\/\w+\/.*$/.test(location.pathname) ? 'Dashboard' : 'Meetings');
   const [navBadges, setNavBadges] = useState<NavBadgesType>({
     'Meeting Action Items': 0,
     'Retro Action Items': 0,
@@ -22,18 +23,20 @@ function App() {
   });
 
   return (
-    <Layout nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges}>
-      <Routes>
-        <Route path="/" element={<Meetings />} />
-        <Route path="/meetings" element={<Meetings />} />
-        <Route path="/meeting/:meetingId" element={<Meeting nestedNav={nestedNav} setNavBadges={setNavBadges} />} />
-        <Route path="/agile" element={<Agile />} />
-        <Route path="/retro" element={<Retro />} />
-        <Route path="/standup" element={<Standup />} />
-        <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Layout>
+    <AnimatePresence mode="wait">
+      <Layout nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges}>
+        <Routes key={location.pathname} location={location}>
+          <Route path="/" element={<Meetings />} />
+          <Route path="/meetings" element={<Meetings />} />
+          <Route path="/meeting/:meetingId" element={<Meeting nestedNav={nestedNav} setNavBadges={setNavBadges} />} />
+          <Route path="/agile" element={<Agile />} />
+          <Route path="/retro" element={<Retro />} />
+          <Route path="/standup" element={<Standup />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </AnimatePresence>
   );
 }
 

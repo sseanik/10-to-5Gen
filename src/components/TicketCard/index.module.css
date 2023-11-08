@@ -1,0 +1,9 @@
+.ticket {
+  transition: 0.5s all ease 0s;
+}
+
+.ticket:hover {
+  background-color: #f8f8f8;
+  transform: scale(1.05);
+  transition: 0.5s all ease 0s;
+}

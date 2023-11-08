@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { NavBadgesType } from '@/assets/src/types/NavBadges';
+import { NavBadgesType } from '@/types/NavBadges';
 
 import DesktopNavLinks from './DesktopNavLinks';
 import MobileNavLinks from './MobileNavLinks';
