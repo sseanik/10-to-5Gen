@@ -8,9 +8,10 @@ import { DataType } from '@/types/Data';
 interface MeetingHeaderProps {
   data: DataType;
   lottie: unknown;
+  mock: boolean;
 }
 
-export default function MeetingHeader({ data, lottie }: MeetingHeaderProps) {
+export default function MeetingHeader({ data, lottie, mock }: MeetingHeaderProps) {
   const { attendees, date, duration, title, type } = data.Meta;
   const { time, location } = data.Meeting.minutes.minutes;
 
@@ -62,6 +63,11 @@ export default function MeetingHeader({ data, lottie }: MeetingHeaderProps) {
                 </Avatar.Group>
               </Tooltip.Group>
             </Flex>
+            {mock && (
+              <Text mb="xs" c="red.8" size="sm">
+                Using Mock Data
+              </Text>
+            )}
           </Stack>
         </Group>
         <Button variant="light" leftSection={<IconBrandOpenai size="24px" stroke={1.5} />} size="md">

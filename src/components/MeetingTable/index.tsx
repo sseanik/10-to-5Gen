@@ -73,7 +73,7 @@ export default function MeetingTable({ setProgress }: { setProgress: Dispatch<Se
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <Paper shadow="xs" radius="lg" p="md" mt="md">
+    <Paper shadow="xs" radius="lg" p="md" mt="md" pr="md" mr="sm">
       {!data && (
         <Text mb="xs" c="red.8" size="sm">
           Using Mock Data

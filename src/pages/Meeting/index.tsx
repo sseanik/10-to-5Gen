@@ -18,11 +18,12 @@ import Transcript from './Transcript';
 
 interface MeetingProps {
   nestedNav: string;
+  setNestedNav: Dispatch<SetStateAction<string>>;
   setNavBadges: Dispatch<SetStateAction<NavBadgesType>>;
   setProgress: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Meeting({ nestedNav, setNavBadges, setProgress }: MeetingProps) {
+export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProgress }: MeetingProps) {
   const { meetingId } = useParams();
   // Fetching the data
   const getMeeting = async () => {
@@ -31,6 +32,10 @@ export default function Meeting({ nestedNav, setNavBadges, setProgress }: Meetin
   };
   // Using the hook
   const { data, isLoading } = useQuery({ queryKey: ['meeting'], queryFn: getMeeting, retry: 1 });
+
+  useEffect(() => {
+    setNestedNav('Dashboard');
+  }, [setNestedNav]);
 
   useEffect(() => {
     setProgress(isLoading);
@@ -49,7 +54,7 @@ export default function Meeting({ nestedNav, setNavBadges, setProgress }: Meetin
 
   return (
     <Box mr="10px">
-      <MeetingHeader data={dataSource} lottie={lottie} />
+      <MeetingHeader data={dataSource} lottie={lottie} mock={!data} />
       <Paper shadow="xs" radius="lg" p="xs" mt="sm">
         <Box p="sm" mt="xs" style={{ whiteSpace: 'pre-wrap' }}>
           {(() => {

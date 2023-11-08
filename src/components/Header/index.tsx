@@ -1,7 +1,10 @@
-import { Button, FileButton, Group, Paper, Stack, Text, Title } from '@mantine/core';
-import { IconFileUpload } from '@tabler/icons-react';
+import { Button, FileButton, Group, Modal, Paper, rem, Stack, Text, Title } from '@mantine/core';
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { useDisclosure } from '@mantine/hooks';
+import { IconFileUpload, IconNotes, IconPhoto, IconTextPlus, IconUpload, IconX } from '@tabler/icons-react';
 import Lottie from 'lottie-react';
-import { useState } from 'react';
+
+import UploadModal from '../UploadModal';
 
 interface HeaderProps {
   heading: string;
@@ -11,11 +14,10 @@ interface HeaderProps {
 }
 
 export default function Header({ heading, description, lottie, hideUpload }: HeaderProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [files, setFiles] = useState<File[]>([]);
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Paper shadow="xs" radius="lg" style={{ padding: '0 1rem' }}>
+    <Paper shadow="xs" radius="lg" style={{ padding: '0 1rem' }} pr="md" mr="sm">
       <Group justify="space-between">
         <Group>
           <Lottie animationData={lottie} loop style={{ height: 100 }} />
@@ -26,13 +28,12 @@ export default function Header({ heading, description, lottie, hideUpload }: Hea
         </Group>
 
         {!hideUpload && (
-          <FileButton onChange={setFiles} accept="image/png,image/jpeg" multiple>
-            {(props) => (
-              <Button {...props} leftSection={<IconFileUpload size="24px" stroke={1.5} />} size="md">
-                Upload Meeting
-              </Button>
-            )}
-          </FileButton>
+          <>
+            <UploadModal opened={opened} close={close} />
+            <Button onClick={open} leftSection={<IconFileUpload size="24px" stroke={1.5} />} size="md">
+              Upload Transcript
+            </Button>
+          </>
         )}
       </Group>
     </Paper>

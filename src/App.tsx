@@ -30,7 +30,14 @@ function App() {
           <Route path="/meetings" element={<Meetings setProgress={setProgress} />} />
           <Route
             path="/meeting/:meetingId"
-            element={<Meeting nestedNav={nestedNav} setProgress={setProgress} setNavBadges={setNavBadges} />}
+            element={
+              <Meeting
+                nestedNav={nestedNav}
+                setNestedNav={setNestedNav}
+                setProgress={setProgress}
+                setNavBadges={setNavBadges}
+              />
+            }
           />
           <Route path="/agile" element={<Agile />} />
           <Route path="/retro" element={<Retro />} />
