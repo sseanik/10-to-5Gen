@@ -1,6 +1,6 @@
 import { Box, Paper } from '@mantine/core';
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import data from '@/assets/david/master_output.json';
 import lottie from '@/assets/lotties/meeting.json';
@@ -54,9 +54,9 @@ export default function Meeting({ nestedNav, setNavBadges }: MeetingProps) {
               case 'Retro Action Items':
                 return <RetroActions data={data} />;
               case 'Suggested Tickets':
-                return <Tickets id={meetingId} data={data} />;
+                return <Tickets data={data} />;
               case 'Next Agenda':
-                return <Agenda id={meetingId} data={data} />;
+                return <Agenda data={data} />;
               default:
                 return null;
             }

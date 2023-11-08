@@ -3,4 +3,4 @@ export interface NavBadgesType {
   'Suggested Tickets': number;
 }
 
-export type NavBadgeKeys = 'Meeting Action Items' | 'Retro Action Items' | 'Suggested Tickets';
+export type NavBadgeKeys = 'Retro Action Items' | 'Suggested Tickets';
