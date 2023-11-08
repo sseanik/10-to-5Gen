@@ -19,17 +19,22 @@ import Transcript from './Transcript';
 interface MeetingProps {
   nestedNav: string;
   setNavBadges: Dispatch<SetStateAction<NavBadgesType>>;
+  setProgress: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Meeting({ nestedNav, setNavBadges }: MeetingProps) {
+export default function Meeting({ nestedNav, setNavBadges, setProgress }: MeetingProps) {
   const { meetingId } = useParams();
   // Fetching the data
-  const getMeetings = async () => {
-    const res = await fetch(`http://13.211.169.215:5000/files/${meetingId}`);
+  const getMeeting = async () => {
+    const res = await fetch(`https://13.211.169.215:5000/files/${meetingId}`);
     return res.json();
   };
   // Using the hook
-  const { data, isLoading } = useQuery('meeting', getMeetings);
+  const { data, isLoading } = useQuery({ queryKey: ['meeting'], queryFn: getMeeting, retry: 1 });
+
+  useEffect(() => {
+    setProgress(isLoading);
+  }, [isLoading, setProgress]);
 
   const [dataSource] = useState(!data ? mockData : data.data);
 
@@ -43,7 +48,7 @@ export default function Meeting({ nestedNav, setNavBadges }: MeetingProps) {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <>
+    <Box mr="10px">
       <MeetingHeader data={dataSource} lottie={lottie} />
       <Paper shadow="xs" radius="lg" p="xs" mt="sm">
         <Box p="sm" mt="xs" style={{ whiteSpace: 'pre-wrap' }}>
@@ -71,6 +76,6 @@ export default function Meeting({ nestedNav, setNavBadges }: MeetingProps) {
           })()}
         </Box>
       </Paper>
-    </>
+    </Box>
   );
 }

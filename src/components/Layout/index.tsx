@@ -19,8 +19,17 @@ export default function Layout({ nestedNav, setNestedNav, children, navBadges, p
   const [opened, { toggle }] = useDisclosure(window.innerWidth > 768);
 
   return (
-    <AppShell navbar={{ width: 250, breakpoint: 'sm' }} padding="xs" style={{ height: 'calc(100vh - 10px)' }}>
-      <Progress radius="xs" size="xs" value={100} animated={progress} style={{ zIndex: 102 }} />
+    <AppShell navbar={{ width: 250, breakpoint: 'sm' }} padding="0" style={{ height: 'calc(100vh - 10px)' }}>
+      <Progress
+        radius="xs"
+        size="xs"
+        value={100}
+        animated={progress}
+        style={{ zIndex: 103 }}
+        pos="fixed"
+        w="100%"
+        top={0}
+      />
       <AppShell.Navbar withBorder={false} style={{ backgroundColor: 'unset', width: opened ? '250px' : '75px' }}>
         <Navbar
           opened={opened}

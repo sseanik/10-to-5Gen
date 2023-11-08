@@ -15,17 +15,21 @@ interface MetaParsed extends Omit<Meta, 'attendees'> {
   attendees: JSX.Element;
 }
 
-export default function MeetingTable({ setNestedNav }: { setNestedNav: Dispatch<SetStateAction<string>> }) {
+export default function MeetingTable({ setProgress }: { setProgress: Dispatch<SetStateAction<boolean>> }) {
   // Navigating to meeting
   const navigate = useNavigate();
 
   // Fetching the data
   const getMeetings = async () => {
-    const res = await fetch('http://13.211.169.215:5000/masterlist');
+    const res = await fetch('https://13.211.169.215:5000/masterlist');
     return res.json();
   };
   // Using the hook
-  const { data, isLoading } = useQuery('meetings', getMeetings);
+  const { data, isLoading } = useQuery({ queryKey: ['meetings'], queryFn: getMeetings, retry: 1 });
+
+  useEffect(() => {
+    setProgress(isLoading);
+  }, [isLoading, setProgress]);
 
   const dataSource = !data ? mockData : (data.data as Meta[]);
 

@@ -15,7 +15,7 @@ export default function MeetingHeader({ data, lottie }: MeetingHeaderProps) {
   const { time, location } = data.Meeting.minutes.minutes;
 
   return (
-    <Paper shadow="xs" radius="lg" p="xs" pr="xl" pl={0}>
+    <Paper shadow="sm" radius="lg" p="xs" pr="xl" pl={0} pos="sticky" w="100%" top={3} withBorder>
       <Group justify="space-between">
         <Group>
           <Lottie animationData={lottie} loop style={{ height: 100 }} />

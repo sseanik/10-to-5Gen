@@ -16,9 +16,11 @@ export default function Transcript({ data }: { data: DataType }) {
       <Accordion.Item key="transcript-ai" value="transcript-ai">
         <Accordion.Control icon={<IconVocabulary />}>Parsed Transcript</Accordion.Control>
         <Accordion.Panel>
-          <Highlight color="gray" highlight={names}>
-            {transcriptText}
-          </Highlight>
+          {transcriptText.split('\n').map((line, index) => (
+            <Highlight key={index} color="gray" highlight={names}>
+              {line}
+            </Highlight>
+          ))}
         </Accordion.Panel>
       </Accordion.Item>
       <Accordion.Item key="transcript-original" value="transcript-original">

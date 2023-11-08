@@ -26,9 +26,12 @@ function App() {
     <AnimatePresence mode="wait">
       <Layout nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges} progress={progress}>
         <Routes key={location.pathname} location={location}>
-          <Route path="/" element={<Meetings setNestedNav={setNestedNav} />} />
-          <Route path="/meetings" element={<Meetings setNestedNav={setNestedNav} />} />
-          <Route path="/meeting/:meetingId" element={<Meeting nestedNav={nestedNav} setNavBadges={setNavBadges} />} />
+          <Route path="/" element={<Meetings setProgress={setProgress} />} />
+          <Route path="/meetings" element={<Meetings setProgress={setProgress} />} />
+          <Route
+            path="/meeting/:meetingId"
+            element={<Meeting nestedNav={nestedNav} setProgress={setProgress} setNavBadges={setNavBadges} />}
+          />
           <Route path="/agile" element={<Agile />} />
           <Route path="/retro" element={<Retro />} />
           <Route path="/standup" element={<Standup />} />
