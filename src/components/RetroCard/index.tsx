@@ -1,7 +1,7 @@
 import { Badge, Card, Group, Text } from '@mantine/core';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function RetroCard({ index, text }: { index: number; text: string }) {
-  console.log({ index });
   return (
     <Card shadow="sm" padding="md" radius="md" withBorder my="sm">
       <Group justify="space-between">

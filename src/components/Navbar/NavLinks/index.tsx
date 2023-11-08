@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { NavBadgesType } from '@/assets/src/types/NavBadges';
+
 import DesktopNavLinks from './DesktopNavLinks';
 import MobileNavLinks from './MobileNavLinks';
 
@@ -8,15 +10,16 @@ interface NavLinksProps {
   opened: boolean;
   nestedNav: string;
   setNestedNav: Dispatch<SetStateAction<string>>;
+  navBadges: NavBadgesType;
 }
 
-export function NavLinks({ opened, nestedNav, setNestedNav }: NavLinksProps) {
+export function NavLinks({ opened, nestedNav, setNestedNav, navBadges }: NavLinksProps) {
   const { pathname } = useLocation();
   const isMeeting = /^\/meeting\/.*/.test(pathname);
 
   return opened ? (
-    <DesktopNavLinks meeting={isMeeting} nestedNav={nestedNav} setNestedNav={setNestedNav} />
+    <DesktopNavLinks meeting={isMeeting} nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges} />
   ) : (
-    <MobileNavLinks meeting={isMeeting} nestedNav={nestedNav} setNestedNav={setNestedNav} />
+    <MobileNavLinks meeting={isMeeting} nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges} />
   );
 }

@@ -2,6 +2,7 @@ import { Blockquote, List, Text } from '@mantine/core';
 
 import data from '@/assets/david/meeting.json';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Minutes({ id }: { id?: string }) {
   const minuteLines = data.minutes.content.split('\n');
 

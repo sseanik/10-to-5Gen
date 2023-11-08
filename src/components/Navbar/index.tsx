@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import { NavLinks } from '@/components/Navbar/NavLinks';
 import { NavLogo } from '@/components/Navbar/NavLogo';
 import { NavProfile } from '@/components/Navbar/NavProfile';
+import { NavBadgesType } from '@/types/NavBadges';
 
 import classes from './index.module.css';
 
@@ -14,9 +15,10 @@ interface NavbarProps {
   toggle: () => void;
   nestedNav: string;
   setNestedNav: Dispatch<SetStateAction<string>>;
+  navBadges: NavBadgesType;
 }
 
-export default function Navbar({ opened, toggle, nestedNav, setNestedNav }: NavbarProps) {
+export default function Navbar({ opened, toggle, nestedNav, setNestedNav, navBadges }: NavbarProps) {
   const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function Navbar({ opened, toggle, nestedNav, setNestedNav }: Navb
     >
       <Box>
         <NavLogo opened={opened} toggle={toggle} />
-        <NavLinks opened={opened} nestedNav={nestedNav} setNestedNav={setNestedNav} />
+        <NavLinks opened={opened} nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges} />
       </Box>
       <NavProfile opened={opened} />
     </motion.nav>

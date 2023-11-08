@@ -21,7 +21,9 @@
       "@/components/*": ["*", "src/components/*"],
       "@/helpers/*": ["*", "src/helpers/*"],
       "@/pages/*": ["*", "src/pages/*"],
-      "@/data/*": ["*", "src/data/*"]
+      "@/data/*": ["*", "src/data/*"],
+      "@/types/*": ["*", "src/types/*"]
+
     }
   },
   "include": ["src"],

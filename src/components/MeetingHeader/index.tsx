@@ -34,11 +34,7 @@ export default function MeetingHeader({ lottie, title, date, time, duration, att
             <Avatar.Group spacing="sm">
               {attendees.map((attendee) => (
                 <Tooltip key={attendee} label={attendee} withArrow>
-                  <Avatar
-                    src="image.png"
-                    radius="xl"
-                    color={COLOURS[Math.floor(attendee[0].charCodeAt(0) % COLOURS.length)]}
-                  >
+                  <Avatar radius="xl" color={COLOURS[Math.floor(attendee[0].charCodeAt(0) % COLOURS.length)]}>
                     {attendee[0]}
                   </Avatar>
                 </Tooltip>

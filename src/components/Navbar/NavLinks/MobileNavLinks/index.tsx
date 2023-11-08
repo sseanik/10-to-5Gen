@@ -1,15 +1,17 @@
-import { ActionIcon, Stack, Tooltip } from '@mantine/core';
+import { ActionIcon, Menu, rem, Stack, Tooltip } from '@mantine/core';
 import { IconChevronLeft, TablerIconsProps } from '@tabler/icons-react';
 import { Dispatch, SetStateAction } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { NAV_ITEMS, NESTED_NAV_ITEMS } from '@/assets/data/navData';
 import { isNavActive } from '@/helpers/navHelper';
+import { NavBadgesType } from '@/types/NavBadges';
 
 interface MobileNavLinksProps {
   meeting?: boolean;
   nestedNav: string;
   setNestedNav: Dispatch<SetStateAction<string>>;
+  navBadges: NavBadgesType;
 }
 
 export default function MobileNavLinks({ meeting, nestedNav, setNestedNav }: MobileNavLinksProps) {
@@ -35,18 +37,47 @@ export default function MobileNavLinks({ meeting, nestedNav, setNestedNav }: Mob
           </ActionIcon>
         </Tooltip>
       )}
-      {data.map((item) => (
-        <Tooltip key={item.label} label={item.label} position="right" withArrow arrowOffset={50} arrowSize={5}>
-          <ActionIcon
-            size="xl"
-            variant={isActive(item) ? 'light' : 'transparent'}
-            color={isActive(item) ? 'blue' : 'black'}
-            {...(meeting ? { onClick: () => setNestedNav(item.label), to: '' } : { component: Link, to: item.to })}
-          >
-            <item.icon size="24px" stroke={1.5} />
-          </ActionIcon>
-        </Tooltip>
-      ))}
+      {data.map((item) => {
+        if (item.children.length === 0) {
+          return (
+            <Tooltip key={item.label} label={item.label} position="right" withArrow arrowOffset={50} arrowSize={5}>
+              <ActionIcon
+                size="xl"
+                variant={isActive(item) ? 'light' : 'transparent'}
+                color={isActive(item) ? 'blue' : 'black'}
+                {...(meeting ? { onClick: () => setNestedNav(item.label), to: '' } : { component: Link, to: item.to })}
+              >
+                <item.icon size="24px" stroke={1.5} />
+              </ActionIcon>
+            </Tooltip>
+          );
+        }
+        return (
+          <Menu shadow="md" withArrow arrowPosition="center" position="right" trigger="hover">
+            <Menu.Target>
+              <ActionIcon
+                size="xl"
+                variant={isActive(item) ? 'light' : 'transparent'}
+                color={isActive(item) ? 'blue' : 'black'}
+                {...(meeting ? { onClick: () => setNestedNav(item.label), to: '' } : { component: Link, to: item.to })}
+              >
+                <item.icon size="24px" stroke={1.5} />
+              </ActionIcon>
+            </Menu.Target>
+
+            <Menu.Dropdown>
+              {item.children.map((nestedItem) => (
+                <Menu.Item
+                  leftSection={<nestedItem.icon style={{ width: rem(14), height: rem(14) }} />}
+                  onClick={() => setNestedNav(nestedItem.label)}
+                >
+                  {nestedItem.label}
+                </Menu.Item>
+              ))}
+            </Menu.Dropdown>
+          </Menu>
+        );
+      })}
     </Stack>
   );
 }

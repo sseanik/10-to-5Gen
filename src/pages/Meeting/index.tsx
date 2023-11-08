@@ -1,20 +1,36 @@
 import { Box, Paper } from '@mantine/core';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import lottie from '@/assets/lotties/meeting.json';
 import { MEETINGS } from '@/assets/mock/meetings';
 import MeetingHeader from '@/components/MeetingHeader';
+import { NavBadgesType } from '@/types/NavBadges';
 
-import Actions from './Actions';
 import Agenda from './Agenda';
 import Dashboard from './Dashboard';
+import MeetingActions from './MeetingActions';
 import Minutes from './Minutes';
+import RetroActions from './RetroActions';
 import Tickets from './Tickets';
 import Transcript from './Transcript';
 
-export default function Meeting({ nestedNav }: { nestedNav: string }) {
+interface MeetingProps {
+  nestedNav: string;
+  setNavBadges: Dispatch<SetStateAction<NavBadgesType>>;
+}
+
+export default function Meeting({ nestedNav, setNavBadges }: MeetingProps) {
   const { meetingId } = useParams();
   const meeting = MEETINGS.find((m) => m.id === meetingId);
+
+  useEffect(() => {
+    setNavBadges({
+      'Meeting Action Items': 4,
+      'Retro Action Items': 6,
+      'Suggested Tickets': 3,
+    });
+  }, [setNavBadges]);
 
   const navigate = useNavigate();
   if (!meeting) {
@@ -35,8 +51,10 @@ export default function Meeting({ nestedNav }: { nestedNav: string }) {
                 return <Transcript id={meetingId} />;
               case 'Meeting Minutes':
                 return <Minutes id={meetingId} />;
-              case 'Action Items':
-                return <Actions id={meetingId} />;
+              case 'Meeting Action Items':
+                return <MeetingActions id={meetingId} />;
+              case 'Retro Action Items':
+                return <RetroActions id={meetingId} />;
               case 'Suggested Tickets':
                 return <Tickets id={meetingId} />;
               case 'Next Agenda':
@@ -46,34 +64,6 @@ export default function Meeting({ nestedNav }: { nestedNav: string }) {
             }
           })()}
         </Box>
-        {/* <Tabs defaultValue="summary" variant="pills" radius="lg">
-          <Tabs.List grow>
-            {MEETING_TAB_ITEMS.map((item) => (
-              <Tabs.Tab
-                key={item.value}
-                value={item.value}
-                leftSection={<item.icon size={22} />}
-                rightSection={
-                  item.badge && (
-                    <Badge size="xs" variant="filled" color="red" w={16} h={16} p={0}>
-                      1
-                    </Badge>
-                  )
-                }
-              >
-                {item.label}
-              </Tabs.Tab>
-            ))}
-          </Tabs.List>
-
-          {MEETING_TAB_ITEMS.map((item) => (
-            <Tabs.Panel value={item.value}>
-              <Box key={item.label} p="md" mt="xs" style={{ whiteSpace: 'pre-wrap' }}>
-                {item.component(meeting.id)}
-              </Box>
-            </Tabs.Panel>
-          ))}
-        </Tabs> */}
       </Paper>
     </>
   );
