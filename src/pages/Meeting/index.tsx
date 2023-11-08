@@ -28,7 +28,7 @@ export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProg
   console.log({ meetingId });
   // Fetching the data
   const getMeeting = async () => {
-    const res = await fetch(`http://127.0.0.1:5000/files/${meetingId}`);
+    const res = await fetch(`https://congregate-backend.onrender.com/files/${meetingId}`);
     return res.json();
   };
   // Using the hook

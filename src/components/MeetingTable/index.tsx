@@ -21,7 +21,7 @@ export default function MeetingTable({ setProgress }: { setProgress: Dispatch<Se
 
   // Fetching the data
   const getMeetings = async () => {
-    const res = await fetch('http://127.0.0.1:5000/masterlist');
+    const res = await fetch('https://congregate-backend.onrender.com/masterlist');
     return res.json();
   };
   // Using the hook

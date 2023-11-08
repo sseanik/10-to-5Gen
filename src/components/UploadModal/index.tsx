@@ -35,7 +35,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
     data.append('files', fileUpload);
     console.log(data.get('files'));
 
-    const response = await fetch('http://127.0.0.1:5000/uploadtranscript', {
+    const response = await fetch('https://congregate-backend.onrender.com/uploadtranscript', {
       method: 'POST',
       body: data,
     });
