@@ -14,7 +14,9 @@ interface MeetingHeaderProps {
 
 export default function MeetingHeader({ data, lottie, mock }: MeetingHeaderProps) {
   const { attendees, date, duration, title, type } = data.Meta;
-  const { time, location } = data.Meeting.minutes.minutes;
+  const location = data.Meeting.minutes?.minutes?.location;
+  const time = data.Meeting.minutes?.minutes?.time;
+
   const parsedNames = parseNames(attendees);
 
   return (

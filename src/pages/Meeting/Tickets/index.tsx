@@ -11,9 +11,7 @@ export default function Tickets({ data }: { data: DataType }) {
         Suggested Agile Tickets
       </Title>
       <Flex mih={50} gap="lg" justify="flex-start" align="center" direction="row" wrap="wrap">
-        {tickets.map((ticket, index) => (
-          <TicketCard key={index} {...ticket} />
-        ))}
+        {tickets?.map((ticket, index) => <TicketCard key={index} {...ticket} />)}
       </Flex>
     </>
   );

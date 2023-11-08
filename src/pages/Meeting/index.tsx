@@ -48,9 +48,9 @@ export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProg
   useEffect(() => {
     setNavBadges({
       'Retro Action Items': dataSource.Retro.retro_actions.length,
-      'Suggested Tickets': dataSource.Jira.jira_tickets.length,
+      'Suggested Tickets': dataSource.Jira.jira_tickets?.length,
     });
-  }, [dataSource.Jira.jira_tickets.length, dataSource.Retro.retro_actions.length, setNavBadges]);
+  }, [dataSource.Jira.jira_tickets?.length, dataSource.Retro.retro_actions.length, setNavBadges]);
 
   if (isLoading) return <div>Loading...</div>;
 
