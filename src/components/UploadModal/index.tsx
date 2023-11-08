@@ -1,5 +1,5 @@
 import { Button, Group, Input, Modal, rem, Select, Stack, Text } from '@mantine/core';
-import { Dropzone } from '@mantine/dropzone';
+import { Dropzone, FileRejection, FileWithPath } from '@mantine/dropzone';
 import { useForm } from '@mantine/form';
 import { IconTextPlus, IconUpload, IconX } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -14,11 +14,11 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
   const form = useForm({
     initialValues: {
       name: '',
-      meetingType: false,
+      meetingType: '',
     },
   });
 
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<FileWithPath>();
 
   const handleUploadSubmit = ({ name, meetingType }: { name: string; meetingType: string }) => {
     console.log({ name, meetingType, file });
@@ -26,12 +26,14 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
 
   return (
     <Modal opened={opened} onClose={close} title="Upload Transcript">
-      <form onSubmit={form.onSubmit(handleUploadSubmit)}>
+      <form onSubmit={form.onSubmit((values) => handleUploadSubmit(values))}>
         <Dropzone
-          onDrop={(files) => setFile(files[0])}
-          onReject={(files) => alert('Files rejected: ', files)}
+          onDrop={(f: FileWithPath[]) => setFile(f[0])}
+          onReject={(f: FileRejection[]) => console.log(`Files rejected: ${f[0]}`)}
           maxSize={3 * 1024 ** 2}
           accept={TRANSCRIPT_MIME_TYPE}
+          maxFiles={1}
+          multiple={false}
         >
           <Group justify="center" gap="xl" style={{ pointerEvents: 'none' }}>
             <Dropzone.Accept>
