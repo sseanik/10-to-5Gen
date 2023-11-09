@@ -5,7 +5,7 @@ import { Buffer } from 'buffer';
 import { JiraTicketType } from '@/types/Data';
 
 const JIRA_TOKEN =
-  'ATATT3xFfGF0s2FgFeUfewFREggwyoYMD2pkKQgNn9NoPsp6-xMZsd_qjiVajffOrumrqynBa6nKpPy_z6e-_SYN-t0uCqHhP9Kt1wGURemNYXZqhfTwcN4yf6TbzoYbyDRmJcZjrc7iZpPbo56kDpUM_-IHG4x9Su8NVkZsxCTLwDZx1EYKzzw=B0E8B4C7';
+  'ATATT3xFfGF04ApslNZrv629dNcw6DUxBNpV7P-PxAy0BkSdmZwgee0spVitpJRULMX3dYjoU-PHTjT-sS7uiUfRYuWn7hbl-CEHAvGOUPkPc7z6Qe3Ef0dAa5RbvRx932cPGUfynkW6YM8iKeJSamFNTroWw9lv4qIr7d8Zngb8_c1-XWPFMZI=7B899608';
 const VARIABLE = `seaniksmith@gmail.com:${JIRA_TOKEN}`;
 
 export default function TicketModal(props: JiraTicketType) {
@@ -23,14 +23,145 @@ export default function TicketModal(props: JiraTicketType) {
     },
   });
 
-  const handleJiraUpload = async () => {
-    fetch('https://10to5gen.atlassian.net/rest/api/3/events', {
-      method: 'GET',
+  const corsApiUrl = 'https://cors-anywhere.herokuapp.com';
+  const handleJiraUpload = () => {
+    const bodyData = `{
+      "fields": {
+        "assignee": {
+          "id": "5b109f2e9729b51b54dc274d"
+        },
+        "components": [
+          {
+            "id": "10000"
+          }
+        ],
+        "customfield_10000": "09/Jun/19",
+        "customfield_20000": "06/Jul/19 3:25 PM",
+        "customfield_30000": [
+          "10000",
+          "10002"
+        ],
+        "customfield_40000": {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Occurs on all orders",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "doc",
+          "version": 1
+        },
+        "customfield_50000": {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Could impact day-to-day work.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "doc",
+          "version": 1
+        },
+        "customfield_60000": "jira-software-users",
+        "customfield_70000": [
+          "jira-administrators",
+          "jira-software-users"
+        ],
+        "customfield_80000": {
+          "value": "red"
+        },
+        "description": {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Order entry fails when selecting supplier.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "doc",
+          "version": 1
+        },
+        "duedate": "2019-05-11",
+        "environment": {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "UAT",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "doc",
+          "version": 1
+        },
+        "fixVersions": [
+          {
+            "id": "10001"
+          }
+        ],
+        "issuetype": {
+          "id": "10000"
+        },
+        "labels": [
+          "bugfix",
+          "blitz_test"
+        ],
+        "parent": {
+          "key": "PROJ-123"
+        },
+        "priority": {
+          "id": "20000"
+        },
+        "project": {
+          "id": "10000"
+        },
+        "reporter": {
+          "id": "5b10a2844c20165700ede21g"
+        },
+        "security": {
+          "id": "10000"
+        },
+        "summary": "Main order flow broken",
+        "timetracking": {
+          "originalEstimate": "10",
+          "remainingEstimate": "5"
+        },
+        "versions": [
+          {
+            "id": "10000"
+          }
+        ]
+      },
+      "update": {}
+    }`;
+
+    fetch(`${corsApiUrl}/https://10to5gen.atlassian.net/rest/api/3/issue`, {
+      method: 'POST',
       headers: {
-        Authorization: `Basic ${Buffer.from(VARIABLE).toString('base64')}`,
+        Authorization: `Basic ${Buffer.from(
+          'seaniksmith@gmail.com:ATATT3xFfGF04ApslNZrv629dNcw6DUxBNpV7P-PxAy0BkSdmZwgee0spVitpJRULMX3dYjoU-PHTjT-sS7uiUfRYuWn7hbl-CEHAvGOUPkPc7z6Qe3Ef0dAa5RbvRx932cPGUfynkW6YM8iKeJSamFNTroWw9lv4qIr7d8Zngb8_c1-XWPFMZI=7B899608',
+        ).toString('base64')}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        'X-Atlassian-Token': 'no-check',
       },
+      body: bodyData,
     })
       .then((response) => {
         console.log(`Response: ${response.status} ${response.statusText}`);

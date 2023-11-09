@@ -9,6 +9,7 @@
     "email": "seaniksmith@gmail.com",
     "url": "https://github.com/sseanik"
   },
+  "proxy": "https://cors-anywhere.herokuapp.com/",
   "scripts": {
     "postinstall": "husky install",
     "dev": "vite",
@@ -29,6 +30,7 @@
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
+    "cors-anywhere": "^0.4.4",
     "framer-motion": "^10.16.4",
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
