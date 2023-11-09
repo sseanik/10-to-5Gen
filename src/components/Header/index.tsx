@@ -1,7 +1,6 @@
-import { Button, FileButton, Group, Modal, Paper, rem, Stack, Text, Title } from '@mantine/core';
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconFileUpload, IconNotes, IconPhoto, IconTextPlus, IconUpload, IconX } from '@tabler/icons-react';
+import { IconFileUpload } from '@tabler/icons-react';
 import Lottie from 'lottie-react';
 
 import UploadModal from '../UploadModal';

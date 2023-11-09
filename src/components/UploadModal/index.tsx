@@ -1,4 +1,4 @@
-import { Button, Input, Modal, rem, Select, Stack, Text } from '@mantine/core';
+import { Button, Input, LoadingOverlay, Modal, rem, Select, Stack, Text } from '@mantine/core';
 import { Dropzone, FileRejection, FileWithPath } from '@mantine/dropzone';
 import { useForm } from '@mantine/form';
 import { IconFileSmile, IconTextPlus, IconUpload, IconX } from '@tabler/icons-react';
@@ -26,16 +26,13 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
     },
   });
 
-  const [fileUpload, setFileUpload] = useState<string | Blob>('');
+  const [fileUpload, setFileUpload] = useState<File | null>(null);
 
   const uploadTranscript = async ({ name, meetingType }: UploadType) => {
     const data = new FormData();
     data.append('name', name);
     data.append('meetingType', meetingType);
-    console.log(fileUpload);
-
-    data.append('files', fileUpload);
-    console.log(data.get('files'));
+    data.append('files', fileUpload as File);
 
     const response = await fetch(`${URL_CONFIG}/uploadtranscript`, {
       method: 'POST',
@@ -45,22 +42,26 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
     return json;
   };
 
-  const { mutate, isLoading } = useMutation(uploadTranscript, {
-    onSuccess: (data) => {
-      console.log(data);
-      const message = 'success';
-      alert(message);
-    },
-    onError: () => {
-      alert('there was an error');
-    },
-    // onSettled: () => {
-    //   queryClient.invalidateQueries('create');
-    // },
+  const { mutate, isLoading, status } = useMutation(uploadTranscript, {
+    onSuccess: () => close(),
+    onError: (error) => console.error(error),
   });
 
+  console.log({ isLoading, status });
+
   return (
-    <Modal opened={opened} onClose={close} title="Upload Transcript">
+    <Modal
+      opened={opened}
+      onClose={close}
+      title="Upload Transcript"
+      closeOnClickOutside={isLoading === true && status === 'loading'}
+    >
+      <LoadingOverlay
+        visible={isLoading === true && status === 'loading'}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 1 }}
+        loaderProps={{ color: 'blue', type: 'bars' }}
+      />
       <form onSubmit={form.onSubmit(({ name, meetingType }) => mutate({ name, meetingType }))}>
         <Dropzone
           onDrop={(f: FileWithPath[]) => setFileUpload(f[0])}
@@ -98,11 +99,11 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
               {fileUpload ? (
                 <>
                   <Text size="xl" inline style={{ textAlign: 'center' }} w="100%">
-                    One File Selected
+                    {isLoading ? 'Uploading selected file' : 'One file selected'}
                   </Text>
                   <Text size="sm" c="dimmed" inline mt={7} style={{ textAlign: 'center' }}>
                     {/* {fileUpload.name} */}
-                    {123}
+                    {fileUpload.name}
                   </Text>
                 </>
               ) : (
@@ -119,17 +120,18 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
           </Stack>
         </Dropzone>
         <Stack gap="sm" mt="xs">
-          <Input.Wrapper label="Meeting Name">
-            <Input placeholder="Type Meeting Name" {...form.getInputProps('name')} />
+          <Input.Wrapper label="Meeting Name" required>
+            <Input required placeholder="Type Meeting Name" {...form.getInputProps('name')} />
           </Input.Wrapper>
           <Select
+            required
             label="Meeting Type"
             placeholder="Pick Meeting Type"
             data={['Standup', 'Sprint Planning', 'Retrospective', 'Sprint Review', 'Other']}
             {...form.getInputProps('meetingType')}
           />
           <Button variant="filled" mt="xs" type="submit">
-            Upload
+            {isLoading ? 'Uploading...' : 'Upload'}
           </Button>
         </Stack>
       </form>

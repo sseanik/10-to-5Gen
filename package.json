@@ -26,6 +26,7 @@
     "@mantine/form": "^7.2.1",
     "@mantine/hooks": "^7.1.7",
     "@tabler/icons-react": "^2.40.0",
+    "buffer": "^6.0.3",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",

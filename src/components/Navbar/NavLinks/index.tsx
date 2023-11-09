@@ -15,7 +15,7 @@ interface NavLinksProps {
 
 export function NavLinks({ opened, nestedNav, setNestedNav, navBadges }: NavLinksProps) {
   const { pathname } = useLocation();
-  const isMeeting = /^\/meeting\/.*/.test(pathname);
+  const isMeeting = /\/meeting\/.*/.test(pathname);
 
   return opened ? (
     <DesktopNavLinks meeting={isMeeting} nestedNav={nestedNav} setNestedNav={setNestedNav} navBadges={navBadges} />

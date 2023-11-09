@@ -1,7 +1,12 @@
 import { Button, Group, NumberInput, Select, Textarea, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { Buffer } from 'buffer';
 
 import { JiraTicketType } from '@/types/Data';
+
+const JIRA_TOKEN =
+  'ATATT3xFfGF0s2FgFeUfewFREggwyoYMD2pkKQgNn9NoPsp6-xMZsd_qjiVajffOrumrqynBa6nKpPy_z6e-_SYN-t0uCqHhP9Kt1wGURemNYXZqhfTwcN4yf6TbzoYbyDRmJcZjrc7iZpPbo56kDpUM_-IHG4x9Su8NVkZsxCTLwDZx1EYKzzw=B0E8B4C7';
+const VARIABLE = `seaniksmith@gmail.com:${JIRA_TOKEN}`;
 
 export default function TicketModal(props: JiraTicketType) {
   const { acceptanceCriteria, assignee, description, estimate, priority, title, userStory } = props;
@@ -17,6 +22,23 @@ export default function TicketModal(props: JiraTicketType) {
       priority,
     },
   });
+
+  const handleJiraUpload = async () => {
+    fetch('https://10to5gen.atlassian.net/rest/api/3/events', {
+      method: 'GET',
+      headers: {
+        Authorization: `Basic ${Buffer.from(VARIABLE).toString('base64')}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log(`Response: ${response.status} ${response.statusText}`);
+        return response.text();
+      })
+      .then((text) => console.log(text))
+      .catch((err) => console.error(err));
+  };
 
   return (
     <form
@@ -38,7 +60,9 @@ export default function TicketModal(props: JiraTicketType) {
         <Button type="submit" variant="outline" color="green">
           Save
         </Button>
-        <Button type="submit">Upload to Jira</Button>
+        <Button type="button" onClick={handleJiraUpload}>
+          Upload to Jira
+        </Button>
       </Group>
     </form>
   );

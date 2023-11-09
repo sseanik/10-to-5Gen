@@ -16,7 +16,13 @@ interface MetaParsed extends Omit<Meta, 'attendees'> {
   attendees: JSX.Element;
 }
 
-export default function MeetingTable({ setProgress }: { setProgress: Dispatch<SetStateAction<boolean>> }) {
+export default function MeetingTable({
+  setProgress,
+  mock,
+}: {
+  setProgress: Dispatch<SetStateAction<boolean>>;
+  mock?: boolean;
+}) {
   // Navigating to meeting
   const navigate = useNavigate();
 
@@ -27,13 +33,12 @@ export default function MeetingTable({ setProgress }: { setProgress: Dispatch<Se
   };
   // Using the hook
   const { data, isLoading } = useQuery({ queryKey: ['meetings'], queryFn: getMeetings, retry: 1 });
-  console.log({ data });
 
   useEffect(() => {
     setProgress(isLoading);
   }, [isLoading, setProgress]);
 
-  const dataSource = !data ? mockData : (data.data as Meta[]);
+  const dataSource = mock ? mockData : !data ? mockData : (data.data as Meta[]);
 
   // Parsing the Data
   const mappedRows: MetaParsed[] = useMemo(
@@ -105,7 +110,7 @@ export default function MeetingTable({ setProgress }: { setProgress: Dispatch<Se
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
         onRowClick={({ record }) => {
-          navigate(`/meeting/${record.ID}`);
+          navigate(`${mock ? '/mock' : ''}/meeting/${record.ID}`);
         }}
       />
     </Paper>

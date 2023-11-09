@@ -9,6 +9,7 @@ export default function Meetings({ setProgress }: { setProgress: Dispatch<SetSta
     <>
       <Header heading="Meetings" description="<NEED DESCRIPTION>" lottie={lottie} />
       <MeetingTable setProgress={setProgress} />
+      <MeetingTable setProgress={setProgress} mock />
     </>
   );
 }

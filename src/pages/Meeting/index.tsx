@@ -1,5 +1,5 @@
 import { Box, Paper } from '@mantine/core';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
@@ -22,9 +22,10 @@ interface MeetingProps {
   setNestedNav: Dispatch<SetStateAction<string>>;
   setNavBadges: Dispatch<SetStateAction<NavBadgesType>>;
   setProgress: Dispatch<SetStateAction<boolean>>;
+  mock?: boolean;
 }
 
-export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProgress }: MeetingProps) {
+export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProgress, mock }: MeetingProps) {
   const { meetingId } = useParams();
   console.log({ meetingId });
   // Fetching the data
@@ -43,7 +44,7 @@ export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProg
     setProgress(isLoading);
   }, [isLoading, setProgress]);
 
-  const dataSource = !data ? mockData : data.data;
+  const dataSource = mock ? mockData : !data ? mockData : data.data;
 
   useEffect(() => {
     setNavBadges({

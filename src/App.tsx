@@ -39,6 +39,18 @@ function App() {
               />
             }
           />
+          <Route
+            path="/mock/meeting/:meetingId"
+            element={
+              <Meeting
+                nestedNav={nestedNav}
+                setNestedNav={setNestedNav}
+                setProgress={setProgress}
+                setNavBadges={setNavBadges}
+                mock
+              />
+            }
+          />
           <Route path="/agile" element={<Agile />} />
           <Route path="/retro" element={<Retro />} />
           <Route path="/standup" element={<Standup />} />

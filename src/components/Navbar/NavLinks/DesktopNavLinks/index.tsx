@@ -62,9 +62,9 @@ export default function DesktopNavLinks({ meeting, nestedNav, setNestedNav, navB
             ? { onClick: item.children.length === 0 ? () => setNestedNav(item.label) : () => {}, to: '' }
             : { component: Link, to: item.to })}
         >
-          {item.children.map((nestedItem, index) => (
+          {item.children.map((nestedItem, idx) => (
             <NavLink
-              key={`${nestedItem.label}-${index}`}
+              key={`${nestedItem.label}-${idx}`}
               label={nestedItem.label}
               leftSection={<nestedItem.icon size="24px" stroke={1.5} />}
               rightSection={
