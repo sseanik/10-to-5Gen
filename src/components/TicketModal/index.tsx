@@ -12,7 +12,7 @@ interface TicketModalProps extends JiraTicketType {
   retro?: boolean;
 }
 
-export default function TicketModal(props: JiraTicketType) {
+export default function TicketModal(props: TicketModalProps) {
   const { acceptanceCriteria, assignee, description, estimate, priority, title, userStory, retro } = props;
 
   const form = useForm({
