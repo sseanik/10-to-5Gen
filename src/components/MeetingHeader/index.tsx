@@ -1,4 +1,19 @@
-import { Avatar, Button, Flex, Group, Paper, Stack, Text, ThemeIcon, Title, Tooltip } from '@mantine/core';
+import {
+  Avatar,
+  Button,
+  Flex,
+  Group,
+  Modal,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
+  Textarea,
+  ThemeIcon,
+  Title,
+  Tooltip,
+} from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { IconBrandOpenai, IconCalendarStats } from '@tabler/icons-react';
 import Lottie from 'lottie-react';
 
@@ -16,6 +31,7 @@ export default function MeetingHeader({ data, lottie, mock }: MeetingHeaderProps
   const { attendees, date, duration, title, type } = data.Meta;
   const location = data.Meeting.minutes?.minutes?.location;
   const time = data.Meeting.minutes?.minutes?.time;
+  const [opened, { open, close }] = useDisclosure(false);
 
   const parsedNames = parseNames(attendees);
 
@@ -85,7 +101,40 @@ export default function MeetingHeader({ data, lottie, mock }: MeetingHeaderProps
             )}
           </Stack>
         </Group>
-        <Button variant="light" leftSection={<IconBrandOpenai size="24px" stroke={1.5} />} size="md">
+        <Modal opened={opened} onClose={close} title="Gen AI Assistant" size="55rem" bg="#343541">
+          <SimpleGrid cols={2} mb="10" mt={200}>
+            <Button variant="subtle" w="100%" h={50} color="gray.5">
+              <Stack gap={0}>
+                <Text fw={500}>Refine a Ticket</Text>
+              </Stack>
+            </Button>
+            <Button variant="subtle" w="100%" h={50} color="gray.5">
+              <Stack gap={0}>
+                <Text fw={500}>Resummarise the Meeting Minutes</Text>
+              </Stack>{' '}
+            </Button>
+            <Button variant="subtle" w="100%" h={50} color="gray.5">
+              <Stack gap={0}>
+                <Text fw={500}>Button</Text>
+              </Stack>{' '}
+            </Button>
+            <Button variant="subtle" w="100%" h={50} color="gray.5">
+              <Stack gap={0}>
+                <Text fw={500}>Ask a General Question</Text>
+              </Stack>{' '}
+            </Button>
+          </SimpleGrid>
+          <Textarea placeholder="Message the AI assistant" />
+          <Button variant="outline" w="100%" mt="xs">
+            Send message
+          </Button>
+        </Modal>
+        <Button
+          variant="light"
+          leftSection={<IconBrandOpenai size="24px" stroke={1.5} />}
+          size="md"
+          onClick={() => open()}
+        >
           Refine Data
         </Button>
       </Group>

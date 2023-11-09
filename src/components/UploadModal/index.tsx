@@ -13,11 +13,7 @@ interface UploadType {
 }
 
 export default function UploadModal({ opened, close }: { opened: boolean; close: () => void }) {
-  const TRANSCRIPT_MIME_TYPE = [
-    'text/vtt',
-    'text/plain',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  ];
+  const TRANSCRIPT_MIME_TYPE = ['text/vtt', 'text/plain'];
 
   const form = useForm({
     initialValues: {
@@ -46,8 +42,6 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
     onSuccess: () => close(),
     onError: (error) => console.error(error),
   });
-
-  console.log({ isLoading, status });
 
   return (
     <Modal
@@ -112,7 +106,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
                     Drag your Microsoft Teams transcript file
                   </Text>
                   <Text size="sm" c="dimmed" inline mt={7} style={{ textAlign: 'center' }}>
-                    Attach a .vtt, .txt or .docx file
+                    Attach a .vtt or .txt file
                   </Text>
                 </>
               )}

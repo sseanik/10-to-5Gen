@@ -77,8 +77,6 @@ export default function MeetingTable({
     );
   }, [debouncedQuery, mappedRows]);
 
-  if (isLoading) return <div>Loading...</div>;
-
   return (
     <Paper shadow="xs" radius="lg" p="md" mt="md" pr="md" mr="sm">
       {!data && (

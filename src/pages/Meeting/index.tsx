@@ -27,7 +27,6 @@ interface MeetingProps {
 
 export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProgress, mock }: MeetingProps) {
   const { meetingId } = useParams();
-  console.log({ meetingId });
   // Fetching the data
   const getMeeting = async () => {
     const res = await fetch(`${URL_CONFIG}/files/${meetingId}`);
@@ -52,8 +51,6 @@ export default function Meeting({ nestedNav, setNestedNav, setNavBadges, setProg
       'Suggested Tickets': dataSource.Jira.jira_tickets?.length,
     });
   }, [dataSource.Jira.jira_tickets?.length, dataSource.Retro.retro_actions.length, setNavBadges]);
-
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Box mr="10px">

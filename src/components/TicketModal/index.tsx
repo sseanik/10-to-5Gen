@@ -8,8 +8,12 @@ const JIRA_TOKEN =
   'ATATT3xFfGF04ApslNZrv629dNcw6DUxBNpV7P-PxAy0BkSdmZwgee0spVitpJRULMX3dYjoU-PHTjT-sS7uiUfRYuWn7hbl-CEHAvGOUPkPc7z6Qe3Ef0dAa5RbvRx932cPGUfynkW6YM8iKeJSamFNTroWw9lv4qIr7d8Zngb8_c1-XWPFMZI=7B899608';
 const VARIABLE = `seaniksmith@gmail.com:${JIRA_TOKEN}`;
 
+interface TicketModalProps extends JiraTicketType {
+  retro?: boolean;
+}
+
 export default function TicketModal(props: JiraTicketType) {
-  const { acceptanceCriteria, assignee, description, estimate, priority, title, userStory } = props;
+  const { acceptanceCriteria, assignee, description, estimate, priority, title, userStory, retro } = props;
 
   const form = useForm({
     initialValues: {
@@ -192,7 +196,7 @@ export default function TicketModal(props: JiraTicketType) {
           Save
         </Button>
         <Button type="button" onClick={handleJiraUpload}>
-          Upload to Jira
+          Upload to {retro ? 'EasyRetro' : 'Jira'}
         </Button>
       </Group>
     </form>
