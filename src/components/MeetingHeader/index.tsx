@@ -71,37 +71,25 @@ export default function MeetingHeader({ lottie, mock, meetingId, setIsRetro, isG
 
   const parsedNames = parseNames(mock ? jsonData?.summaries?.attendees ?? [] : data?.summaries?.attendees);
 
-  const fetchData = () => {
-    fetchEventSource(`${URL_CONFIG}/assistant`, {
+  const fetchData = async () => {
+    setCurrentMessage((prev) => {
+      setMessages((prevMsgs) => [...prevMsgs, { user: 'user', message: prev }]);
+      return '';
+    });
+    await fetchEventSource(`${URL_CONFIG}/assistant`, {
       method: 'POST',
       headers: { Accept: 'text/event-stream' },
-      body: JSON.stringify({
-        meetingId,
-        message: currentMessage,
-      }),
-      onopen(response: Response) {
-        if (response.ok) {
-          setMessages((prev) => [...prev, { user: 'user', message: currentMessage }]);
-          setCurrentMessage('');
-          // everything's good
-        } else if (response.status >= 400 && response.status < 500 && response.status !== 429) {
-          // client-side errors are usually non-retriable:
-          throw new Error();
-        }
-        throw new Error();
-      },
-      onmessage(event: { data: string }) {
-        setAiMessage((d) => d + JSON.parse(event.data));
+      body: JSON.stringify({ meetingId, message: currentMessage }),
+      onmessage(event) {
+        setAiMessage((prev) => prev + event.data);
       },
       onclose() {
-        setAiMessage((prev) => {
-          setMessages((msgPrev) => [...msgPrev, { user: 'ai', message: prev }]);
-          return '';
-        });
-      },
-      onerror(err: Error) {
-        console.error('There was an error from server', err);
-        throw new Error();
+        if (aiMessage) {
+          setAiMessage((prev) => {
+            setMessages((prevMsgs) => [...prevMsgs, { user: 'ai', message: prev }]);
+            return '';
+          });
+        }
       },
     });
   };
@@ -235,6 +223,7 @@ export default function MeetingHeader({ lottie, mock, meetingId, setIsRetro, isG
                 <Textarea
                   id="textarea-override"
                   onChange={(e) => setCurrentMessage(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && fetchData()}
                   fs="large"
                   placeholder="Message AI Assistant"
                   w="90%"
