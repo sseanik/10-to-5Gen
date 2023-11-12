@@ -31,3 +31,8 @@
 .mantine-Blockquote-cite {
   opacity: 0.9;
 }
+
+.assistant-text-area {
+  color: red;
+  font-size: 2rem;
+}

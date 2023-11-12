@@ -101,6 +101,7 @@ export default function MeetingHeader({ lottie, mock, meetingId, setIsRetro, isG
       },
       onerror(err: Error) {
         console.error('There was an error from server', err);
+        throw new Error();
       },
     });
   };
@@ -232,14 +233,15 @@ export default function MeetingHeader({ lottie, mock, meetingId, setIsRetro, isG
               </ScrollArea>
               <Flex wrap="nowrap" gap="xs">
                 <Textarea
+                  id="textarea-override"
                   onChange={(e) => setCurrentMessage(e.target.value)}
-                  fs="xl"
+                  fs="large"
                   placeholder="Message AI Assistant"
-                  styles={{
-                    root: { color: 'red', fontSize: '2rem' },
-                  }}
                   w="90%"
                   value={currentMessage}
+                  classNames={{
+                    label: '.assistant-text-area',
+                  }}
                 />
                 <Button w="10%" h="100%" color="black" onClick={() => fetchData()}>
                   Submit
