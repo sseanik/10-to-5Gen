@@ -146,7 +146,7 @@ export default function MeetingHeader({ lottie, mock, meetingId, setIsRetro, isG
                         <Avatar
                           size="30px"
                           radius="xl"
-                          color={COLOURS[Math.floor(attendee[0].charCodeAt(0) % COLOURS.length)]}
+                          color={COLOURS[Math.floor(attendee[0]?.charCodeAt(0) ?? 0 % COLOURS.length)]}
                         >
                           {attendee[0]}
                         </Avatar>

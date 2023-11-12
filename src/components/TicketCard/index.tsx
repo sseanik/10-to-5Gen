@@ -68,7 +68,7 @@ export default function TicketCard(props: Ticket) {
 
             {assignee && (
               <Tooltip label={assignee} position="right">
-                <Avatar color={COLOURS[Math.floor(assignee[0].charCodeAt(0) % COLOURS.length)]} radius="xl">
+                <Avatar color={COLOURS[Math.floor(assignee[0]?.charCodeAt(0) ?? 0 % COLOURS.length)]} radius="xl">
                   {assignee.replace(/[^A-Z]+/g, '')}
                 </Avatar>
               </Tooltip>
