@@ -1,4 +1,4 @@
-import { ActionIcon, Paper, Text, TextInput, Title } from '@mantine/core';
+import { ActionIcon, Flex, Group, Loader, Paper, Text, TextInput, Title } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconSearch, IconX } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
@@ -33,11 +33,12 @@ export default function MeetingTable({
     return res.json();
   };
   // Using the hook
-  const { data, isLoading } = useQuery({ queryKey: ['meetings'], queryFn: getMeetings, retry: 1, enabled: !mock });
-
-  useEffect(() => {
-    setProgress(isLoading);
-  }, [isLoading, setProgress]);
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: ['meetings'],
+    queryFn: getMeetings,
+    retry: 1,
+    enabled: !mock,
+  });
 
   const dataSource: Summary[] = mock ? mockData.meetings : data?.meetings;
 
@@ -78,11 +79,24 @@ export default function MeetingTable({
     );
   }, [debouncedQuery, mappedRows]);
 
+  useEffect(() => {
+    setProgress(isLoading);
+  }, [isLoading, setProgress]);
+
   return (
     <Paper shadow="xs" radius="lg" p="md" mt="md" pr="md" mr="sm">
       <Title order={4} mb="xs" c="blue">
         {mock ? 'Mock' : 'API'} Meetings
       </Title>
+      {isLoading && !mock && !isSuccess && (
+        <Flex gap="lg">
+          <Loader color="red" size="sm" />
+          <Text mb="sm" size="sm" c="red">
+            Waiting for Backend to load (we have deployed the backend on a free service that shuts down on inactivity).
+            Please wait a small moment before the API successfully returns meeting data.
+          </Text>
+        </Flex>
+      )}
       <TextInput
         placeholder="Search Meetings..."
         leftSection={<IconSearch size={16} />}

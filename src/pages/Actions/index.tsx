@@ -64,7 +64,7 @@ export default function Actions({
     <Box mr="10px">
       <MeetingHeader
         lottie={lottie}
-        mock={false}
+        mock={mock}
         meetingId={meetingId as string}
         setIsRetro={setIsRetro}
         isGenerating={isGenerating}

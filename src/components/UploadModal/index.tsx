@@ -63,7 +63,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
       opened={opened}
       onClose={close}
       title="Upload Transcript"
-      closeOnClickOutside={isLoading === true && status === 'loading'}
+      // closeOnClickOutside={isLoading === true && status === 'loading'}
     >
       <LoadingOverlay
         visible={isLoading === true && status === 'loading'}
@@ -145,7 +145,9 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
             data={['Standup', 'Sprint Planning', 'Retrospective', 'Sprint Review', 'Other']}
             {...form.getInputProps('meetingType')}
           />
-          <Text size="xs">Note: We have limited tokens/credits, so please upload a smaller transcript</Text>
+          <Text c="red" size="xs">
+            Note: We have limited tokens/credits, so please upload a smaller transcript
+          </Text>
           <Button variant="filled" mt="xs" type="submit">
             {isLoading ? 'Uploading...' : 'Upload'}
           </Button>

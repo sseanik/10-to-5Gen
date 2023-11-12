@@ -1,5 +1,6 @@
 import { Affix, Box, Button, Code, Collapse, Loader, ScrollArea, Text, Transition } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 import { Action, Agenda, Minutes, MockAllData, Tickets } from '@/types/Data';
 
@@ -18,6 +19,7 @@ export default function Progress({
         {(transitionStyles) => (
           <>
             <Button
+              leftSection={!opened ? <IconChevronUp /> : <IconChevronDown />}
               rightSection={<Loader color="white" type="dots" size="sm" />}
               style={transitionStyles}
               onClick={toggle}
