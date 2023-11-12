@@ -1,5 +1,6 @@
 export const isNavActive = (pathname: string, to: string) => {
-  if (pathname === '/' && to === '/meetings') return true;
+  if (to === '/meetings' && (pathname === '/' || pathname === '')) return true;
+  if (pathname.includes(to)) return true;
 
   const parsedPathName = pathname.includes('mock') ? pathname.replace('/mock', '') : pathname;
 

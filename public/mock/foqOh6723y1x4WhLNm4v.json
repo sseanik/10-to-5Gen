@@ -1,0 +1,154 @@
+{
+  "summaries": {
+    "attendees": ["Vlod (Scrum Master)", "Xi (Product Owner)", "Shin (Software Engineer)", "Don (QA Engineer)"],
+    "date": "11/9/23",
+    "duration": 120,
+    "time": "2:00 PM - 4:00 PM",
+    "title": "Sprint Planning A",
+    "type": "Sprint Planning"
+  },
+  "transcript": "Date: 11/9/23\r\nTime: 2:00 PM \u2013 4:00 PM\r\nLocation: Online\r\n\r\n\r\n2:00 PM - Vlod (Scrum Master): Alright team, let's get started with our sprint planning for the upcoming two weeks. As usual, we'll first go through the product backlog items that Xi has prioritized. Then we'll discuss our capacity and figure out what we can commit to for this sprint. Xi, do you want to take it from here?\r\n2:02 PM - Xi (Product Owner): Thanks, Vlod. The top priority for this sprint is the user checkout flow. We\u2019ve received feedback that it\u2019s not as intuitive as it could be. I\u2019ve outlined some stories and tasks that we need to address based on customer feedback and analytics.\r\n2:05 PM - Shin (Software Engineer): I have some thoughts on this. The checkout flow is critical and might need a thorough design session before we start coding.\r\n2:07 PM - Don (QA Engineer): Agreed with Shin. And from a testing perspective, we'll need to develop a comprehensive suite of automated tests for this flow.\r\n2:08 PM - Xi (Product Owner): Great points. Let\u2019s be sure to allocate time for design and testing in our sprint plan. The second priority is the performance issue we\u2019ve seen in the product listing page during peak times.\r\n2:10 PM - Vlod (Scrum Master): Before we move on to that, let's decide how many user stories we can handle for the checkout flow revamp. Any estimates?\r\n2:12 PM - Shin (Software Engineer): I think we can realistically tackle the checkout flow UI changes and the backend support within this sprint. But we need to consider any dependencies.\r\n2:15 PM - Don (QA Engineer): I\u2019ll need at least two days at the end of the sprint for testing the new checkout flow. I\u2019d say we include no more than three major stories for this to ensure quality.\r\n2:17 PM - Xi (Product Owner): That\u2019s fair. Let\u2019s focus on quality over quantity. For the performance issue, I\u2019d like us to at least start investigating the root cause and perhaps consider some quick wins.\r\n2:20 PM - Vlod (Scrum Master): Sounds good. Let\u2019s break down the tasks for the checkout flow. Shin, can you take the lead on the UI changes?\r\n2:22 PM - Shin (Software Engineer): Will do. I\u2019ll draft some initial designs by Wednesday and get team feedback.\r\n2:24 PM - Don (QA Engineer): And I'll prepare a test plan based on Shin's designs and start setting up the automated testing framework.\r\n2:25 PM - Xi (Product Owner): Perfect. Now, regarding the performance issue, can we assign someone to start the investigation?\r\n2:27 PM - Vlod (Scrum Master): I think Don might be the best to start with this, given his expertise in performance testing.\r\n2:28 PM - Don (QA Engineer): Agreed. I\u2019ll begin by analyzing the performance metrics from the last release and identify any anomalies.\r\n2:30 PM - Xi (Product Owner): Excellent. Let\u2019s summarize: We\u2019ve agreed to focus on three major user stories for the checkout flow and initiate the investigation into the performance issues. Any other business we need to cover?\r\n2:32 PM - Vlod (Scrum Master): I think that\u2019s a solid plan for the sprint. We\u2019ll catch up in our daily scrums to monitor progress. Everyone, please update your tasks and estimates in JIRA by the end of the day.\r\n2:35 PM - Shin (Software Engineer): Will there be any dependencies from other teams that we need to be aware of for this sprint?\r\n2:36 PM - Xi (Product Owner): Good question. I\u2019ll confirm with the API team about their deliverables by tomorrow and let you all know.\r\n2:38 PM - Vlod (Scrum Master): Thank you, Xi. Alright, if there's nothing else, let's conclude the planning meeting. Thanks for your contributions, everyone. Let's make this sprint a success!\r\n2:40 PM - [Meeting Adjourned]\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+  "agenda": [
+    "Review product backlog items prioritized by Xi",
+    "Discuss team capacity and commitments for the sprint",
+    "Estimate user stories for the checkout flow revamp",
+    "Allocate tasks and responsibilities",
+    "Initiate investigation into performance issues",
+    "Confirm dependencies from other teams",
+    "Discuss any other business to cover",
+    "Conclusion and action items"
+  ],
+  "attendeeSummary": [
+    {
+      "name": "Vlod",
+      "summary": "As the Scrum Master, Vlod led the meeting and facilitated the discussion. He started by reviewing the agenda and guiding the team through each topic. Vlod ensured that the team focused on the top priorities and made decisions based on capacity and expertise. He also emphasized the importance of collaboration and communication with other teams."
+    },
+    {
+      "name": "Xi",
+      "summary": "As the Product Owner, Xi prioritized the product backlog items and provided insights into customer feedback and analytics. Xi encouraged the team to focus on quality over quantity and suggested quick wins for the performance issue. Xi confirmed the need for collaboration with the API team and will provide updates on their deliverables."
+    },
+    {
+      "name": "Shin",
+      "summary": "As a Software Engineer, Shin actively participated in the discussion regarding the checkout flow revamp. They suggested the need for a design session before coding and thoughtfully considered dependencies. Shin took the lead on the UI changes and will provide initial design drafts for team feedback."
+    },
+    {
+      "name": "Don",
+      "summary": "As the QA Engineer, Don contributed insights regarding testing and performance analysis. They highlighted the importance of thorough testing and the development of automated test suites. Don will allocate time at the end of the sprint for testing the new checkout flow and will start the investigation into the performance issues."
+    }
+  ],
+  "overallSummary": "The meeting was focused on the sprint planning for the upcoming two weeks. The team discussed the top priorities, including the user checkout flow and the performance issue in the product listing page. They agreed to focus on three major user stories for the checkout flow revamp and initiate the investigation into the performance issues. The team also discussed the allocation of tasks and responsibilities, including UI changes, automated testing, and performance analysis. They confirmed the need for design sessions, thorough testing, and collaboration with other teams to ensure the success of the sprint.",
+  "summaryPoints": [
+    "The top priorities for the sprint are the user checkout flow and the performance issue in the product listing page.",
+    "The team agreed to focus on three major user stories for the checkout flow revamp.",
+    "They discussed the need for design sessions, thorough testing, and collaboration with other teams.",
+    "Tasks and responsibilities were allocated, including UI changes, automated testing, and performance analysis.",
+    "The team confirmed the importance of quality over quantity and the need for quick wins in the performance investigation.",
+    "Dependencies from other teams were discussed, and confirmation from the API team is expected.",
+    "The team will have daily scrums to monitor progress, and everyone is required to update their tasks and estimates in JIRA."
+  ],
+  "actionItems": [
+    {
+      "actions": ["Confirm API team's deliverables by tomorrow"],
+      "assignee": "Xi"
+    },
+    {
+      "actions": [
+        "Draft initial designs for checkout flow UI changes by Wednesday",
+        "Take the lead on UI changes for checkout flow"
+      ],
+      "assignee": "Shin"
+    },
+    {
+      "actions": [
+        "Prepare test plan based on Shin's designs",
+        "Set up automated testing framework for checkout flow",
+        "Analyze performance metrics from last release",
+        "Identify any anomalies in performance",
+        "Start investigation into performance issues"
+      ],
+      "assignee": "Don"
+    },
+    {
+      "actions": ["Monitor progress in daily scrums", "Ensure tasks and estimates are updated in JIRA"],
+      "assignee": "Vlod"
+    }
+  ],
+  "tickets": [
+    {
+      "acceptanceCriteria": [
+        "Update UI components for the checkout flow",
+        "Ensure smooth navigation and clear instructions",
+        "Test the new UI on different devices and screen sizes"
+      ],
+      "assignee": "Shin",
+      "description": "Design and implement UI changes for the checkout flow to improve user experience and address customer feedback.",
+      "estimate": 8,
+      "priority": "High",
+      "storyPoints": 8,
+      "title": "Revamp Checkout Flow UI",
+      "userStory": "As a user, I want a more intuitive checkout flow, so that I can easily complete my purchase."
+    },
+    {
+      "acceptanceCriteria": [
+        "Add API endpoints for checkout functionality",
+        "Integrate backend with UI changes",
+        "Handle different payment methods and error scenarios"
+      ],
+      "assignee": "Shin",
+      "description": "Implement the necessary backend changes to support the revamped checkout flow.",
+      "estimate": 5,
+      "priority": "Medium",
+      "storyPoints": 5,
+      "title": "Backend Support for Checkout Flow",
+      "userStory": "As a developer, I want to update the backend to handle the new checkout flow, so that users can complete their purchases smoothly."
+    },
+    {
+      "acceptanceCriteria": [
+        "Analyze performance metrics from previous releases",
+        "Identify and fix any anomalies causing delays",
+        "Test and monitor the performance of the page during peak times"
+      ],
+      "assignee": "Don",
+      "description": "Investigate and address performance issues on the product listing page during peak times.",
+      "estimate": 3,
+      "priority": "High",
+      "storyPoints": 3,
+      "title": "Performance Investigation - Product Listing Page",
+      "userStory": "As a QA engineer, I want to identify and resolve performance issues on the product listing page, so that users can browse and search for products without any delays."
+    }
+  ],
+  "agendaItems": [
+    {
+      "agendaItems": [
+        "Discuss design session for the checkout flow",
+        "Review and finalize user stories and tasks for the checkout flow",
+        "Allocate time for design and testing in sprint plan"
+      ],
+      "title": "User Checkout Flow"
+    },
+    {
+      "agendaItems": [
+        "Review performance metrics from last release",
+        "Discuss investigation progress and potential quick wins",
+        "Assign someone to continue investigation"
+      ],
+      "title": "Performance Issue"
+    },
+    {
+      "agendaItems": ["Confirm deliverables and dependencies from API team"],
+      "title": "Dependencies"
+    },
+    {
+      "agendaItems": ["Provide updates on progress and any blockers"],
+      "title": "Daily Scrum Meetings"
+    },
+    {
+      "agendaItems": ["Remind team to update tasks and estimates"],
+      "title": "JIRA"
+    }
+  ],
+  "proposedSchedule": {
+    "attendees": ["Vlod", "Xi", "Shin", "Don"],
+    "date": "11/11/23"
+  }
+}

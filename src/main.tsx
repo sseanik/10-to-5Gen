@@ -1,10 +1,11 @@
 import '@mantine/core/styles.css';
 import '@mantine/dropzone/styles.css';
+import '@mantine/notifications/styles.css';
 import 'mantine-datatable/styles.layer.css';
 import './index.css';
 
 import { createTheme, MantineProvider } from '@mantine/core';
-import React from 'react';
+import { Notifications } from '@mantine/notifications';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -47,13 +48,12 @@ const theme = createTheme({
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <MantineProvider theme={theme}>
-        <Router>
-          <App />
-        </Router>
-      </MantineProvider>
-    </QueryClientProvider>
-  </React.StrictMode>,
+  <QueryClientProvider client={queryClient}>
+    <MantineProvider theme={theme}>
+      <Router>
+        <Notifications />
+        <App />
+      </Router>
+    </MantineProvider>
+  </QueryClientProvider>,
 );

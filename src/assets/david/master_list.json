@@ -1,10 +1,59 @@
-[
-  {
-    "ID": 7,
-    "title": "Mid Sprint Standup",
-    "type": "Standup",
-    "date": "6/11/2023",
-    "duration": "16:38",
-    "attendees": ["Yuen, Steven", "Hong, Jason", "Gailey, David", "Qu, Chris"]
-  }
-]
+{
+  "meetings": [
+    {
+      "attendees": ["Jordan", "Taylor", "Casey", "Alex", "Morgan"],
+      "date": "11:00 AM - 12:00 PM",
+      "duration": 60,
+      "id": "6QOJ8mtQrK8uMEgODrjq",
+      "time": "September 19, 2023",
+      "title": "Transcript D",
+      "type": "Sprint Planning"
+    },
+    {
+      "attendees": ["Julian", "Taylor", "Petra", "Alex", "Don"],
+      "date": "10:00 AM - 12:00 PM",
+      "duration": 0,
+      "id": "8bGen7TdVfuUAOQhdz5c",
+      "time": "",
+      "title": "Sprint Planning B",
+      "type": "Sprint Planning"
+    },
+    {
+      "attendees": ["Julian", "Taylor", "Petra", "Alex", "Don"],
+      "date": "10:00 AM - 12:00 PM",
+      "duration": 120,
+      "id": "EIGoTdQTGoPIfR9PnPQL",
+      "time": "",
+      "title": "Sprint Planning B",
+      "type": "Sprint Planning"
+    },
+    {
+      "attendees": [
+        "Julian (Scrum Master)",
+        "Taylor (Product Owner)",
+        "Petra (Network Architect)",
+        "Alex (Software Developer)"
+      ],
+      "date": "10:00 AM - 12:00 PM",
+      "duration": 120,
+      "id": "RjLIVnVEbs1TSc0dwzyr",
+      "time": "[Insert Date]",
+      "title": "Sprint Planning B",
+      "type": "Sprint Planning"
+    },
+    {
+      "attendees": [
+        "Julian (Scrum Master)",
+        "Taylor (Product Owner)",
+        "Petra (Network Architect)",
+        "Alex (Software Developer)"
+      ],
+      "date": "10:00 AM - 12:00 PM",
+      "duration": 0,
+      "id": "WsCNQPFEcKBy8zytXJHs",
+      "time": "",
+      "title": "Sprint Planning B",
+      "type": "Sprint Planning"
+    }
+  ]
+}

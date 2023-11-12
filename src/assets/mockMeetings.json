@@ -1,0 +1,39 @@
+{
+  "meetings": [
+    {
+      "attendees": ["Vlod (Scrum Master)", "Xi (Product Owner)", "Shin (Software Engineer)", "Don (QA Engineer)"],
+      "date": "11/9/23",
+      "duration": 120,
+      "id": "foqOh6723y1x4WhLNm4v",
+      "time": "2:00 PM - 4:00 PM",
+      "title": "Sprint Planning A",
+      "type": "Sprint Planning"
+    },
+    {
+      "attendees": ["Emma", "Raj", "Olivia", "Noah", "Mia", "Liam", "Ava"],
+      "date": "8/11/2023",
+      "duration": 22,
+      "id": "wRaCgdRbPSo21a0ggpv7",
+      "time": "2:00 PM \u2013 2:22 PM",
+      "title": "Retro A",
+      "type": "Retrospective"
+    },
+    {
+      "attendees": [
+        "Bob (Scrum Master)",
+        "Alice (Product Owner)",
+        "Charlie (Developer)",
+        "Dana (Developer)",
+        "Eve (Quality Assurance)",
+        "Frank (UI/UX Designer)",
+        "Grace (Operations)"
+      ],
+      "date": "15/11/23",
+      "duration": 0,
+      "id": "xTirtBuQAaMwmMXtWdUI",
+      "time": "09:00 AM \u2013 09:08 AM",
+      "title": "Standup B",
+      "type": "Standup"
+    }
+  ]
+}

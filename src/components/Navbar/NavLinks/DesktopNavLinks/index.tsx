@@ -1,26 +1,26 @@
-import { Badge, NavLink } from '@mantine/core';
+import { NavLink } from '@mantine/core';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { Dispatch, SetStateAction } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { NAV_ITEMS, NESTED_NAV_ITEMS } from '@/assets/data/navData';
 import { isNavActive } from '@/helpers/navHelper';
-import { NavBadgeKeys, NavBadgesType } from '@/types/NavBadges';
 
 interface DesktopNavLinksProps {
-  meeting?: boolean;
-  nestedNav: string;
-  setNestedNav: Dispatch<SetStateAction<string>>;
-  navBadges: NavBadgesType;
+  isMeeting?: boolean;
+  isMock?: boolean;
 }
 
-export default function DesktopNavLinks({ meeting, nestedNav, setNestedNav, navBadges }: DesktopNavLinksProps) {
-  const data = !meeting ? NAV_ITEMS : NESTED_NAV_ITEMS;
+export default function DesktopNavLinks({ isMeeting, isMock }: DesktopNavLinksProps) {
+  const data = !isMeeting ? NAV_ITEMS : NESTED_NAV_ITEMS;
+  console.log({ data });
   const { pathname } = useLocation();
+  const route = pathname.split('/').at(-1);
+  const meetingId = route === 'meetings' || route === 'dashboard' || route === 'about' ? '' : route;
+  const mockUrl = isMock ? '/mock' : '';
 
   return (
     <>
-      {meeting && (
+      {isMeeting && (
         <NavLink
           label="Back to Meetings"
           leftSection={<IconChevronLeft size="24px" stroke={1.5} />}
@@ -29,7 +29,6 @@ export default function DesktopNavLinks({ meeting, nestedNav, setNestedNav, navB
           disableRightSectionRotation
           component={Link}
           to="/meetings"
-          onClick={() => setNestedNav('Dashboard')}
           color="gray"
           variant="subtle"
           active
@@ -40,29 +39,21 @@ export default function DesktopNavLinks({ meeting, nestedNav, setNestedNav, navB
           key={`${item.label}-${index}`}
           label={item.label}
           leftSection={<item.icon size="24px" stroke={1.5} />}
-          rightSection={
-            navBadges[item.label as NavBadgeKeys] && (
-              <Badge size="xs" variant="filled" color="red" w={16} h={16} p={0}>
-                {navBadges[item.label as NavBadgeKeys]}
-              </Badge>
-            )
-          }
+          // rightSection={
+          //   navBadges[item.label as NavBadgeKeys] && (
+          //     <Badge size="xs" variant="filled" color="red" w={16} h={16} p={0}>
+          //       {navBadges[item.label as NavBadgeKeys]}
+          //     </Badge>
+          //   )
+          // }
           p="md"
           defaultOpened
-          disableRightSectionRotation={item.children.length === 0}
-          active={
-            // eslint-disable-next-line no-nested-ternary
-            item.label !== 'Meetings' && item.children.length > 0
-              ? false
-              : meeting
-              ? item.label === nestedNav
-              : isNavActive(pathname, item.to)
-          }
-          {...(meeting
-            ? { onClick: item.children.length === 0 ? () => setNestedNav(item.label) : () => {}, to: '' }
-            : { component: Link, to: item.to })}
+          // disableRightSectionRotation={item.children.length === 0}
+          active={isNavActive(pathname, item.to)}
+          component={Link}
+          to={meetingId === '' ? `${mockUrl}${item.to}` : `${mockUrl}${item.to}/${meetingId}`}
         >
-          {item.children.map((nestedItem, idx) => (
+          {/* {item.children.map((nestedItem, idx) => (
             <NavLink
               key={`${nestedItem.label}-${idx}`}
               label={nestedItem.label}
@@ -82,7 +73,7 @@ export default function DesktopNavLinks({ meeting, nestedNav, setNestedNav, navB
                 ? { onClick: () => setNestedNav(nestedItem.label), to: '' }
                 : { component: Link, to: nestedItem.to })}
             />
-          ))}
+          ))} */}
         </NavLink>
       ))}
     </>

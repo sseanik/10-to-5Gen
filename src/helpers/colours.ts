@@ -1,5 +1,4 @@
-export const getDurationColour = (durationStr: string) => {
-  const durationNum = parseInt(durationStr.split('')[0], 10);
+export const getDurationColour = (durationNum: number) => {
   switch (durationNum) {
     case 1:
       return 'purple';

@@ -2,20 +2,16 @@ import '@mantine/core/styles.css';
 
 import { AppShell, Progress } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 
 import Navbar from '@/components/Navbar';
-import { NavBadgesType } from '@/types/NavBadges';
 
 interface LayoutProps {
-  nestedNav: string;
-  setNestedNav: Dispatch<SetStateAction<string>>;
   children?: ReactNode;
-  navBadges: NavBadgesType;
   progress: boolean;
 }
 
-export default function Layout({ nestedNav, setNestedNav, children, navBadges, progress }: LayoutProps) {
+export default function Layout({ children, progress }: LayoutProps) {
   const [opened, { toggle }] = useDisclosure(window.innerWidth > 768);
 
   return (
@@ -31,13 +27,7 @@ export default function Layout({ nestedNav, setNestedNav, children, navBadges, p
         top={0}
       />
       <AppShell.Navbar withBorder={false} style={{ backgroundColor: 'unset', width: opened ? '250px' : '75px' }}>
-        <Navbar
-          opened={opened}
-          toggle={toggle}
-          nestedNav={nestedNav}
-          setNestedNav={setNestedNav}
-          navBadges={navBadges}
-        />
+        <Navbar opened={opened} toggle={toggle} />
       </AppShell.Navbar>
 
       <AppShell.Main

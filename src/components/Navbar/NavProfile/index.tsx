@@ -5,7 +5,10 @@ import classes from './index.module.css';
 
 export function NavProfile({ opened }: { opened: boolean }) {
   return (
-    <UnstyledButton className={classes.user}>
+    <UnstyledButton
+      className={classes.user}
+      onClick={() => alert('Settings screen with inputs to put Jira, EasyRetro and Microsoft Teams details/API keys')}
+    >
       <Group justify="center">
         <Avatar radius="xl" color="blue">
           R

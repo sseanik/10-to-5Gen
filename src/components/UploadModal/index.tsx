@@ -1,9 +1,11 @@
 import { Button, Input, LoadingOverlay, Modal, rem, Select, Stack, Text } from '@mantine/core';
 import { Dropzone, FileRejection, FileWithPath } from '@mantine/dropzone';
 import { useForm } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
 import { IconFileSmile, IconTextPlus, IconUpload, IconX } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import { URL_CONFIG } from '@/assets/config';
 
@@ -13,8 +15,6 @@ interface UploadType {
 }
 
 export default function UploadModal({ opened, close }: { opened: boolean; close: () => void }) {
-  const TRANSCRIPT_MIME_TYPE = ['text/vtt', 'text/plain'];
-
   const form = useForm({
     initialValues: {
       name: '',
@@ -23,14 +23,15 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
   });
 
   const [fileUpload, setFileUpload] = useState<File | null>(null);
+  const navigate = useNavigate();
 
   const uploadTranscript = async ({ name, meetingType }: UploadType) => {
     const data = new FormData();
     data.append('name', name);
     data.append('meetingType', meetingType);
-    data.append('files', fileUpload as File);
+    data.append('file', fileUpload as File);
 
-    const response = await fetch(`${URL_CONFIG}/uploadtranscript`, {
+    const response = await fetch(`${URL_CONFIG}/upload`, {
       method: 'POST',
       body: data,
     });
@@ -39,8 +40,22 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
   };
 
   const { mutate, isLoading, status } = useMutation(uploadTranscript, {
-    onSuccess: () => close(),
-    onError: (error) => console.error(error),
+    onSuccess: (data) => {
+      close();
+      showNotification({
+        title: 'File Successfully Uploaded',
+        message: 'Open your meeting and generate your data.',
+        color: 'green',
+      });
+      navigate(`/transcript/${data.id}`);
+    },
+    onError: (error) => {
+      showNotification({
+        title: 'Error Uploading File',
+        message: String(error),
+        color: 'red',
+      });
+    },
   });
 
   return (
@@ -54,14 +69,20 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
         visible={isLoading === true && status === 'loading'}
         zIndex={1000}
         overlayProps={{ radius: 'sm', blur: 1 }}
-        loaderProps={{ color: 'blue', type: 'bars' }}
+        loaderProps={{ color: 'blue', type: 'bars', children: 'Uploading File...' }}
       />
       <form onSubmit={form.onSubmit(({ name, meetingType }) => mutate({ name, meetingType }))}>
         <Dropzone
-          onDrop={(f: FileWithPath[]) => setFileUpload(f[0])}
-          onReject={(f: FileRejection[]) => console.log(`Files rejected: ${f[0]}`)}
+          onDrop={(f: FileWithPath[]) => {
+            setFileUpload(f[0]);
+          }}
+          onReject={(f: FileRejection[]) => console.log(f)}
           maxSize={3 * 1024 ** 2}
-          accept={TRANSCRIPT_MIME_TYPE}
+          accept={{
+            'text/plain': ['.txt'],
+            'text/vtt': ['.vtt'],
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+          }}
           maxFiles={1}
           multiple={false}
         >
@@ -106,7 +127,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
                     Drag your Microsoft Teams transcript file
                   </Text>
                   <Text size="sm" c="dimmed" inline mt={7} style={{ textAlign: 'center' }}>
-                    Attach a .vtt or .txt file
+                    Attach a .docx, .vtt or .txt file
                   </Text>
                 </>
               )}
@@ -124,6 +145,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
             data={['Standup', 'Sprint Planning', 'Retrospective', 'Sprint Review', 'Other']}
             {...form.getInputProps('meetingType')}
           />
+          <Text size="xs">Note: We have limited tokens/credits, so please upload a smaller transcript</Text>
           <Button variant="filled" mt="xs" type="submit">
             {isLoading ? 'Uploading...' : 'Upload'}
           </Button>

@@ -1,36 +1,31 @@
 import {
   IconBrandTrello,
   IconCalendarStats,
-  IconChartDots,
   IconFileTextAi,
   IconListDetails,
-  IconListNumbers,
   IconNotes,
-  IconSubtask,
   IconTimelineEventText,
+  IconUsersGroup,
 } from '@tabler/icons-react';
 
 export const NAV_ITEMS = [
-  // { label: 'Dashboard', icon: IconChartDots, to: '/' },
-  { label: 'Meetings', icon: IconCalendarStats, to: '/meetings', children: [] },
+  { label: 'Meetings', icon: IconCalendarStats, to: '/meetings' },
+  { label: 'About', icon: IconUsersGroup, to: '/about' },
+  // { label: 'Dashboard', icon: IconChartDots, to: 'dashboard' },
   // { label: 'Agile Suggestions', icon: IconBulb, to: '/agile' },
   // { label: 'Standups', icon: IconBrowserCheck, to: '/standup' },
   // { label: 'Retrospectives', icon: IconTimelineEventExclamation, to: '/retro' },
 ];
 
 export const NESTED_NAV_ITEMS = [
-  { label: 'Dashboard', icon: IconChartDots, to: '', children: [] },
-  { label: 'Transcript', icon: IconNotes, to: '', children: [] },
-  { label: 'Meeting Minutes', icon: IconFileTextAi, to: '', children: [] },
+  { label: 'Transcript', icon: IconNotes, to: '/transcript' },
+  { label: 'Meeting Minutes', icon: IconFileTextAi, to: '/minutes' },
   {
     label: 'Action Items',
     icon: IconListDetails,
-    to: '',
-    children: [
-      { label: 'Meeting Action Items', icon: IconListNumbers, to: '' },
-      { label: 'Retro Action Items', icon: IconSubtask, to: '' },
-    ],
+    to: '/actions',
+    children: [],
   },
-  { label: 'Suggested Tickets', icon: IconBrandTrello, to: '', children: [] },
-  { label: 'Next Agenda', icon: IconTimelineEventText, to: '', children: [] },
+  { label: 'Suggested Tickets', icon: IconBrandTrello, to: '/tickets' },
+  { label: 'Next Agenda', icon: IconTimelineEventText, to: '/agenda' },
 ];

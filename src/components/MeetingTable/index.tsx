@@ -1,4 +1,4 @@
-import { ActionIcon, Paper, Text, TextInput } from '@mantine/core';
+import { ActionIcon, Paper, Text, TextInput, Title } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconSearch, IconX } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
@@ -8,12 +8,13 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { URL_CONFIG } from '@/assets/config';
-import mockData from '@/assets/david/master_list.json';
+import mockData from '@/assets/mockMeetings.json';
 import AvatarGroup from '@/components/AvatarGroup';
-import { Meta } from '@/types/Data';
+import { Summary } from '@/types/Data';
 
-interface MetaParsed extends Omit<Meta, 'attendees'> {
+interface SummaryParsed extends Omit<Summary, 'attendees' | 'duration'> {
   attendees: JSX.Element;
+  duration: string;
 }
 
 export default function MeetingTable({
@@ -28,33 +29,33 @@ export default function MeetingTable({
 
   // Fetching the data
   const getMeetings = async () => {
-    const res = await fetch(`${URL_CONFIG}/masterlist`);
+    const res = await fetch(`${URL_CONFIG}/meetings`);
     return res.json();
   };
   // Using the hook
-  const { data, isLoading } = useQuery({ queryKey: ['meetings'], queryFn: getMeetings, retry: 1 });
+  const { data, isLoading } = useQuery({ queryKey: ['meetings'], queryFn: getMeetings, retry: 1, enabled: !mock });
 
   useEffect(() => {
     setProgress(isLoading);
   }, [isLoading, setProgress]);
 
-  const dataSource = mock ? mockData : !data ? mockData : (data.data as Meta[]);
+  const dataSource: Summary[] = mock ? mockData.meetings : data?.meetings;
 
   // Parsing the Data
-  const mappedRows: MetaParsed[] = useMemo(
+  const mappedRows: SummaryParsed[] = useMemo(
     () =>
-      dataSource.map((row, index) => ({
-        key: `${row.ID}-${index}`,
+      dataSource?.map((row: Summary, index: number) => ({
+        key: `${row.id}-${index}`,
         ...row,
-        duration: `${row.duration.split(':')[0].replace('minutes', '')} minutes`,
+        duration: `${row.duration === 0 ? '-' : row.duration}`,
         attendees: <AvatarGroup key={index} names={row.attendees} />,
       })),
     [dataSource],
   );
 
   // Sorting
-  const [meetings, setMeetings] = useState<MetaParsed[]>(sortBy(mappedRows));
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<MetaParsed>>({
+  const [meetings, setMeetings] = useState<SummaryParsed[]>(sortBy(mappedRows));
+  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<SummaryParsed>>({
     columnAccessor: 'title',
     direction: 'asc',
   });
@@ -70,7 +71,7 @@ export default function MeetingTable({
 
   useEffect(() => {
     setMeetings(
-      mappedRows.filter(({ title }: { title: string }) => {
+      mappedRows?.filter(({ title }: { title: string }) => {
         if (!debouncedQuery) return true;
         return title.toLowerCase().includes(debouncedQuery.trim().toLowerCase());
       }),
@@ -79,11 +80,9 @@ export default function MeetingTable({
 
   return (
     <Paper shadow="xs" radius="lg" p="md" mt="md" pr="md" mr="sm">
-      {!data && (
-        <Text mb="xs" c="red.8" size="sm">
-          Using Mock Data
-        </Text>
-      )}
+      <Title order={4} mb="xs" c="blue">
+        {mock ? 'Mock' : 'API'} Meetings
+      </Title>
       <TextInput
         placeholder="Search Meetings..."
         leftSection={<IconSearch size={16} />}
@@ -98,6 +97,9 @@ export default function MeetingTable({
       />
       <DataTable
         striped
+        minHeight={120}
+        textSelectionDisabled
+        noRecordsText="No meetings to show"
         highlightOnHover
         columns={['title', 'type', 'date', 'duration', 'attendees'].map((key) => ({
           key,
@@ -108,9 +110,14 @@ export default function MeetingTable({
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
         onRowClick={({ record }) => {
-          navigate(`${mock ? '/mock' : ''}/meeting/${record.ID}`);
+          navigate(`${mock ? '/mock' : ''}/transcript/${record.id}`);
         }}
       />
+      {mock && (
+        <Text size="xs" c="gray.8" mt="xs">
+          Mock example meetings if any of the API&apos;s fail
+        </Text>
+      )}
     </Paper>
   );
 }

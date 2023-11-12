@@ -17,11 +17,11 @@ import { IconClock, IconUrgent } from '@tabler/icons-react';
 import { COLOURS } from '@/assets/data/colours';
 import TicketModal from '@/components/TicketModal';
 import { getDurationColour, getPriorityColour } from '@/helpers/colours';
-import { JiraTicketType } from '@/types/Data';
+import { Ticket } from '@/types/Data';
 
 import styles from './index.module.css';
 
-export default function TicketCard(props: JiraTicketType) {
+export default function TicketCard(props: Ticket) {
   const { assignee, description, estimate, priority, title } = props;
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
@@ -66,11 +66,13 @@ export default function TicketCard(props: JiraTicketType) {
               </Badge>
             </Group>
 
-            <Tooltip label={assignee} position="right">
-              <Avatar color={COLOURS[Math.floor(assignee[0].charCodeAt(0) % COLOURS.length)]} radius="xl">
-                {assignee.replace(/[^A-Z]+/g, '')}
-              </Avatar>
-            </Tooltip>
+            {assignee && (
+              <Tooltip label={assignee} position="right">
+                <Avatar color={COLOURS[Math.floor(assignee[0].charCodeAt(0) % COLOURS.length)]} radius="xl">
+                  {assignee.replace(/[^A-Z]+/g, '')}
+                </Avatar>
+              </Tooltip>
+            )}
           </Group>
         </Stack>
       </Card>

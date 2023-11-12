@@ -16,7 +16,7 @@ export default function Header({ heading, description, lottie, hideUpload }: Hea
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Paper shadow="xs" radius="lg" style={{ padding: '0 1rem' }} pr="md" mr="sm">
+    <Paper shadow="xs" radius="lg" p="xs" pr="md" mr="sm">
       <Group justify="space-between">
         <Group>
           <Lottie animationData={lottie} loop style={{ height: 100 }} />
