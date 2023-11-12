@@ -76,7 +76,7 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
           onDrop={(f: FileWithPath[]) => {
             setFileUpload(f[0]);
           }}
-          onReject={(f: FileRejection[]) => console.log(f)}
+          onReject={(f: FileRejection[]) => console.error(f)}
           maxSize={3 * 1024 ** 2}
           accept={{
             'text/plain': ['.txt'],

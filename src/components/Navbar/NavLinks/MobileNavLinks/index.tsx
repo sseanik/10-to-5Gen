@@ -16,9 +16,10 @@ export default function MobileNavLinks({ meeting, isMock }: MobileNavLinksProps)
   const meetingId = pathnameSplit !== 'meetings' && pathnameSplit !== 'about' ? pathnameSplit : '';
   const mockUrl = isMock ? '/mock' : '';
 
-  const isActive = (to: string) => pathname.startsWith(to);
-
-  console.log({ meetingId });
+  const isActive = (to: string) => {
+    if (pathname === '/' && to === '/meetings') return true;
+    return pathname.startsWith(to);
+  };
 
   return (
     <Stack align="center">

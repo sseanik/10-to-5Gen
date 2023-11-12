@@ -24,7 +24,7 @@ export default function TicketModal(props: TicketModalProps) {
 
   return (
     <form
-      onSubmit={form.onSubmit((values) => console.log(values))}
+      onSubmit={form.onSubmit((values) => console.info(values))}
       style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
     >
       <TextInput label="Title" {...form.getInputProps('title')} />

@@ -12,7 +12,6 @@ interface DesktopNavLinksProps {
 
 export default function DesktopNavLinks({ isMeeting, isMock }: DesktopNavLinksProps) {
   const data = !isMeeting ? NAV_ITEMS : NESTED_NAV_ITEMS;
-  console.log({ data });
   const { pathname } = useLocation();
   const route = pathname.split('/').at(-1);
   const meetingId = route === 'meetings' || route === 'dashboard' || route === 'about' ? '' : route;
