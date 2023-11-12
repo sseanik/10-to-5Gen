@@ -11,7 +11,10 @@ export default function AvatarGroup({ names }: { names: string[] }) {
       <Avatar.Group spacing="sm">
         {parsedNames.map((name, index) => (
           <Tooltip label={name} withArrow key={`${name}-${index}`}>
-            <Avatar radius="xl" color={COLOURS[Math.floor(name[0].charCodeAt(0) % COLOURS.length)]}>
+            <Avatar
+              radius="xl"
+              color={name.length > 0 ? COLOURS[Math.floor(name[0]?.charCodeAt(0) % COLOURS.length)] : 'gray'}
+            >
               {name[0]}
             </Avatar>
           </Tooltip>
