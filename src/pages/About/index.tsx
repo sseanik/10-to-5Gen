@@ -32,35 +32,6 @@ export default function About() {
         <br />
 
         <Text>
-          <b>Frontend: </b>Custom Dashboard built on React JS, Vite, TypeScript, Mantine UI (+ Mantine UI Datatables).
-          Deployed to Vercel.{' '}
-          <a href="https://github.com/sseanik/10-to-5Gen-frontend" target="_blank" rel="noreferrer">
-            Frontend Repo
-          </a>
-        </Text>
-        <Text>
-          <b>Backend: </b>Flask rest API which integrates with a Firestore DB and OpenAI API (Models: GPT 3.5) for
-          Generative data. Deployed to Render.com.{' '}
-          <a href="https://github.com/sseanik/10-to-5Gen-backend" target="_blank" rel="noreferrer">
-            Backend Repo
-          </a>
-        </Text>
-
-        <br />
-
-        <Text>
-          <b>Design: </b>We have designed a Telstra Brand Refreshed Inspired UI, with a key focus on Mobile
-          Responsiveness, Accessibility and Data Visualisation
-        </Text>
-        <Text>
-          <b>Prototype: </b>We have built a working MVP prototype that takes in the Meetings Data, uploads the given
-          data, NLP data and waits for the user to navigate to a section (e.g. Tickets, Agenda) in order to generate
-          further data
-        </Text>
-
-        <br />
-
-        <Text>
           <b>Instructions:</b>
         </Text>
         <List type="ordered">
@@ -88,6 +59,35 @@ export default function About() {
           </List.Item>
           <List.Item>Ask the AI any question or query hitting Enter and clicking the Submit button</List.Item>
         </List>
+
+        <br />
+
+        <Text>
+          <b>Frontend: </b>Custom Dashboard built on React JS, Vite, TypeScript, Mantine UI (+ Mantine UI Datatables).
+          Deployed to Vercel.{' '}
+          <a href="https://github.com/sseanik/10-to-5Gen-frontend" target="_blank" rel="noreferrer">
+            Frontend Repo
+          </a>
+        </Text>
+        <Text>
+          <b>Backend: </b>Flask rest API which integrates with a Firestore DB and OpenAI API (Models: GPT 3.5) for
+          Generative data. Deployed to Render.com.{' '}
+          <a href="https://github.com/sseanik/10-to-5Gen-backend" target="_blank" rel="noreferrer">
+            Backend Repo
+          </a>
+        </Text>
+
+        <br />
+
+        <Text>
+          <b>Design: </b>We have designed a Telstra Brand Refreshed Inspired UI, with a key focus on Mobile
+          Responsiveness, Accessibility and Data Visualisation
+        </Text>
+        <Text>
+          <b>Prototype: </b>We have built a working MVP prototype that takes in the Meetings Data, uploads the given
+          data, NLP data and waits for the user to navigate to a section (e.g. Tickets, Agenda) in order to generate
+          further data
+        </Text>
 
         <br />
 
