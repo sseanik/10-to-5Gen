@@ -32,11 +32,12 @@ export default function About() {
         <br />
 
         <Text>
-          <b>Frontend: </b>Custom Portal built on React JS, Vite, Mantine UI (customised). Deployed to Vercel.
+          <b>Frontend: </b>Custom Dashboard built on React JS, Vite, TypeScript, Mantine UI (+ Mantine UI Datatables).
+          Deployed to Vercel.
         </Text>
         <Text>
-          <b>Backend: </b>Flask rest API which integrates with a Firestore DB and OpenAI API (Model: gpt-3.5-turbo) for
-          Generative data
+          <b>Backend: </b>Flask rest API which integrates with a Firestore DB and OpenAI API (Models: GPT 3.5) for
+          Generative data. Deployed to Render.com.
         </Text>
 
         <br />
