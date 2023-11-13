@@ -40,21 +40,29 @@ export default function UploadModal({ opened, close }: { opened: boolean; close:
   };
 
   const { mutate, isLoading, status } = useMutation(uploadTranscript, {
-    onSuccess: (data) => {
-      close();
-      showNotification({
-        title: 'File Successfully Uploaded',
-        message: 'Open your meeting and generate your data.',
-        color: 'green',
-      });
-      navigate(`/transcript/${data.id}`);
-    },
     onError: (error) => {
       showNotification({
         title: 'Error Uploading File',
         message: String(error),
         color: 'red',
       });
+    },
+    onSuccess: (data) => {
+      if (data.response?.status === 200) {
+        close();
+        showNotification({
+          title: 'File Successfully Uploaded',
+          message: 'Open your meeting and generate your data.',
+          color: 'green',
+        });
+        navigate(`/transcript/${data.id}`);
+      } else if ('error' in data) {
+        showNotification({
+          title: 'Error Uploading File',
+          message: String(data.error),
+          color: 'red',
+        });
+      }
     },
   });
 
