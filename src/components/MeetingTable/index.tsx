@@ -93,7 +93,12 @@ export default function MeetingTable({
           <Loader color="red" size="sm" />
           <Text mb="sm" size="sm" c="red">
             Waiting for Backend to load (we have deployed the backend on a free service that shuts down on inactivity).
-            Please wait a small moment before the API successfully returns meeting data.
+            Please wait a small moment before the API successfully returns meeting data. You can check the progress of
+            the route{' '}
+            <a href="https://one0to5gbackend.onrender.com/meetings" target="_blank" rel="noreferrer">
+              here
+            </a>
+            .
           </Text>
         </Flex>
       )}
