@@ -33,11 +33,17 @@ export default function About() {
 
         <Text>
           <b>Frontend: </b>Custom Dashboard built on React JS, Vite, TypeScript, Mantine UI (+ Mantine UI Datatables).
-          Deployed to Vercel.
+          Deployed to Vercel.{' '}
+          <a href="https://github.com/sseanik/10-to-5Gen-frontend" target="_blank" rel="noreferrer">
+            Frontend Repo
+          </a>
         </Text>
         <Text>
           <b>Backend: </b>Flask rest API which integrates with a Firestore DB and OpenAI API (Models: GPT 3.5) for
-          Generative data. Deployed to Render.com.
+          Generative data. Deployed to Render.com.{' '}
+          <a href="https://github.com/sseanik/10-to-5Gen-backend" target="_blank" rel="noreferrer">
+            Backend Repo
+          </a>
         </Text>
 
         <br />
