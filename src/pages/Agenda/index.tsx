@@ -76,7 +76,9 @@ export default function Agenda({
           </Group>
           <Button
             color="#4e55bd"
-            onClick={() => alert('REST API Call triggered to Microsoft Teams Graph API to create a meeting')}
+            onClick={() =>
+              alert('Not Implemented Yet: REST API Call triggered to Microsoft Teams Graph API to create a meeting')
+            }
           >
             Schedule in Teams
           </Button>

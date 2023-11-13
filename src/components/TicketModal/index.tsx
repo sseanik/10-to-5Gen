@@ -36,17 +36,27 @@ export default function TicketModal(props: TicketModalProps) {
       <Select label="Duration Estimate" {...form.getInputProps('priority')} data={['High', 'Medium', 'Low']} />
 
       <Group justify="flex-end" mt="md">
-        <Button type="submit" variant="outline" color="red">
+        <Button
+          type="submit"
+          variant="outline"
+          color="red"
+          onClick={() => alert('Not Implemented Yet: REST API Call triggered to delete this item')}
+        >
           Delete
         </Button>
-        <Button type="submit" variant="outline" color="green">
+        <Button
+          type="submit"
+          variant="outline"
+          color="green"
+          onClick={() => alert('Not Implemented Yet: REST API Call triggered to save this item')}
+        >
           Save
         </Button>
         <Button
           type="button"
           onClick={() =>
             alert(
-              `REST API Call triggered to ${retro ? 'EasyRetro' : 'Jira'} to create a ${
+              `Not Implemented Yet: REST API Call triggered to ${retro ? 'EasyRetro' : 'Jira'} to create a ${
                 retro ? 'action item' : 'ticket'
               }`,
             )

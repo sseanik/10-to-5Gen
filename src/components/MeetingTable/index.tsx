@@ -86,7 +86,7 @@ export default function MeetingTable({
   return (
     <Paper shadow="xs" radius="lg" p="md" mt="md" pr="md" mr="sm">
       <Title order={4} mb="xs" c="blue">
-        {mock ? 'Mock' : 'API'} Meetings
+        {mock ? 'Mock ' : ''}Meetings
       </Title>
       {isLoading && !mock && !isSuccess && (
         <Flex gap="lg">
