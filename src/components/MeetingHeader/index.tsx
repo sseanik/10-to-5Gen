@@ -1,5 +1,5 @@
-import { Avatar, Button, Flex, Group, Modal, Paper, Stack, Text, ThemeIcon, Title, Tooltip } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Avatar, Button, Flex, Group, Modal, Paper, rem, Stack, Text, ThemeIcon, Title, Tooltip } from '@mantine/core';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { IconBrandOpenai, IconCalendarStats } from '@tabler/icons-react';
 import Lottie from 'lottie-react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -24,6 +24,7 @@ interface MeetingHeaderProps {
 export default function MeetingHeader({ lottie, mock, meetingId, setIsRetro, isGenerating }: MeetingHeaderProps) {
   const [opened, { open, close }] = useDisclosure(false);
   const [jsonData, setJsonData] = useState<MockAllData | null>(null);
+  const isMobile = useMediaQuery(`(max-width: 750px)`);
 
   const { data } = useQuery({
     queryKey: ['summary'],
@@ -49,7 +50,16 @@ export default function MeetingHeader({ lottie, mock, meetingId, setIsRetro, isG
   const renderData = mock ? jsonData : data;
 
   return (
-    <Paper shadow="sm" radius="lg" p="md" pos="sticky" w="100%" top={3} withBorder style={{ zIndex: 102 }}>
+    <Paper
+      shadow="sm"
+      radius="lg"
+      p="md"
+      pos={isMobile ? 'relative' : 'sticky'}
+      w="100%"
+      top={3}
+      withBorder
+      style={{ zIndex: 102 }}
+    >
       <Group justify="space-between">
         <Group>
           <Lottie animationData={isGenerating ? loadingLottie : lottie} loop style={{ height: 100 }} />

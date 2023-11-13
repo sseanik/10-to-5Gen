@@ -29,7 +29,7 @@ export default function Navbar({ opened, toggle }: NavbarProps) {
   return (
     <motion.nav
       animate={{
-        width: opened ? '250px' : '75px',
+        width: opened ? '250px' : '50px',
       }}
       className={classes.navbar}
     >

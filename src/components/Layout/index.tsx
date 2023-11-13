@@ -26,13 +26,13 @@ export default function Layout({ children, progress }: LayoutProps) {
         w="100%"
         top={0}
       />
-      <AppShell.Navbar withBorder={false} style={{ backgroundColor: 'unset', width: opened ? '250px' : '75px' }}>
+      <AppShell.Navbar withBorder={false} style={{ backgroundColor: 'unset', width: opened ? '250px' : '50px' }}>
         <Navbar opened={opened} toggle={toggle} />
       </AppShell.Navbar>
 
       <AppShell.Main
         styles={{
-          main: { paddingLeft: opened ? 260 : 85, minHeight: 'calc(100dvh - 3px)', backgroundColor: '#f6f6f3' },
+          main: { paddingLeft: opened ? 260 : 60, minHeight: 'calc(100dvh - 3px)', backgroundColor: '#f6f6f3' },
         }}
       >
         {children}
