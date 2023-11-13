@@ -11,7 +11,8 @@ export const getDurationColour = (durationNum: number) => {
     case 5:
       return 'orange';
     default:
-      return 'red';
+      if (durationNum > 5) return 'red';
+      return 'white';
   }
 };
 
@@ -24,6 +25,6 @@ export const getPriorityColour = (priorityStr: string) => {
     case 'Low':
       return 'green.8';
     default:
-      return 'blue';
+      return 'white';
   }
 };

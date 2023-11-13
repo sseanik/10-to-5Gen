@@ -1,5 +1,7 @@
 import { Box, Button, Code, Flex, ScrollArea, Stack, Text, Textarea } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { fetchEventSource } from '@microsoft/fetch-event-source';
+import { IconSend } from '@tabler/icons-react';
 import { useState } from 'react';
 
 import { URL_CONFIG } from '@/assets/config';
@@ -9,11 +11,12 @@ export default function Assistant({ meetingId }: { meetingId: string }) {
     {
       user: 'ai',
       message:
-        "Hello, I'm your AI Meeting Assistant. I can help you understand more about your meetings and the data generated. Feel free to ask me any questions you might have about your recent meetings, summaries, action items, tickets, or agendas. For example, you can ask about specific details of a meeting, clarifications on action items, updates on ticket statuses, or insights from the meeting summaries. Just type your question below, and I'll provide the information you need.",
+        "Hello, I'm your AI Meeting Assistant. I can help you understand more about your meetings and the data generated. Feel free to ask me any questions you might have about your recent meetings and I'll provide the information you need.",
     },
   ]);
   const [currentMessage, setCurrentMessage] = useState('');
   const [aiMessage, setAiMessage] = useState('');
+  const isTablet = useMediaQuery(`(max-width: 1024px)`);
 
   const fetchData = async () => {
     setCurrentMessage((prev) => {
@@ -103,8 +106,8 @@ export default function Assistant({ meetingId }: { meetingId: string }) {
               label: '.assistant-text-area',
             }}
           />
-          <Button w="10%" h="100%" color="black" onClick={() => fetchData()}>
-            Submit
+          <Button w="max(10%, 60px)" h="100%" color="black" onClick={() => fetchData()}>
+            {!isTablet ? 'Submit' : <IconSend size={20} />}
           </Button>
         </Flex>
       </Stack>

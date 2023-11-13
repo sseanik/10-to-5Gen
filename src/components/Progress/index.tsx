@@ -25,13 +25,13 @@ export default function Progress({
               onClick={toggle}
               color="black"
               radius={0}
-              w={opened ? '30vw' : undefined}
+              w={opened ? 'max(30vw, 350px)' : undefined}
             >
               Generating Data
             </Button>
 
             <Collapse in={opened} transitionTimingFunction="ease" transitionDuration={250}>
-              <Box bg="gray.9" w="30vw" h="40vh" px="md" py="sm">
+              <Box bg="gray.9" w="max(30vw, 350px)" h="40vh" px="md" py="sm">
                 <Text c="white" size="sm" mb="xs">
                   Note: Do not navigate away while data is generating
                 </Text>

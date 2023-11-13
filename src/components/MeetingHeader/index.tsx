@@ -115,16 +115,19 @@ export default function MeetingHeader({ lottie, mock, meetingId, setIsRetro, isG
           </Stack>
         </Group>
         <Modal
+          id="assistant-modal"
           opened={opened}
           onClose={close}
           size="55rem"
           centered
-          bg="#202123"
-          withCloseButton={false}
           title=""
           padding={0}
           m={0}
           style={{ padding: '0 !important' }}
+          styles={{
+            header: { backgroundColor: '#343541' },
+            close: { color: 'white' },
+          }}
         >
           <Assistant meetingId={meetingId} />
         </Modal>

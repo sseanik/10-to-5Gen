@@ -33,7 +33,7 @@ export default function TicketModal(props: TicketModalProps) {
       <Textarea autosize label="Acceptance Criteria" {...form.getInputProps('acceptanceCriteria')} />
       <TextInput label="Assignee" {...form.getInputProps('assignee')} />
       <NumberInput min={0} label="Duration Estimate" {...form.getInputProps('estimate')} />
-      <Select label="Duration Estimate" {...form.getInputProps('priority')} data={['High', 'Medium', 'Low']} />
+      <Select label="Duration Estimate" {...form.getInputProps('priority')} data={['High', 'Med', 'Low']} />
 
       <Group justify="flex-end" mt="md">
         <Button

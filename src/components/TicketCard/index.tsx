@@ -46,24 +46,32 @@ export default function TicketCard(props: Ticket) {
       >
         <Stack justify="space-between" h="100%">
           <Box>
-            <Text fw={600} lineClamp={2} size="md" mb="5">
-              {title}
-            </Text>
+            {title && (
+              <Text fw={600} lineClamp={2} size="md" mb="5">
+                {title}
+              </Text>
+            )}
 
-            <Text fw={500} lineClamp={2} c="gray.7" size="sm">
-              {description}
-            </Text>
+            {description && (
+              <Text fw={500} lineClamp={2} c="gray.7" size="sm">
+                {description}
+              </Text>
+            )}
           </Box>
 
           <Group justify="space-between">
             <Group>
-              <Badge color={`${getDurationColour(estimate)}`} leftSection={<IconClock size={16} />} py="8px">
-                {estimate}
-              </Badge>
+              {estimate && (
+                <Badge color={`${getDurationColour(estimate)}`} leftSection={<IconClock size={16} />} py="8px">
+                  {estimate}
+                </Badge>
+              )}
 
-              <Badge color={`${getPriorityColour(priority)}`} leftSection={<IconUrgent size={16} />} py="8px">
-                {priority}
-              </Badge>
+              {priority && (
+                <Badge color={`${getPriorityColour(priority)}`} leftSection={<IconUrgent size={16} />} py="8px">
+                  {priority}
+                </Badge>
+              )}
             </Group>
 
             {assignee && (

@@ -6,6 +6,8 @@ import parseNames from '@/helpers/parseNames';
 export default function AvatarGroup({ names }: { names: string[] }) {
   const parsedNames = parseNames(names);
 
+  if (names.length === 0) return null;
+
   return (
     <Tooltip.Group openDelay={300} closeDelay={100}>
       <Avatar.Group spacing="sm">
