@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, Group, Modal, Paper, rem, Stack, Text, ThemeIcon, Title, Tooltip } from '@mantine/core';
+import { Avatar, Button, Flex, Group, Modal, Paper, Stack, Text, ThemeIcon, Title, Tooltip } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { IconBrandOpenai, IconCalendarStats } from '@tabler/icons-react';
 import Lottie from 'lottie-react';

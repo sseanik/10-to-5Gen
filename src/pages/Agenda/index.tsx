@@ -72,24 +72,26 @@ export default function Agenda({
           </Group>
           {!mock && <RegenerateModal meetingId={meetingId} />}
         </Flex>
-        <Box mb="sm">
-          <Text>
-            <b>Proposed Date</b>: {(mock ? jsonData : data)?.proposedSchedule?.date}
-          </Text>
-          <Group>
-            <b>Proposed Attendees: </b>
-            <AvatarGroup names={(mock ? jsonData : data)?.proposedSchedule?.attendees ?? []} />
-          </Group>
-          <Button
-            color="#4e55bd"
-            mt="xs"
-            onClick={() =>
-              alert('Not Implemented Yet: REST API Call triggered to Microsoft Teams Graph API to create a meeting')
-            }
-          >
-            Schedule in Teams
-          </Button>
-        </Box>
+        {!isGenerating && (
+          <Box mb="sm">
+            <Text>
+              <b>Proposed Date</b>: {(mock ? jsonData : data)?.proposedSchedule?.date}
+            </Text>
+            <Group>
+              <b>Proposed Attendees: </b>
+              <AvatarGroup names={(mock ? jsonData : data)?.proposedSchedule?.attendees ?? []} />
+            </Group>
+            <Button
+              color="#4e55bd"
+              mt="xs"
+              onClick={() =>
+                alert('Not Implemented Yet: REST API Call triggered to Microsoft Teams Graph API to create a meeting')
+              }
+            >
+              Schedule in Teams
+            </Button>
+          </Box>
+        )}
 
         <Title order={4} mb="lg" c="#40469d">
           Suggested Upcoming Agenda

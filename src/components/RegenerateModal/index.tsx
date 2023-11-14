@@ -1,4 +1,4 @@
-import { Button, Group, Input, LoadingOverlay, Modal, Textarea } from '@mantine/core';
+import { Button, Group, LoadingOverlay, Modal, Textarea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import { useQuery } from 'react-query';

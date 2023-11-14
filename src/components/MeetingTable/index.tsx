@@ -1,4 +1,4 @@
-import { ActionIcon, Flex, Group, Loader, Paper, Text, TextInput, Title } from '@mantine/core';
+import { ActionIcon, Flex, Loader, Paper, Text, TextInput, Title } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconSearch, IconX } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
