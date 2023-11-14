@@ -54,8 +54,12 @@ export default function About() {
             </div>
           </List.Item>
           <List.Item>
-            After generating Data, you can interact with our AI Assistant Modal, located on the top right of a meeting
-            page
+            If you would like to alter the data, click on the Regenerate Button, type in a Prompt (e.g. Restrict to
+            maximum of 5 action items) and click submit
+          </List.Item>
+          <List.Item>
+            After generating Data, you can also interact with our AI Assistant Modal, located on the top right of a
+            meeting page
           </List.Item>
           <List.Item>Ask the AI any question or query hitting Enter and clicking the Submit button</List.Item>
         </List>

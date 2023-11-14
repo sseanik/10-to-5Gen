@@ -20,7 +20,7 @@ export default function AvatarGroup({ names }: { names: string[] }) {
       parts = parts.reverse();
     }
     // Get the first letter of each part
-    const initials = parts.map((part) => part[0].toUpperCase()).join('');
+    const initials = parts.map((part) => (part.length !== 0 ? part[0].toUpperCase() : '')).join('');
     return initials;
   };
 

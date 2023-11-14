@@ -1,4 +1,4 @@
-import { Blockquote, Box, Button, Group, Stack, Text, Title } from '@mantine/core';
+import { Blockquote, Box, Button, Flex, Group, Loader, Stack, Text, Title } from '@mantine/core';
 import { IconCircleCheck } from '@tabler/icons-react';
 import { useJsonStreaming } from 'http-streaming-request';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import AvatarGroup from '@/components/AvatarGroup';
 import Container from '@/components/Container';
 import MeetingHeader from '@/components/MeetingHeader';
 import Progress from '@/components/Progress';
+import RegenerateModal from '@/components/RegenerateModal';
 import { type Agenda as AgendaType, MockAllData } from '@/types/Data';
 
 export default function Agenda({
@@ -62,10 +63,15 @@ export default function Agenda({
       <Progress mounted={isGenerating} text={mock ? jsonData ?? '' : data} />
 
       <Container>
-        <Title order={4} mb="xs" c="#40469d">
-          Suggested Upcoming Agenda
-        </Title>
-
+        <Flex align="center" gap="xs" mb="sm" justify="space-between">
+          <Group>
+            <Title order={4} mb="6" c="blue">
+              Suggested Upcoming Agenda
+            </Title>
+            {isGenerating && <Loader color="blue" size="xs" />}
+          </Group>
+          {!mock && <RegenerateModal meetingId={meetingId} />}
+        </Flex>
         <Box mb="sm">
           <Text>
             <b>Proposed Date</b>: {(mock ? jsonData : data)?.proposedSchedule?.date}

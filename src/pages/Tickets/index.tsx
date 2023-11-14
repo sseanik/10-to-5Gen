@@ -1,4 +1,4 @@
-import { Box, Flex, Title } from '@mantine/core';
+import { Box, Flex, Group, Loader, Title } from '@mantine/core';
 import { useJsonStreaming } from 'http-streaming-request';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -8,6 +8,7 @@ import lottie from '@/assets/lotties/standup.json';
 import Container from '@/components/Container';
 import MeetingHeader from '@/components/MeetingHeader';
 import Progress from '@/components/Progress';
+import RegenerateModal from '@/components/RegenerateModal';
 import TicketCard from '@/components/TicketCard';
 import { MockAllData, type Ticket as TicketType, type Tickets as TicketsType } from '@/types/Data';
 
@@ -61,9 +62,15 @@ export default function Tickets({
       <Progress mounted={isGenerating} text={data} />
 
       <Container>
-        <Title order={4} mb="lg" c="blue">
-          Suggested Agile Tickets
-        </Title>
+        <Flex align="center" gap="xs" mb="sm" justify="space-between">
+          <Group>
+            <Title order={4} mb="6" c="blue">
+              Suggested Agile Tickets
+            </Title>
+            {isGenerating && <Loader color="blue" size="xs" />}
+          </Group>
+          {!mock && <RegenerateModal meetingId={meetingId} />}
+        </Flex>
         <Flex mih={50} gap="lg" justify="flex-start" align="center" direction="row" wrap="wrap">
           {(mock ? jsonData : data)?.tickets &&
             (mock ? jsonData : data)?.tickets?.map((ticket: TicketType, index: number) => (

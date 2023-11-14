@@ -1,4 +1,4 @@
-import { Blockquote, Box, Button, Modal, Stack, Text, Timeline, Title } from '@mantine/core';
+import { Blockquote, Box, Button, Flex, Group, Loader, Modal, Stack, Text, Timeline, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconUsers, IconUserStar } from '@tabler/icons-react';
 import { useJsonStreaming } from 'http-streaming-request';
@@ -10,6 +10,7 @@ import lottie from '@/assets/lotties/retro.json';
 import Container from '@/components/Container';
 import MeetingHeader from '@/components/MeetingHeader';
 import Progress from '@/components/Progress';
+import RegenerateModal from '@/components/RegenerateModal';
 import TicketModal from '@/components/TicketModal';
 import { type Action, MockAllData } from '@/types/Data';
 
@@ -71,9 +72,15 @@ export default function Actions({
       />
       <Progress mounted={isGenerating} text={data} />
       <Container>
-        <Title order={4} mb="lg" c={isRetro ? 'orange' : 'blue'}>
-          {isRetro ? 'Retrospective' : 'Meeting'} Action Items
-        </Title>
+        <Flex align="center" gap="xs" mb="sm" justify="space-between">
+          <Group>
+            <Title order={4} mb="6" c="blue">
+              {isRetro ? 'Retrospective' : 'Meeting'} Action Items
+            </Title>
+            {isGenerating && <Loader color="blue" size="xs" />}
+          </Group>
+          {!mock && <RegenerateModal meetingId={meetingId} />}
+        </Flex>
         <Stack gap="20px">
           {isRetro ? (
             <>

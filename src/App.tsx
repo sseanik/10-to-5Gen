@@ -36,13 +36,13 @@ function App() {
           <Route path="/minutes/:meetingId" element={<Minutes setProgress={setProgress} />} />
           <Route path="/actions/:meetingId" element={<Actions setProgress={setProgress} />} />
           <Route path="/tickets/:meetingId" element={<Tickets setProgress={setProgress} />} />
-          <Route path="/agenda/:meetingId" element={<Agenda setProgress={setProgress} />} />
+          <Route path="/agendas/:meetingId" element={<Agenda setProgress={setProgress} />} />
           {/* Mock */}
           <Route path="/mock/transcript/:meetingId" element={<Transcript mock />} />
           <Route path="/mock/minutes/:meetingId" element={<Minutes setProgress={setProgress} mock />} />
           <Route path="/mock/actions/:meetingId" element={<Actions setProgress={setProgress} mock />} />
           <Route path="/mock/tickets/:meetingId" element={<Tickets setProgress={setProgress} mock />} />
-          <Route path="/mock/agenda/:meetingId" element={<Agenda setProgress={setProgress} mock />} />
+          <Route path="/mock/agendas/:meetingId" element={<Agenda setProgress={setProgress} mock />} />
           {/* Errors */}
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />

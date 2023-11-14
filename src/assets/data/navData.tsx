@@ -27,5 +27,5 @@ export const NESTED_NAV_ITEMS = [
     children: [],
   },
   { label: 'Suggested Tickets', icon: IconBrandTrello, to: '/tickets' },
-  { label: 'Next Agenda', icon: IconTimelineEventText, to: '/agenda' },
+  { label: 'Next Agenda', icon: IconTimelineEventText, to: '/agendas' },
 ];
