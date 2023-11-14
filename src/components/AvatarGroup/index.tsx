@@ -8,6 +8,22 @@ export default function AvatarGroup({ names }: { names: string[] }) {
 
   if (names.length === 0) return null;
 
+  const getInitials = (name: string) => {
+    // Remove any parentheses and their contents
+    const cleanedName = name.replace(/\(.*?\)/, '').trim();
+    // Check if the name contains a comma
+    const containsComma = cleanedName.includes(',');
+    // Split the name into parts
+    let parts = cleanedName.split(' ');
+    // If the name contains a comma, reverse the parts
+    if (containsComma) {
+      parts = parts.reverse();
+    }
+    // Get the first letter of each part
+    const initials = parts.map((part) => part[0].toUpperCase()).join('');
+    return initials;
+  };
+
   return (
     <Tooltip.Group openDelay={300} closeDelay={100}>
       <Avatar.Group spacing="sm">
@@ -17,7 +33,7 @@ export default function AvatarGroup({ names }: { names: string[] }) {
               radius="xl"
               color={name.length > 0 ? COLOURS[Math.floor(name[0].charCodeAt(0) % COLOURS.length)] : 'gray'}
             >
-              {name[0]}
+              {getInitials(name)}
             </Avatar>
           </Tooltip>
         ))}
