@@ -1,4 +1,4 @@
-import { Button, Group, Input, LoadingOverlay, Modal } from '@mantine/core';
+import { Button, Group, Input, LoadingOverlay, Modal, Textarea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
@@ -25,7 +25,7 @@ export default function RegenerateModal({ meetingId }: { meetingId?: string }) {
 
   const { isFetching } = useQuery({
     queryKey: ['regenerate'],
-    queryFn: () => regenerateData,
+    queryFn: regenerateData,
     retry: 1,
     enabled: isQueryEnabled,
     onSuccess() {
@@ -46,17 +46,13 @@ export default function RegenerateModal({ meetingId }: { meetingId?: string }) {
           overlayProps={{ radius: 'sm', blur: 1 }}
           loaderProps={{ color: 'blue', type: 'bars', children: 'Regenerating...' }}
         />
-        <Input.Wrapper label="Provide a prompt to use to adjust the generated data">
-          <Input
-            placeholder="Type your prompt here"
-            value={value}
-            onChange={(event) => setValue(event.currentTarget.value)}
-            rightSectionPointerEvents="all"
-            mb="md"
-            mt="xs"
-            size="md"
-          />
-        </Input.Wrapper>
+        <Textarea
+          value={value}
+          onChange={(event) => setValue(event.currentTarget.value)}
+          label="Provide a prompt to use to adjust the generated data"
+          placeholder="Enter your prompt"
+          mb="md"
+        />
 
         <Button fullWidth onClick={handleSubmit}>
           Submit

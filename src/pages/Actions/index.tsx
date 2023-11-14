@@ -97,7 +97,7 @@ export default function Actions({
                   storyPoints={0}
                 />
               </Modal>
-              {(mock ? jsonData : data)?.actionItems.map(
+              {(mock ? jsonData : data)?.actionItems?.map(
                 (item, index: number) =>
                   item.actions?.map((action) => (
                     <Blockquote
