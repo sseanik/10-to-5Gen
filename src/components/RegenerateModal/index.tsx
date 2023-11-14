@@ -28,11 +28,13 @@ export default function RegenerateModal({ meetingId }: { meetingId?: string }) {
     queryFn: () => regenerateData,
     retry: 1,
     enabled: isQueryEnabled,
+    onSuccess() {
+      navigate(0);
+    },
   });
 
   const handleSubmit = () => {
     setIsQueryEnabled(true);
-    navigate(0);
   };
 
   return (
